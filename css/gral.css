@@ -1,0 +1,211 @@
+* 
+
+
+
+
+{
+  box-sizing:border-box;
+}
+
+
+
+a:link {
+  color: white;
+  text-decoration: none;
+}
+
+a:visited {
+  color: white;
+  text-decoration: none;
+  }
+
+body {
+  background-image: url(../imagenes/fondo.jpg);
+
+}
+
+<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet"><style type="text/css">
+.DOCENTES {font-family: 'Montserrat', sans-serif}
+
+.uno {
+
+  padding:0px;
+  float:center;
+  width:50%; /* The width is 20%, by default */
+}
+
+.dos {
+  background-color:white;
+  padding:0px;
+
+  width:50%; /* The width is 20%, by default */
+}
+
+
+
+
+
+
+.contacto {
+
+  padding:40px;
+  padding-left: 10px;
+  float:center;
+  width:50%; /* The width is 20%, by default */
+}
+
+
+.pie {
+  background-color:white;
+  padding:0px;
+  float:left;
+  width:100%; /* The width is 20%, by default */
+}
+
+
+.rp, .ss, .ve , .pe {
+  background-color:#f8f9fa;
+   float:left;
+  width:50%; /* The width is 20%, by default */
+  border-style: dashed;
+  border-spacing: 20px;
+  border-width: 1px;
+  border-radius: 10px;
+  margin: 5px;
+  text-align: justify; /* For Edge */
+  text-align-last: center;
+  padding:5px;
+  width: 130px;
+  height: 200px;
+  object-fit: none;
+}
+
+
+.rp1, .ss1 {
+  background-color:#f8f9fa;
+   float:left;
+  width:50%; /* The width is 20%, by default */
+  border-style: dashed;
+  border-spacing: 10px;
+  border-width: 1px;
+  border-radius: 10px;
+  margin: 5px;
+  text-align: justify; /* For Edge */
+  text-align-last: center;
+  padding:5px;
+  width: 190px;
+  height: 350px;
+  object-fit: none;
+}
+
+
+
+.docente{
+  background-color:#f8f9fa;
+   float:center;
+  width:35%; /* The width is 20%, by default */
+  border-style: dashed;
+  border-spacing: 30px;
+  border-width: 1px;
+  border-radius: 10px;
+  max-width: 250px;
+  max-height: 400px;
+  margin: 8px;
+  text-align: justify; /* For Edge */
+  text-align-last: center;
+  padding:5px;
+  width: 160px;
+  height: 200px;
+  object-fit: none;
+}
+
+.encuestas_empresa{
+  background-color:#f8f9fa;
+   float:center;
+  width:100%; /* The width is 20%, by default */
+  border-style: dashed;
+  border-spacing: 30px;
+  border-width: 1px;
+  border-radius: 10px;
+  max-width: 400px;
+  max-height: 400px;
+  margin: 8px;
+  text-align: justify; /* For Edge */
+  text-align-last: center;
+  padding:10px;
+  width: 400px;
+  height: 380px;
+  object-fit: none;
+}
+
+
+
+.tres {
+  padding:30px;
+  float:center;
+  width:50%; /* The width is 20%, by default */
+}
+
+
+.centrado {
+  padding:10px;
+  float:center;
+  width:50%; /* The width is 20%, by default */
+}
+
+.centradox {
+  padding:0px;
+  float:center;
+  width:40%; /* The width is 20%, by default */
+}
+
+
+.bolsa, .capacitacion, .encuestas {
+  background-color:#f8f9fa;
+   float:left;
+  width:30%; /* The width is 20%, by default */
+  border-style: dashed;
+  border-spacing: 30px;
+  border-width: 1px;
+  border-radius: 10px;
+  max-width: 250px;
+  max-height: 400px;
+  margin: 8px;
+  text-align: justify; /* For Edge */
+  text-align-last: center;
+  padding:5px;
+  width: 160px;
+  height: 200px;
+  object-fit: none;
+}
+
+
+
+.regresa {
+
+  width:100%; /* The width is 20%, by default */
+  padding: 50px;
+  align-content: center;
+}
+
+
+
+/* Use a media query to add a break point at 800px: */
+
+@media screen and (max-width:400px) {
+  .uno, .dos, .tres, .cuatro ,.contacto ,.pie, .rp, .ss, .ve, .pe, .docente, .bolsa, .encuestas, .capacitacion,.regresa, .docente, .encuestas_empresa, .rp1, .ss1, .centradox  {
+    width:100%; /* The width is 100%, when the viewport is 800px or smaller */
+  }
+}
+
+
+
+
+
+
+@media screen and (max-width:1000px) {
+.contacto , .pie   {
+    width:100%; /* The width is 100%, when the viewport is 800px or smaller */
+      float:center;
+  }
+}
