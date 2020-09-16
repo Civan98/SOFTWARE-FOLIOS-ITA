@@ -41,24 +41,12 @@
     <br><br><br><br>
 
 <div class="contacto">
-    <?php 
 
-      function GenerarFolio(){
-          $dia = date("d");
-          $dia--;
-      
-            for ($i = 1; $i <= 2; $i++) {
-              $folio1 = rand(0,9);
-              $folio2 = rand(0,9);
-          }
+  <form method="POST" action="generar.php">
+    <span>Cantidad de folios: <input name="cantidad" type='number' size=30></span> <br><br>
+    <input type="submit" value="Generar">
+  </form>
 
-          $folio = $dia.date("m").date("o").$folio1.$folio2;
-          echo "Folio ".$folio;
-      }
-
-      GenerarFolio(); 
-  
-    ?>
 </div>
   <br><br>  <br><br>
 
