@@ -2,7 +2,7 @@
 <html>
 <head>
   <title></title>
-  <link rel="stylesheet" type="text/css" href="../css/forms.css">
+  <link rel="stylesheet" type="text/css" href="css/forms.css">
 </head>
 <body>
   <table width="100%" border="0" cellpadding="0" cellspacing="0" height="40" style=" margin-top: 50px; margin-bottom:50px;">
@@ -27,7 +27,7 @@
   <form class="modal-content" action="/action_page.php">
     <div class="container">
       <h1>Registro</h1>
-      <p>Porfavor,rellene los siguientes campos</p>
+      <p>Porfavor, rellene los siguientes campos</p>
       <hr>
       <label for="email"><b>Correo electrónico</b></label>
       <input type="text" placeholder="Introduzca un correo electrónico" name="email" required>
@@ -56,7 +56,7 @@
   <form class="modal-content" action="/action_page2.php">
     <div class="container">
       <h1>inicio de sesión</h1>
-      <p>Porfavor,rellene los siguientes campos</p>
+      <p>Porfavor, rellene los siguientes campos</p>
       <hr>
       <label for="email"><b>Correo electrónico</b></label>
       <input type="text" placeholder="Introduzca un correo electrónico" name="email" required>

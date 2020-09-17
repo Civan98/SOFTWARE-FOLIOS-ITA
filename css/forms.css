@@ -24,7 +24,7 @@ input[type=text]:focus, input[type=password]:focus {
 
 /* Set a style for all buttons */
 .cancelbtn, .signup {
-  background-color: #4CAF50;
+  background-color:#1b396a;
   color: white;
   padding: 14px 20px;
   margin: 8px 0;

@@ -14,7 +14,7 @@
 <body>
 
 <div align="center">
-	<img src=../imagenes/cabezera.png width="850" height="133"></div>
+	<img src=imagenes/header.png width="850" height="133"></div>
       
   <div align="center"><span style="font-family: 'Montserrat', sans-serif; font-weight: normal; font-style: normal; text-decoration: none; font-size: 16pt; color:gray">
    Tecnológico Nacional de México Campus Acapulco<br>  </span>    
@@ -34,9 +34,9 @@
 
     <table border="0" align="center" width="50%">
       <tr>
-        <td ><div align="center"><img src="../imagenes/mail.png" width="78" height="78"></div></td>
+        <td ><div align="center"><img src="imagenes/mail.png" width="78" height="78"></div></td>
         <td >&nbsp;</td>
-        <td ><div align="center"><img src="../imagenes/fb.png" width="78" height="78"></div></td>
+        <td ><div align="center"><img src="imagenes/fb.png" width="78" height="78"></div></td>
       </tr>
       <tr>
         <td><div align="center"><div align="center"><span style="font-family: 'Montserrat', sans-serif; font-weight: normal; font-style: normal; text-decoration: none; font-size: 10pt; color:gray"> vinculacion@acapulco.tecnm.mx</span></div></div></td>
