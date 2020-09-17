@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>TecNM | Tecnológico Nacional de México Campus Acapulco</title>
-    <link rel="stylesheet" type="text/css" href="../css/gral.css">
+    <link rel="stylesheet" type="text/css" href="css/gral.css">
     
 </head>
 
@@ -25,10 +25,9 @@
     <!--Aquí se llama a la vista que se quiere mostrar, dependiendo un valor o estado--> 
   <?php include_once 'signup.php';  ?>
   <!--Fin-->
-
+  <img src="imagenes/fachada.jpg" alt="Fachada" width="850" height="533">
 <div class="contacto">
   <p align="center">
-
   <span style="font-family: 'Montserrat', sans-serif; font-weight: normal; font-style: normal; text-decoration: none; font-size: 14pt; color:#254ca7">
   Contacto</span>
 
