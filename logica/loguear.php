@@ -14,10 +14,7 @@
         header("location: ../paginaprincipal.php");
     }else{
         
-        echo "<script language='javascript'> alert('Datos incorrectos'); 
-        </script>";
+        echo "<script language='javascript'> alert('Datos incorrectos');  window.location.href='../index.php';</script>";
         //header("location: ../signup.php");
     }
-
-
 ?>
