@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>TecNM | Tecnológico Nacional de México Campus Acapulco</title>
-    <link rel="stylesheet" type="text/css" href="../css/gral.css">
+    <link rel="stylesheet" type="text/css" href="css/gral.css">
     
 </head>
 
@@ -14,7 +14,7 @@
 <body>
 
 <div align="center">
-	<img src=../imagenes/cabezera.png width="850" height="133"></div>
+	<img src=imagenes/header.png width="850" height="133"></div>
       
   <div align="center"><span style="font-family: 'Montserrat', sans-serif; font-weight: normal; font-style: normal; text-decoration: none; font-size: 16pt; color:gray">
    Tecnológico Nacional de México Campus Acapulco<br>  </span>    
@@ -25,18 +25,17 @@
     <!--Aquí se llama a la vista que se quiere mostrar, dependiendo un valor o estado--> 
   <?php include_once 'signup.php';  ?>
   <!--Fin-->
-
+  <img src="imagenes/fachada.jpg" alt="Fachada" width="850" height="533">
 <div class="contacto">
   <p align="center">
-
   <span style="font-family: 'Montserrat', sans-serif; font-weight: normal; font-style: normal; text-decoration: none; font-size: 14pt; color:#254ca7">
   Contacto</span>
 
     <table border="0" align="center" width="50%">
       <tr>
-        <td ><div align="center"><img src="../imagenes/mail.png" width="78" height="78"></div></td>
+        <td ><div align="center"><img src="imagenes/mail.png" width="78" height="78"></div></td>
         <td >&nbsp;</td>
-        <td ><div align="center"><img src="../imagenes/fb.png" width="78" height="78"></div></td>
+        <td ><div align="center"><img src="imagenes/fb.png" width="78" height="78"></div></td>
       </tr>
       <tr>
         <td><div align="center"><div align="center"><span style="font-family: 'Montserrat', sans-serif; font-weight: normal; font-style: normal; text-decoration: none; font-size: 10pt; color:gray"> vinculacion@acapulco.tecnm.mx</span></div></div></td>
