@@ -31,8 +31,8 @@
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
       <a class="nav-item nav-link " href="index.php">Home </a>
-      <a class="nav-item nav-link active" href="#">Iniciar sesión <span class="sr-only">(current)</span> </a>
-      <a class="nav-item nav-link" href="register.php">Registrarse</a>
+      <a class="nav-item nav-link " href="signup.php">Iniciar sesión  </a>
+      <a class="nav-item nav-link active" href="#">Registrarse <span class="sr-only">(current)</span></a>
     </div>
   </div>
 
@@ -42,24 +42,63 @@
 
  <div class="container">
   <div class="border" style="padding: 10px;">
-  <h1>Inicio de sesión</h1>
-  <h2>Porfavor, introduczca sus credenciales:</h2>
-<form action="logica/loguear.php" method="POST">
-  <div class="form-group">
-    <label for="username">Usuario</label>
-    <input type="text" class="form-control" id="username" aria-describedby="emailHelp" placeholder="Usuario" name="usuario">
-    <!--<small id="emailHelp" class="form-text text-muted"></small>-->
+  <h1>Registro de usuario</h1>
+  <h2>Porfavor, introduzca los datos solicitados:</h2>
+<form>
+<div class="row">
+
+  <div class="col">
+    <label for="nombre">Nombre:</label>
+          <input type="text" class="form-control" placeholder="Nombre" id="nombre" name="nombre" required>
   </div>
-  <div class="form-group">
-    <label for="exampleInputPassword1">Contraseña</label>
-    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Contraseña" name="clave">
+
+  <div class="col-4">
+      <label for="Apellidos">Apellidos:</label>
+        <input type="text" class="form-control" placeholder="Apellidos" id="Apellidos" name="Apellidos" required>
+      </div>
+
+  <div class="col">
+    <label for="NombreUsuario">Nombre de usuario:</label>
+        <input type="text" class="form-control" placeholder="Nombre de usuario" id="NombreUsuario" name="NombreUsuario" required>
   </div>
-  <div class="form-check">
-    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-    <label class="form-check-label" for="exampleCheck1">Recordar usuario</label>
+
+</div>
+
+    <div class="row">      
+  <div class="col">
+    <label for="cargo">Cargo:</label>
+    <input type="text" class="form-control" placeholder="Cargo" id="cargo"  name="cargo">
   </div>
-  <br>
-  <button type="submit" class="btn btn-primary btn-lg btn-block">Enviar</button>
+
+      <div class="col">
+        <label for="departamento">Departamento:</label>
+        <select id="inputState" class="form-control" name="departamento">
+          <option>ISC</option>
+          <option>LA</option>
+          <option>IGE</option>
+          <option>CP</option>
+          <option>IEM</option>
+          <option>ARQ</option>
+        </select>
+      </div>
+
+
+    </div>
+
+          <div class="row">
+        <div class="col">
+          <label for="password">Contraseña:</label>
+          <input type="password" name="password" id="password" name="password" placeholder="Contraseña" class="form-control" required>
+        </div>
+
+        <div class="col">
+           <label for="passwordretry">Confirmar contraseña:</label>
+          <input type="password" name="passwordretry" id="passwordretry" name="passwordretry" placeholder="Confirmar Contraseña" class="form-control" required>        
+        </div>
+      </div>
+      <br>
+
+        <button type="submit" class="btn btn-primary btn-lg btn-block">Enviar</button>
 </form>
 </div>
 </div>

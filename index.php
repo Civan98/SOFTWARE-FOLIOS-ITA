@@ -3,28 +3,42 @@
 
 <html>
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>TecNM | Tecnológico Nacional de México Campus Acapulco</title>
     <link rel="stylesheet" type="text/css" href="css/gral.css">
-    
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 </head>
 
 
 <body>
-
 <div align="center">
 	<img src=imagenes/header.png width="850" height="133"></div>
       
   <div align="center"><span style="font-family: 'Montserrat', sans-serif; font-weight: normal; font-style: normal; text-decoration: none; font-size: 16pt; color:gray">
-   Tecnológico Nacional de México Campus Acapulco<br>  </span>    
+   Tecnológico Nacional de México Campus Acapulco<br>  
+ </span>    
 </div>
 
 <div align="center">
-    
-    <!--Aquí se llama a la vista que se quiere mostrar, dependiendo un valor o estado--> 
-  <?php include_once 'signup.php';  ?>
-  <!--Fin-->
+
+ <div class="container" style="margin-top: 20px; margin-bottom: 20px;">
+  <nav class="navbar navbar-expand-lg navbar-light navbar-dark" style="background-color: #1B396A">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
+      <a class="nav-item nav-link" href="signup.php">Iniciar sesión</a>
+      <a class="nav-item nav-link" href="register.php">Registrarse</a>
+    </div>
+  </div>
+
+  </div>
+</nav>
+
+
   <img src="imagenes/fachada.jpg" alt="Fachada" width="850" height="533">
 <div class="contacto">
   <p align="center">
@@ -57,5 +71,8 @@
       vin_acapulco@tecnm.mx, <br>
     Teléfonos (744) 442-9010 ext 120 </span></p>
 </div>
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
 </body>
 </html> 
