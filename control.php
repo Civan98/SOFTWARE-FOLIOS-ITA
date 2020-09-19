@@ -2,11 +2,29 @@
     require 'logica/conexion.php';
     session_start();
     $usuario = $_SESSION['username'];
+    //$ID = $_SESSION['id'];
 
     if(!isset($usuario)){
         header("location: index.php");
     }else{
+       
+        //consulta para tener los datos del usuario que este logeado
+        $q = "SELECT * from usuarios where nombreUsuario = '$usuario ' ";
+        $consulta = mysqli_query($conexion,$q);
+        $array = mysqli_fetch_array($consulta);
+        $ID = $array['id'];
+        $nombre = $array['nombre'];
+
+        // consulta para obtener el nombre del depa del usuario
+        $q2 ="SELECT nombre_departamentos FROM usuarios JOIN departamentos ON usuarios.id = departamentos.id_depto WHERE usuarios.nombreUsuario = '$usuario ' ";
+        $consulta2 = mysqli_query($conexion,$q2);
+        $array2 = mysqli_fetch_array($consulta2);
+        $depa = $array2['nombre_departamentos'];
+
         echo "<hi> BIENVENIDO $usuario </h1><br>";
+        echo "$ID<br>";
+        echo "$nombre<br>";
+        echo "$depa<br>";
 
        echo "<a href= 'logica/salir.php'> SALIR </a> ";
     }
