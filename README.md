@@ -4,5 +4,5 @@ Generador de folios desarrollado en PHP.
 
 USUARIO DE LA BD
 JUAN MIGUEL HERNÁNDEZ BRAVO
-usuario:juan
+usuario:JM
 contraseña: 1234

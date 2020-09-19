@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-09-2020 a las 01:11:02
--- Versión del servidor: 10.4.14-MariaDB
--- Versión de PHP: 7.4.10
+-- Tiempo de generación: 19-09-2020 a las 04:34:57
+-- Versión del servidor: 10.1.38-MariaDB
+-- Versión de PHP: 7.3.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -31,6 +32,15 @@ CREATE TABLE `departamentos` (
   `id_depto` int(11) NOT NULL,
   `nombre_departamentos` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `departamentos`
+--
+
+INSERT INTO `departamentos` (`id_depto`, `nombre_departamentos`) VALUES
+(1, 'Ingeniería en sistemas computacionales'),
+(2, 'Dirección'),
+(3, 'Subdirección');
 
 -- --------------------------------------------------------
 
@@ -62,8 +72,24 @@ CREATE TABLE `solicitudes` (
   `id_depto_a_sol` int(11) NOT NULL,
   `asunto` varchar(100) NOT NULL,
   `estado` varchar(20) NOT NULL,
+  `fecha` date NOT NULL,
   `id_usuario` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `solicitudes`
+--
+
+INSERT INTO `solicitudes` (`id_solicitud`, `cantidad`, `id_depto_sol`, `id_depto_a_sol`, `asunto`, `estado`, `fecha`, `id_usuario`) VALUES
+(1, 1, 1, 1, 'viaje a Francia ', 'Autorizado', '2020-09-24', 1),
+(2, 3, 1, 2, 'viaje a Veracruz', 'Cancelado', '2020-09-28', 1),
+(3, 5, 1, 2, 'Viaje a Tampico', 'Cancelado', '2020-09-24', 1),
+(4, 2, 1, 2, 'Concurso', 'Cancelado', '2020-10-01', 1),
+(5, 3, 1, 2, 'necesito folios', 'Cancelado', '2020-10-01', 1),
+(6, 1, 1, 2, 'Viaje a Tamaulipas', 'Cancelado', '2020-09-24', 1),
+(7, 1, 1, 3, 'dsfdsf', 'Cancelado', '2020-09-28', 1),
+(8, 3, 1, 2, '1', 'Cancelado', '2020-09-28', 1),
+(10, 2, 1, 1, 'Viaje escolar', 'Cancelado', '2020-09-24', 1);
 
 -- --------------------------------------------------------
 
@@ -80,6 +106,13 @@ CREATE TABLE `usuarios` (
   `contrasena` varchar(50) NOT NULL,
   `id_depto` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `usuarios`
+--
+
+INSERT INTO `usuarios` (`id`, `nombre`, `apellidos`, `nombreUsuario`, `cargo`, `contrasena`, `id_depto`) VALUES
+(1, 'JUAN MIGUEL', 'HERNÁNDEZ BRAVO', 'JM', 'JEFE DEL DEPARTAMENTO DE SISTEMAS Y COMPUTACIÓN', '1234', 1);
 
 --
 -- Índices para tablas volcadas
@@ -125,7 +158,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `departamentos`
 --
 ALTER TABLE `departamentos`
-  MODIFY `id_depto` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_depto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `folios`
@@ -137,13 +170,13 @@ ALTER TABLE `folios`
 -- AUTO_INCREMENT de la tabla `solicitudes`
 --
 ALTER TABLE `solicitudes`
-  MODIFY `id_solicitud` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_solicitud` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'identificador del usuario';
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'identificador del usuario', AUTO_INCREMENT=4;
 
 --
 -- Restricciones para tablas volcadas

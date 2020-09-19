@@ -1,5 +1,15 @@
 <?php
-    $conexion=new  mysqli("localhost",'root',"1234",'bdgeneradorfolios');
+    require 'logica/conexion.php';
+    session_start();
+    $usuario = $_SESSION['username'];
+
+    if(!isset($usuario)){
+        header("location: index.php");
+    }else{
+        echo "<hi> BIENVENIDO $usuario </h1><br>";
+
+       echo "<a href= 'logica/salir.php'> SALIR </a> ";
+    }
 ?>
 
 <!DOCTYPE html>

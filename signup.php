@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
  <html lang="es">
 
@@ -43,7 +42,7 @@
  <div class="container">
   <div class="border" style="padding: 10px;">
   <h1>Inicio de sesión</h1>
-  <h2>Porfavor, introduczca sus credenciales:</h2>
+  <h2>Porfavor, introduzca sus credenciales:</h2>
 <form action="logica/loguear.php" method="POST">
   <div class="form-group">
     <label for="username">Usuario</label>
