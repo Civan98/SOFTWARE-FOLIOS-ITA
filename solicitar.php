@@ -6,7 +6,9 @@
     $asunto = $_POST['asunto'];
   echo $fecha."<br>".$deptoS."<br>".$deptoAS."<br>".$cantidad."<br>".$asunto; 
 
-    $conexion=new  mysqli("localhost",'root',"");
+    //$conexion=new  mysqli("localhost",'root',"");
+    require 'logica/conexion.php';
+    session_start();
     if(!$conexion){
         echo "Falla en la conexión";
     }else{

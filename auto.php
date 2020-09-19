@@ -7,7 +7,9 @@
     }
 
     //conexión
-    $conexion=new  mysqli("localhost",'root',"1234","bdgeneradorfolios");
+    //$conexion=new  mysqli("localhost",'root',"1234","bdgeneradorfolios");
+    require 'logica/conexion.php';
+    session_start();
     //falta identificar los departamentos en la tabla departamentos
     //falta identificar el usuario, eso lo obtenemos con los datos del login
     //¿hacer que una vez cancelado una solicitud, ya no se pueda a autorizar?

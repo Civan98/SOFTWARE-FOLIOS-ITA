@@ -1,3 +1,12 @@
+<?php
+    //funcion para cuando haya un usuario no se loge de nuevo
+    require 'logica/conexion.php';
+    session_start();
+    if(isset($_SESSION['username'])){
+        header("location: control.php");
+    }
+?>
+
 <!DOCTYPE html>
  <html lang="es">
 
