@@ -4,7 +4,7 @@
     //require 'logica/conexion.php';
     //session_start();
     $id = $_POST['id_so'];
-
+    // posiblemente sólo quiere que se ponga el estado como eliminado, no eliminar de verdad
     $sql = "DELETE FROM solicitudes WHERE id_solicitud ='$id'";
     $consulta = mysqli_query($conexion,$sql);
     if(!$consulta){

@@ -4,7 +4,7 @@
     $deptoAS = $_POST['depto_a_Sol'];
     $cantidad = $_POST['cantidad'];
     $asunto = $_POST['asunto'];
-  echo $idS." <br>",$fecha."<br><br>".$deptoAS."<br>".$cantidad."<br>".$asunto; 
+  echo $idS." <br>",$fecha."<br>".$deptoAS."<br>".$cantidad."<br>".$asunto; 
 
     //$conexion=new  mysqli("localhost",'root',"1234");
     require 'logica/conexion.php';
@@ -37,6 +37,7 @@
     }
     else{
         echo "datos Modificados correctamente, *link a control o página principal*";
+        header("location: control.php");
     }
     mysqli_close($conexion);
 

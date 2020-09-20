@@ -11,9 +11,12 @@
    if(!isset($usuario)){
        header("location: index.php");
    }else{
-       echo "<hi> BIENVENIDO $usuario</h1><br>";
-
-      echo "<a href= 'logica/salir.php'> SALIR </a> ";
+        $q = "SELECT * from usuarios where nombreUsuario = '$usuario ' ";
+        $consulta = mysqli_query($conexion,$q);
+        $array = mysqli_fetch_array($consulta);
+        $IDU = $array['id'];
+        echo "<hi> BIENVENIDO $usuario</h1><br>";
+        echo "<a href= 'logica/salir.php'> SALIR </a> ";
    }
 ?>
 
@@ -35,7 +38,7 @@
                 $soli = mysqli_query($conexion, $consultaS);
 
                 //seleccionar el nombre del usuario logeado
-                $consultaU="SELECT nombre, apellidos FROM usuarios WHERE id = 1";
+                $consultaU="SELECT nombre, apellidos FROM usuarios WHERE id = '$IDU'";
                 $nom = mysqli_query($conexion, $consultaU);
                 
 
@@ -51,8 +54,6 @@
                     echo "error".mysqli_error($conexion);
                     echo $id." ".$ds." ".$daS." ";
                 }
-
-
                 
             ?>
             <form action="elim.php" method="POST">

@@ -2,16 +2,20 @@
 
     $idS = $_POST['id'];
     $autorizar = $_POST['auto'];
-    if ($autorizar==" "){
-        $autorizar = 0;
+    if ($autorizar==""|| $idS == ""){
+        header("location: autorizar.php");
     }
 
     //conexión
     //$conexion=new  mysqli("localhost",'root',"1234","bdgeneradorfolios");
     require 'logica/conexion.php';
     session_start();
+    $q = "SELECT * from usuarios where nombreUsuario = '$usuario' ";
+    $consulta = mysqli_query($conexion,$q);
+    $array = mysqli_fetch_array($consulta);
+    $IDU = $array['id'];
     //falta identificar los departamentos en la tabla departamentos
-    //falta identificar el usuario, eso lo obtenemos con los datos del login
+    
     //¿hacer que una vez cancelado una solicitud, ya no se pueda a autorizar?
     if ($autorizar == 1){
         $actualizar = "UPDATE solicitudes SET estado = 'autorizado' WHERE id_solicitud ='$idS'";
@@ -22,6 +26,7 @@
         }
         else{
             echo "Solicitud autorizada correctamente, *link a control o página principal*";
+            header("location: autorizar.php");
         }
     }
     else{
@@ -33,6 +38,7 @@
         }
         else{
             echo "Solicitud cancelada correctamente, *link a control o página principal*";
+            header("location: autorizar.php");
         }
     }
     // insertar los folios generados
@@ -59,6 +65,7 @@
             }
             else{
                 echo "folios generados *link a página principal*";
+                header("location: autorizar.php");
             }
         }
     }

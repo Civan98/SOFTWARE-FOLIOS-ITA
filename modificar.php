@@ -10,6 +10,10 @@
     if(!isset($usuario)){
         header("location: index.php");
     }else{
+        $q = "SELECT * from usuarios where nombreUsuario = '$usuario ' ";
+        $consulta = mysqli_query($conexion,$q);
+        $array = mysqli_fetch_array($consulta);
+        $IDU = $array['id'];
         echo "<hi> BIENVENIDO $usuario </h1><br>";
 
        echo "<a href= 'logica/salir.php'> SALIR </a> ";
@@ -34,7 +38,7 @@
                 $soli = mysqli_query($conexion, $consultaS);
 
                 //seleccionar el nombre del usuario logeado
-                $consultaU="SELECT nombre, apellidos FROM usuarios WHERE id = 1";
+                $consultaU="SELECT nombre, apellidos FROM usuarios WHERE id = '$IDU'";
                 $nom = mysqli_query($conexion, $consultaU);
                 
 
@@ -50,20 +54,23 @@
                     echo "error".mysqli_error($conexion);
                     echo $id." ".$ds." ".$daS." ";
                 }
-
-
+                $s = mysqli_fetch_array($soli);
+                $n = mysqli_fetch_array($nom);
+                $d = mysqli_fetch_array($depto);
+                $depto_a_S = mysqli_fetch_array($deptoAS);
                 
             ?>
             <form action="mod.php" method="POST">
-                <label for="Nsolicitud">Solicitud No.: <?php foreach($soli as $s){echo $s['id_solicitud'];}?> </label> <input type="number" name="id_so" value=<?php foreach($soli as $s){echo $s['id_solicitud'];}?> hidden="true"><br><br>
-                <label for="fecha">Fecha:  <?php foreach($soli as $s){echo $s['fecha'];}?>  ---></label>
-                <input type="date" id="fecha" name="fecha" value=<?php foreach($soli as $s){echo $s['fecha'];}?>><br><br> 
-                <label for="Nombre del solicitante">Nombre del solicitante: <?php foreach($nom as $n) {echo $n['nombre'].$n['apellidos'];} ?></label> <br><br>
-                <label for="Departamento que solicita">Departamento que solicita: <?php foreach($depto as $d){echo $d['nombre_departamentos'];}?> </label> <br><br>
-                <label for="Departamento al que solicita">Departamento al que solicita: <?php foreach($deptoAS as $depto_a_S){echo $depto_a_S['nombre_departamentos'];}?>  ---></label>
+                <label for="Nsolicitud">Solicitud No.: <?php echo $s['id_solicitud'];?> </label> <input type="number" name="id_so" value=<?php echo $s['id_solicitud'];?> hidden="true"><br><br>
+                <label for="fecha">Fecha:  <?php echo $s['fecha'];?>  ---></label>
+                <input type="date" id="fecha" name="fecha" value=<?php echo $s['fecha'];?>><br><br> 
+                <label for="Nombre del solicitante">Nombre del solicitante: <?php echo $n['nombre'].$n['apellidos']; ?></label> <br><br>
+                <label for="Departamento que solicita">Departamento que solicita: <?php echo $d['nombre_departamentos']; ?> </label> <br><br>
+                <label for="Departamento al que solicita">Departamento al que solicita: <?php echo $depto_a_S['nombre_departamentos'];?>  ---></label>
                 <select name="depto_a_Sol" id="listaDaS">
                     <!-- seleccionar por defecto el depto ya guardado -->
-                    <option value="Ingeniería en Sistemas Computacionales">Ingeniería en Sistemas Computacionales</option>
+                    <option value="<?php echo $depto_a_S['nombre_departamentos']; ?> " selected> <?php echo $depto_a_S['nombre_departamentos'];?> </option>
+                    <option value="Ingeniería en Sistemas Computacionales" >Ingeniería en Sistemas Computacionales</option>
                     <option value="Arquitectura">Arquitectura</option>
                     <option value="Licenciatura en Administración">Licenciatura en Administración</option>
                     <option value="Contador Público">Contador Público</option>
@@ -73,11 +80,11 @@
                     <option value="Dirección">Dirección</option>
                     <option value="Subdirección">Subdirección</option>
                 </select><br><br> 
-                <label for="Asunto">Asunto: <?php foreach($soli as $s){echo $s['asunto'];}?>  ---></label>
-                <textarea name="asunto" id="asunto" maxlength="100" cols="50" rows="5" ><?php foreach($soli as $s){echo $s['asunto'];}?></textarea><br><br> 
-                <label for="Cantidad">Cantidad: <?php foreach($soli as $s){echo $s['cantidad'];}?>  ---></label>
-                <input type="number" name="cantidad" id="cantidad" min="1" pattern="^[0-9]+" value= <?php foreach($soli as $s){echo $s['cantidad'];}?> ><br><br> 
-                <label for="Estado">Estado: <?php foreach($soli as $s){echo $s['estado'];}?></label> <br><br>
+                <label for="Asunto">Asunto: <?php echo $s['asunto'];?>  ---></label>
+                <textarea name="asunto" id="asunto" maxlength="100" cols="50" rows="5" ><?php echo $s['asunto'];?></textarea><br><br> 
+                <label for="Cantidad">Cantidad: <?php echo $s['cantidad'];?>  ---></label>
+                <input type="number" name="cantidad" id="cantidad" min="1" pattern="^[0-9]+" value= <?php echo $s['cantidad'];?> ><br><br> 
+                <label for="Estado">Estado: <?php echo $s['estado'];?></label> <br><br>
                 <input type="submit" name="modificar" id="modificar" value="Modificar">
             </form>
 
