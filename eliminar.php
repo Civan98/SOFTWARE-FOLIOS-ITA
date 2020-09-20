@@ -15,8 +15,6 @@
         $consulta = mysqli_query($conexion,$q);
         $array = mysqli_fetch_array($consulta);
         $IDU = $array['id'];
-        echo "<hi> BIENVENIDO $usuario</h1><br>";
-        echo "<a href= 'logica/salir.php'> SALIR </a> ";
    }
 ?>
 
@@ -25,10 +23,45 @@
     <head>
         <title>Eliminar solicitud de folios</title>
         <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     </head>
     <body>
-        <h2>¿Desea eliminar la siguiente solicitud de folios?</h2>
-        <div>
+     <nav class="navbar navbar-expand-lg navbar-light navbar-dark" style="background-color: #1B396A">
+      <a class="navbar-brand" href="#"> <?php echo "BIENVENIDO $usuario" ?> </a>
+ <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4"
+    aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="logica/salir.php">
+            Salir
+          <i class="fa fa-sign-in" aria-hidden="true"></i>
+         
+          <span class="sr-only">(current)</span>
+        </a>
+      </li>
+     <!-- <li class="nav-item">
+        <a class="nav-link" href="#">
+            aaa
+         </a>
+      </li>
+     -->
+    </ul>
+  </div>
+  
+</nav>
+
+        <h2 align="center">¿Desea eliminar la siguiente solicitud de folios?</h2>
+        <div class="alert alert-danger alert-dismissible" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  <strong>!Atención!</strong> La siguiente solicitud no podrá ser recuperada si es eliminada.
+</div>
+        <div align="center">
+        <div class="jumbotron text-center" style="width: 70%;">
+            <div class="container">
             
             <?php
 
@@ -56,6 +89,7 @@
                 }
                 
             ?>
+            
             <form action="elim.php" method="POST">
                 <label for="Nsolicitud">Solicitud No.: <?php foreach($soli as $s){echo $s['id_solicitud'];}?> </label> <input type="number" name="id_so" value=<?php foreach($soli as $s){echo $s['id_solicitud'];}?> hidden="true"><br><br>
                 <label for="fecha">Fecha:  <?php foreach($soli as $s){echo $s['fecha'];}?></label><br><br>
@@ -64,11 +98,19 @@
                 <label for="Departamento al que solicita">Departamento al que solicita: <?php foreach($deptoAS as $depto_a_S){echo $depto_a_S['nombre_departamentos'];}?>  <br><br>
                 <label for="Asunto">Asunto: <?php foreach($soli as $s){echo $s['asunto'];}?>  <br><br>
                 <label for="Cantidad">Cantidad: <?php foreach($soli as $s){echo $s['cantidad'];}?>  <br><br>
-                <input type="submit" name="eliminar" id="eliminar" value="Eliminar">
+                    <hr class="my-4">
+                <input type="submit" name="eliminar" id="eliminar" value="Eliminar" class="btn btn-danger">
+                           <input type="button" onclick="location.href='control.php';" name="Regresar" value="Regresar" class="btn btn-secondary">
             </form>
 
+            </div>
 
         </div>
+
+        </div>
+
+         <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
     </body>
 
 </html>

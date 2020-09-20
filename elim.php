@@ -1,6 +1,7 @@
 <?php
     
     $conexion=new  mysqli("localhost",'root',"",'bdgeneradorfolios');
+    $mysqli->set_charset("utf8");
     //require 'logica/conexion.php';
     //session_start();
     $id = $_POST['id_so'];
