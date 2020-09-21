@@ -2,7 +2,6 @@
     require 'logica/conexion.php';
     session_start();
     $usuario = $_SESSION['username'];
-    //$ID = $_SESSION['id'];
 
     if(!isset($usuario)){
         header("location: index.php");

@@ -1,3 +1,12 @@
+<?php
+    // redirecciona a control si hay una sesion activa
+    require 'logica/conexion.php';
+    session_start();
+    if(isset($_SESSION['username'])){
+      header("location: control.php");
+  }
+?>
+
 <!DOCTYPE html>
  <html lang="es">
 

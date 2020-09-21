@@ -44,7 +44,7 @@
   <div class="border" style="padding: 10px;">
   <h1>Registro de usuario</h1>
   <h2>Porfavor, introduzca los datos solicitados:</h2>
-<form>
+<form action ="insert.php" method ="POST">  
 <div class="row">
 
   <div class="col">

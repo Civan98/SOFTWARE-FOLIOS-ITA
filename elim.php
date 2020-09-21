@@ -1,9 +1,9 @@
 <?php
     
-    $conexion=new  mysqli("localhost",'root',"",'bdgeneradorfolios');
-    $mysqli->set_charset("utf8");
-    //require 'logica/conexion.php';
-    //session_start();
+    //$conexion=new  mysqli("localhost",'root',"",'bdgeneradorfolios');
+    //$mysqli->set_charset("utf8");
+    require 'logica/conexion.php';
+    session_start();
     $id = $_POST['id_so'];
     // posiblemente sólo quiere que se ponga el estado como eliminado, no eliminar de verdad
     $sql = "DELETE FROM solicitudes WHERE id_solicitud ='$id'";
