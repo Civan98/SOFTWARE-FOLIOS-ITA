@@ -28,20 +28,9 @@
         <div>
             <form action="solicitar.php" method="POST">
                 <p>Solicitud de folios</p><br>
-                <label for="fecha">Fecha: </label>
-                <input type="date" id="fecha" name="fecha"><br><br>
+                <label for="fecha">Fecha: <?php date_default_timezone_set("America/Mexico_City"); echo date("d-m-Y");?> </label><br>
+                <!--<input type="date" id="fecha" name="fecha" value="<?php echo date("Y-m-d");?>"><br><br>-->
                 <label for="deptoSol">Departamento que solicita: <?php echo $deptoU['nombre_departamentos']; ?></label>
-               <!-- <select name="depto_Sol" id="listaDS" >
-                    <option value="ISC">Ingeniería en Sistemas Computacionales</option>
-                    <option value="ARQ">Arquitectura</option>
-                    <option value="LA">Licenciatura en Administración</option>
-                    <option value="CP">Contador Público</option>
-                    <option value="IBQ">Ingeniería en Bioquímica</option>
-                    <option value="IGE">Ingeniería en Gestión Empresarial</option>
-                    <option value="IEM">Ingeniería en Electromecánica</option>
-                    <option value="Direccion">Dirección</option>
-                    <option value="Subdireccion">Subdirección</option>
-                </select> -->
                 <br><br>
                 <label for="deptoSol">Departamento a solicitar: </label>
                 <select name="depto_a_Sol" id="listaDaS">

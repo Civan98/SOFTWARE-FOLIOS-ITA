@@ -62,8 +62,8 @@
             ?>
             <form action="mod.php" method="POST">
                 <label for="Nsolicitud">Solicitud No.: <?php echo $s['id_solicitud'];?> </label> <input type="number" name="id_so" value=<?php echo $s['id_solicitud'];?> hidden="true"><br><br>
-                <label for="fecha">Fecha:  <?php echo $s['fecha'];?>  ---></label>
-                <input type="date" id="fecha" name="fecha" value=<?php echo $s['fecha'];?>><br><br> 
+                <label for="fecha">Fecha:  <?php echo date("d-m-Y");?>  </label> <br><br>
+                <!--<input type="date" id="fecha" name="fecha" value=<?php echo $s['fecha'];?>><br><br> -->
                 <label for="Nombre del solicitante">Nombre del solicitante: <?php echo $n['nombre'].$n['apellidos']; ?></label> <br><br>
                 <label for="Departamento que solicita">Departamento que solicita: <?php echo $d['nombre_departamentos']; ?> </label> <br><br>
                 <label for="Departamento al que solicita">Departamento al que solicita: <?php echo $depto_a_S['nombre_departamentos'];?>  ---></label>

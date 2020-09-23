@@ -73,12 +73,14 @@
       <div class="col">
         <label for="departamento">Departamento:</label>
         <select id="inputState" class="form-control" name="departamento">
-          <option>ISC</option>
-          <option>LA</option>
-          <option>IGE</option>
-          <option>CP</option>
-          <option>IEM</option>
-          <option>ARQ</option>
+          <option value = "ISC">ISC</option>
+          <option value = "LA" >LA</option>
+          <option value = "IGE">IGE</option>
+          <option value = "CP">CP</option>
+          <option value = "IEM">IEM</option>
+          <option value = "ARQ">ARQ</option>
+          <option value = "Dirección">Dirección</option>
+          <option value = "Subdirección">Subdirección</option>
         </select>
       </div>
 

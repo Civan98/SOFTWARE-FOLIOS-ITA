@@ -1,5 +1,6 @@
 <?php
     require 'logica/conexion.php';
+    
     session_start();
     $usuario = $_SESSION['username'];
 
@@ -10,13 +11,14 @@
         //consulta para tener los datos del usuario que este logeado
         $q = "SELECT * from usuarios where nombreUsuario = '$usuario ' ";
         $consulta = mysqli_query($conexion,$q);
+        $info = mysqli_num_rows($consulta);
         $array = mysqli_fetch_array($consulta);
         $ID = $array['id'];
         $nombre = $array['nombre'];
         $id_deptoU = $array['id_depto'];
 
         // consulta para obtener el nombre del depa del usuario
-        $q2 ="SELECT nombre_departamentos FROM usuarios JOIN departamentos ON usuarios.id = departamentos.id_depto WHERE usuarios.nombreUsuario = '$usuario ' ";
+        $q2 ="SELECT * FROM usuarios JOIN departamentos ON usuarios.id_depto = departamentos.id_depto WHERE usuarios.nombreUsuario = '$usuario' ";
         $consulta2 = mysqli_query($conexion,$q2);
         $array2 = mysqli_fetch_array($consulta2);
         $depa = $array2['nombre_departamentos'];
@@ -28,8 +30,8 @@
         echo "$depa<br>";
 
        echo "<a href= 'logica/salir.php'> SALIR </a> ";
-
-       */
+        */
+       
     }
 ?>
 
@@ -84,35 +86,81 @@
                     <th>Asunto</th>
                     <th>Cantidad</th>
                     <th>Estado</th>
-                    <th>Modificar</th>
+                    <th>Usuario que editó</th>
+                    <th>Fecha de edición</th>
+                    <th>Usuario que autorizó</th>
+                    <th>Fecha de autorización</th>
+                    <th>Usuario que canceló</th>
+                    <th>Fecha de cancelación</th>                    
+                    <th>Editar</th>
                     <th>Eliminar</th>
                     <th>Imprimir</th>
                 </tr>
                 <?php
-                //seleccionar las solicitudes del usuario logueado                
-                $consultaS="SELECT * FROM solicitudes WHERE id_usuario = '$ID'";
+                //seleccionar las solicitudes del departamento del usuario logueado                
+                $consultaS="SELECT * FROM solicitudes WHERE id_depto_sol = '$id_deptoU'";
                 $soli = mysqli_query($conexion, $consultaS);
-
-                //seleccionar el nombre del usuario logeado
-                $consultaU="SELECT id,nombre, apellidos FROM usuarios WHERE id = '$ID'";
-                $nom = mysqli_query($conexion, $consultaU);
                 
-
+                
                 //seleccionar el nombre del departamento del usuario logeado
                 $consultaD="SELECT nombre_departamentos FROM departamentos WHERE id_depto= '$id_deptoU'";
                 $depto=mysqli_query($conexion, $consultaD);
                 
                 if(!$soli){
-                    echo "error".mysqli_error($conexion);
+                    //echo "error".mysqli_error($conexion);
                 }
                 while($datos=mysqli_fetch_array($soli)){
+                    //nombres de los usuarios que solicitaron
+                    $id_usuarios=$datos['id_usuario'];
+                    $consultaU="SELECT id, nombre, apellidos FROM usuarios WHERE id = '$id_usuarios'";
+                    $nom = mysqli_query($conexion, $consultaU);
+
                     //seleccionar el nombre del departamento al que se solicita el folio
-                    $consultaAS = "SELECT nombre_departamentos FROM departamentos WHERE id_depto=".$datos['id_depto_a_sol'];
+                    $consultaAS = "SELECT nombre_departamentos FROM departamentos WHERE id_depto=".$datos['id_depto_genera'];
                     $deptoAS = mysqli_query($conexion,$consultaAS);
 
-                    //mostrar sólo las solicitudes que el usuario ha hecho
+                    //Nombre de quién editó
+                    if($datos['id_usuario_edit']){
+                        $edit = "SELECT id, nombre, apellidos FROM usuarios WHERE id =".$datos['id_usuario_edit'];
+                        $userEdit = mysqli_query($conexion,$edit);
+                        $uEdt = mysqli_fetch_array($userEdit);
+                        $nombreEdita = $uEdt['nombre']." ".$uEdt['apellidos'];
+                        $fechaEdita = $datos['fecha_edit'];
+                    }
+                    else{
+                        $nombreEdita = "-";
+                        $fechaEdita = "-";
+                    }
+                    
+                    //nombre de quién autorizó
+                    if($datos['id_usuario_auto']){
+                        $auto = "SELECT id, nombre, apellidos FROM usuarios WHERE id =".$datos['id_usuario_auto'];
+                        $userAuto = mysqli_query($conexion,$auto);
+                        $uAuto = mysqli_fetch_array($userAuto);
+                        $nombreAuto = $uAuto['nombre']." ".$uAuto['apellidos'];
+                        $fechaAuto = $datos['fecha_auto'];
+                    }
+                    else{
+                        $nombreAuto = "-";
+                        $fechaAuto = "-";
+                    }
+                    //nombre de quién canceló
+                    if($datos['id_usuario_cancel']){
+                        $cancel = "SELECT id, nombre, apellidos FROM usuarios WHERE id =".$datos['id_usuario_cancel'];
+                        $userCancel = mysqli_query($conexion,$cancel);
+                        $uCancel = mysqli_fetch_array($userCancel);
+                        $nombreCancel = $uCancel['nombre']." ".$uCancel['apellidos'];
+                        $fechaCancel = $datos['fecha_cancel'];
+                    }
+                    else{
+                        $nombreCancel = "-";
+                        $fechaCancel = "-";
+                    }
+
+
+                    //********************************* mostrar sólo las solicitudes que el usuario ha hecho **********************
                     foreach($nom as $n) {
-                        if ($datos['id_usuario'] == $n['id']){
+                      //  if ($datos['id_usuario'] == $n['id']){
                 ?>
 
                 
@@ -125,13 +173,19 @@
                     <td><?php echo $datos['asunto'];?></td>
                     <td><?php echo $datos['cantidad'];?></td>
                     <td><?php echo $datos['estado'];?>
+                    <td><?php echo  $nombreEdita;?>
+                    <td><?php echo  $fechaEdita;?>
+                    <td><?php echo  $nombreAuto;?>
+                    <td><?php echo  $fechaAuto;?>
+                    <td><?php echo  $nombreCancel;?>
+                    <td><?php echo  $fechaCancel;?>
                     <td>
                         <form action="modificar.php" method="POST">
                             <input type="text" name="id" value=<?php echo $datos['id_solicitud'];?> hidden="true" >                            
                             <input type="text" name="dS" value=<?php echo $datos['id_depto_sol'];?> hidden="true">
-                            <input type="text" name="daS" value=<?php echo $datos['id_depto_a_sol'];?> hidden="true">
-                            <?php if($datos['estado']=="pendiente"){ ?>                             
-                                <input type="submit" name="modificar" value="Modificar" > 
+                            <input type="text" name="daS" value=<?php echo $datos['id_depto_genera'];?> hidden="true">
+                            <?php if($datos['estado']=="Solicitado"){ ?>                             
+                                <input type="submit" name="editar" value="Editar" class="btn btn-danger" > 
                             <?php } ?>
                         </form>
                     </td>                 
@@ -139,14 +193,14 @@
                         <form action="eliminar.php" method="POST">
                             <input type="text" name="id" value=<?php echo $datos['id_solicitud'];?> hidden="true">
                             <input type="text" name="dS" value=<?php echo $datos['id_depto_sol'];?> hidden="true">
-                            <input type="text" name="daS" value=<?php echo $datos['id_depto_a_sol'];?> hidden="true">
-                            <input type="submit" name="eliminar" value="Eliminar"  class="btn btn-danger" >
+                            <input type="text" name="daS" value=<?php echo $datos['id_depto_genera'];?> hidden="true">
+                           <!-- <input type="submit" name="eliminar" value="Eliminar"  class="btn btn-danger" > -->
                         </form>
                     </td>                 
 
                 </tr>
                 <?php
-                        }
+                       /// }
                     }   
                 }
                     //mysqli_close($conexion);
@@ -186,7 +240,7 @@
                 }
                 while($datosF=mysqli_fetch_array($soliF)){
                     //seleccionar el nombre del departamento al que se solicita el folio
-                    $consultaASF = "SELECT nombre_departamentos FROM departamentos WHERE id_depto=".$datosF['id_depto_a_sol'];
+                    $consultaASF = "SELECT nombre_departamentos FROM departamentos WHERE id_depto=".$datosF['id_depto_genera'];
                     $deptoASF = mysqli_query($conexion,$consultaASF);
 
                     //mostrar sólo las solicitudes que el usuario ha hecho

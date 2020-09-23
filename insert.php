@@ -14,26 +14,46 @@
     if($password === $passwordretry){
 
         if($departamento == "ISC"){
-            $id_depto =1;
+            $nomDepto ="Ingeniería en Sistemas Computacionales";
         }
         if($departamento == "LA"){
-            $id_depto =2;
+            $nomDepto ="Licenciatura en Administración";
         }
         if($departamento == "IGE"){
-            $id_depto =3;
+            $nomDepto ="Ingeniería en Gestión Empresarial";
         }
+        if($departamento == "Dirección"){
+            $nomDepto ="Dirección";
+        }
+        if($departamento == "Subdirección"){
+            $nomDepto ="Subdirección";
+        }
+          
+        $buscarUsuario = "SELECT nombreUsuario FROM usuarios WHERE nombreUsuario ='$NombreUsuario'";
+        $buscar = mysqli_query($conexion, $buscarUsuario);
+        $user = mysqli_num_rows($buscar);
+        if ($user==0){
 
-        $insertar = "INSERT INTO usuarios (nombre, apellidos, nombreUsuario, cargo, contrasena, id_depto) VALUES ('$nombre', '$Apellidos', '$NombreUsuario','$cargo','$password', '$id_depto')";
-        $exec = mysqli_query($conexion, $insertar);
-        if(!$exec){
-            echo "error".mysqli_error($conexion);
+            $selecDepto = "SELECT * FROM departamentos WHERE nombre_departamentos ='$nomDepto'";
+            $ejecutar = mysqli_query($conexion, $selecDepto);
+            $depto = mysqli_fetch_array($ejecutar);
+            $id = $depto['id_depto'];
+
+            $insertar = "INSERT INTO usuarios (nombre, apellidos, nombreUsuario, cargo, contrasena, id_depto) VALUES ('$nombre', '$Apellidos', '$NombreUsuario','$cargo','$password', '$id')";
+            $exec = mysqli_query($conexion, $insertar);
+            if(!$exec){
+                echo "error".mysqli_error($conexion);
+            }
+            else{
+               echo "<script language='javascript'> alert('Usuario creado con éxito');  window.location.href='index.php';</script>";
+            }
         }
         else{
-            header("location: /generador-de-folios/index.php");
+            echo "<script language='javascript'> alert('Ya existe un usuario con ese nombre de usuario');  window.location.href='register.php';</script>";
         }
 
     }else{
-        echo "<script language='javascript'> alert('La contraseña no coincide!!!');  window.location.href='/generador-de-folios/register.php';</script>";
+        echo "<script language='javascript'> alert('La contraseña no coincide!!!');  window.location.href='register.php';</script>";
     }
 
 ?>

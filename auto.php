@@ -2,6 +2,7 @@
 
     $idS = $_POST['id'];
     $autorizar = $_POST['auto'];
+    $generados = "";
     if ($autorizar==""|| $idS == ""){
         header("location: autorizar.php");
     }
@@ -10,6 +11,7 @@
     //$conexion=new  mysqli("localhost",'root',"1234","bdgeneradorfolios");
     require 'logica/conexion.php';
     session_start();
+    $usuario = $_SESSION['username'];
     $q = "SELECT * from usuarios where nombreUsuario = '$usuario' ";
     $consulta = mysqli_query($conexion,$q);
     $array = mysqli_fetch_array($consulta);
@@ -18,27 +20,35 @@
     
     //¿hacer que una vez cancelado una solicitud, ya no se pueda a autorizar?
     if ($autorizar == 1){
-        $actualizar = "UPDATE solicitudes SET estado = 'autorizado' WHERE id_solicitud ='$idS'";
+        $actualizar = "UPDATE solicitudes SET estado = 'Autorizado' WHERE id_solicitud ='$idS'";
         $exec = mysqli_query($conexion, $actualizar);
         
         if(!$exec){
             echo "error".mysqli_error($conexion);
+            echo "<script language='javascript'> alert('Error');  window.location.href='control.php';</script>";
         }
         else{
-            echo "Solicitud autorizada correctamente, *link a control o página principal*";
-            header("location: autorizar.php");
+            //actualizar datos en la tabla solicitudes
+            $actualizar = "UPDATE solicitudes SET id_usuario_auto = '$IDU', fecha_auto = NOW() WHERE id_solicitud ='$idS' ";
+            $exec = mysqli_query($conexion, $actualizar);
+            $generados = "Autorizados";
+            //echo "<script language='javascript'> alert('Solicitud AUTORIZADA con éxito');  window.location.href='autorizar.php';</script>";
         }
     }
     else{
-        $actualizar = "UPDATE solicitudes SET estado = 'cancelado' WHERE id_solicitud ='$idS'";
+        $actualizar = "UPDATE solicitudes SET estado = 'Cancelado' WHERE id_solicitud ='$idS'";
         $exec = mysqli_query($conexion, $actualizar);
         
         if(!$exec){
             echo "error".mysqli_error($conexion);
+            echo "<script language='javascript'> alert('Error');  window.location.href='control.php';</script>";
         }
         else{
-            echo "Solicitud cancelada correctamente, *link a control o página principal*";
-            header("location: autorizar.php");
+            //actualizar datos en la tabla solicitudes
+            $actualizar = "UPDATE solicitudes SET id_usuario_cancel = '$IDU', fecha_cancel = NOW() WHERE id_solicitud ='$idS' ";
+            $exec = mysqli_query($conexion, $actualizar);
+            $generados = "Cancelados";
+            //echo "<script language='javascript'> alert('Solicitud CANCELADA con éxito');  window.location.href='autorizar.php';</script>";
         }
     }
     // insertar los folios generados
@@ -47,33 +57,34 @@
         echo "error: ".mysqli_error($conexion);
     }
     $cantidad= 0;
+
     while($datos=mysqli_fetch_array($consulta)){
         $cantidad = $datos['cantidad'];
         $fecha = $datos['fecha'];
         $idDS = $datos['id_depto_sol'];
-        $idDaS = $datos['id_depto_a_sol'];
+        $idDaS = $datos['id_depto_genera'];
         $asunto = $datos['asunto'];
         $estado = $datos['estado'];
         $idU = $datos['id_usuario'];
         $idSoli = $datos['id_solicitud'];
+
+        
         
         for ($i=0; $i < $cantidad; $i++) { 
-            $insertar = "INSERT INTO folios (fecha, id_depto_sol, id_depto_a_sol, asunto, estado, id_usuario, id_solicitud) VALUES ('$fecha','$idDS','$idDaS', '$asunto', '$estado', '$idU','$idSoli')";
+            $insertar = "INSERT INTO folios (id_depto_genera, id_depto_sol, id_usuario,  id_solicitud, fecha, asunto, estado) VALUES ('$idDaS', '$idDS', '$idU', '$idSoli', CURDATE(), '$asunto', '$estado')";
             $exec = mysqli_query($conexion, $insertar);
             if(!$exec){
-                echo "error al generar folios: ".mysqli_error($conexion);
+                echo "<br>error al generar folios: ".mysqli_error($conexion);
             }
             else{
-                echo "folios generados *link a página principal*";
+                
+                //echo "folios generados *link a página principal*";
                 header("location: autorizar.php");
             }
         }
+        
     }
-
-   
     
-
-
 
     mysqli_close($conexion);
 ?>

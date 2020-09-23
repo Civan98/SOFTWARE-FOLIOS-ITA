@@ -1,15 +1,15 @@
 <?php
-    $fecha = $_POST['fecha'];
+    //$fecha = $_POST['fecha'];
     //$deptoS = $_POST['depto_Sol'];
     $deptoAS = $_POST['depto_a_Sol'];
     $cantidad = $_POST['cantidad'];
     $asunto = $_POST['asunto'];
 
-    if ($fecha=="" || $deptoAS=="" || $cantidad=="" || $asunto ==""){
+    if ($deptoAS=="" || $cantidad=="" || $asunto ==""){
         header("location: formsolicitar.php");
     }
     else{
-    echo $fecha."<br>".$deptoS."<br>".$deptoAS."<br>".$cantidad."<br>".$asunto; 
+    echo "<br>".$deptoAS."<br>".$cantidad."<br>".$asunto; 
 
     //$conexion=new  mysqli("localhost",'root',"");
     require 'logica/conexion.php';
@@ -23,6 +23,7 @@
         $consulta = mysqli_query($conexion,$q);
         $array = mysqli_fetch_array($consulta);
         $IDU = $array['id'];
+        $deptoU = $array['id_depto'];
         if(!$bd){
             echo "no se encontró la base de datos";
         }
@@ -39,15 +40,15 @@
         $depa = $DaS['id_depto'];
         }
         //colocar el id del departamento al que pertenece el usuario de forma dinámica con datos del login, igual el id del usuario con los datos del login
-    $insertar = "INSERT INTO solicitudes (cantidad, id_depto_sol, id_depto_a_sol, asunto, estado, id_usuario, fecha) VALUES ('$cantidad', '$IDU', ".$depa.",'$asunto','pendiente', '$IDU', '$fecha')";
+    $insertar = "INSERT INTO solicitudes (id_depto_sol, id_depto_genera, cantidad, asunto, estado, id_usuario, fecha) VALUES ('$deptoU', ".$depa.",'$cantidad','$asunto','Solicitado', '$IDU', CURDATE())";
     $exec = mysqli_query($conexion, $insertar);
     
     if(!$exec){
         echo "error".mysqli_error($conexion);
     }
     else{
-        echo "datos insertados *link a página principal*";
-        header("location: control.php");
+        
+        echo "<script language='javascript'> alert('Solicitud realizada con éxito');  window.location.href='formsolicitar.php';</script>";
     }
     mysqli_close($conexion);
     }
