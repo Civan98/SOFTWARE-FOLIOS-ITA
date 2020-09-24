@@ -3,6 +3,16 @@
     
     session_start();
     $usuario = $_SESSION['username'];
+    //$fecha_inicio = $_POST['fecha_inicio'];
+    //$fecha_final = $_POST['fecha_final'];
+    if (isset($_POST['fecha_inicio']) || isset($_POST['fecha_final'])){
+        $fecha_inicio = $_POST['fecha_inicio'];
+        $fecha_final = $_POST['fecha_final'];
+    }
+    else{
+        $fecha_inicio = date("Y-m-01");
+        $fecha_final = date("Y-m-d");
+    }
 
     if(!isset($usuario)){
         header("location: index.php");
@@ -16,6 +26,7 @@
         $ID = $array['id'];
         $nombre = $array['nombre'];
         $id_deptoU = $array['id_depto'];
+        
 
         // consulta para obtener el nombre del depa del usuario
         $q2 ="SELECT * FROM usuarios JOIN departamentos ON usuarios.id_depto = departamentos.id_depto WHERE usuarios.nombreUsuario = '$usuario' ";
@@ -75,6 +86,14 @@
 </nav>
 
         <h2>Solicitudes de folios</h2>
+        <form action="control.php" method="POST">
+        <label for="fecha_inicio">Fecha inicial:</label>
+        <input type="date" id="fecha" name="fecha_inicio" value="<?php echo $fecha_inicio;?>">
+        <label for="fecha_final">Fecha final:  </label>  
+        <input type="date" id="fecha" name="fecha_final" value="<?php echo $fecha_final; ?>">  
+        <label for=""> <?php echo $fecha_final ?></label>            
+        <input type="submit" value="Filtrar">
+        </form>
         <div>
             <table class="table table-striped">
                 <tr>
@@ -93,17 +112,17 @@
                     <th>Usuario que canceló</th>
                     <th>Fecha de cancelación</th>                    
                     <th>Editar</th>
-                    <th>Eliminar</th>
+                    <!--<th>Eliminar</th>-->
                     <th>Imprimir</th>
                 </tr>
                 <?php
-                //seleccionar las solicitudes del departamento del usuario logueado                
-                $consultaS="SELECT * FROM solicitudes WHERE id_depto_sol = '$id_deptoU'";
+                //seleccionar las solicitudes del departamento del usuario logueado  BETWEEN fecha = STR_TO_DATE('$fecha_inicio', '%Y-%m-%d') and fecha =STR_TO_DATE('$fecha_final', '%Y-%m-%d')               
+                $consultaS="SELECT * FROM solicitudes WHERE id_depto_sol = '$id_deptoU' and  fecha BETWEEN STR_TO_DATE('$fecha_inicio', '%Y-%m-%d') and STR_TO_DATE('$fecha_final', '%Y-%m-%d')";
                 $soli = mysqli_query($conexion, $consultaS);
                 
                 
                 //seleccionar el nombre del departamento del usuario logeado
-                $consultaD="SELECT nombre_departamentos FROM departamentos WHERE id_depto= '$id_deptoU'";
+                $consultaD="SELECT nombre_departamentos FROM departamentos WHERE id_depto= '$id_deptoU' ";
                 $depto=mysqli_query($conexion, $consultaD);
                 
                 if(!$soli){
@@ -190,12 +209,13 @@
                         </form>
                     </td>                 
                     <td>
-                        <form action="eliminar.php" method="POST">
+                      <!--  <form action="eliminar.php" method="POST">
                             <input type="text" name="id" value=<?php echo $datos['id_solicitud'];?> hidden="true">
                             <input type="text" name="dS" value=<?php echo $datos['id_depto_sol'];?> hidden="true">
                             <input type="text" name="daS" value=<?php echo $datos['id_depto_genera'];?> hidden="true">
-                           <!-- <input type="submit" name="eliminar" value="Eliminar"  class="btn btn-danger" > -->
-                        </form>
+                            <input type="submit" name="eliminar" value="Eliminar"  class="btn btn-danger" > 
+                        </form> 
+                        -->
                     </td>                 
 
                 </tr>
@@ -206,7 +226,72 @@
                     //mysqli_close($conexion);
                 ?>
             </table>
-            <!---------------tabla de los folios--------------->
+
+
+
+
+            <!---------------tabla de los folios V2--------------->
+            <h2>Folios generados</h2>
+        <table class="table table-striped">
+        <tr>
+            <td>Folio </td>
+            <td>Fecha</td>
+            <td>Nombre del solicitante</td>
+            <td>Departamento que solicita</td>
+            <td>Departamento al que solicita</td>
+            <td>Asunto</td>                    
+            <td>Estado</td>
+             <!-- <td>Modificar</td>
+            <td>Eliminar</td>
+            <td>Imprimir</td> -->
+        </tr>
+            <?php
+                //seleccionar los folios del departamento del usuario logeado              
+                $consultaSF="SELECT * FROM folios WHERE id_depto_sol = '$id_deptoU'";
+                $soliF = mysqli_query($conexion, $consultaSF);
+
+                //seleccionar el nombre del departamento del usuario logeado (el que solicita)
+                $consultaDF="SELECT nombre_departamentos FROM departamentos WHERE id_depto= '$id_deptoU'";
+                $deptoF=mysqli_query($conexion, $consultaDF);
+                $dF = mysqli_fetch_array($deptoF);
+
+                if(!$soliF){
+                    echo "error".mysqli_error($conexion);
+                }
+                while($datosF=mysqli_fetch_array($soliF)){
+                    //Seleccionar nombre de los que solicitan los folios
+                    $consultaUF="SELECT id, id_depto, nombre, apellidos FROM usuarios WHERE id = ".$datosF['id_usuario'];
+                    $nomF = mysqli_query($conexion, $consultaUF);
+                    $nF = mysqli_fetch_array($nomF);
+
+                    //seleccionar el nombre del departamento que genera el folio
+                    $consultaASF = "SELECT nombre_departamentos FROM departamentos WHERE id_depto=".$datosF['id_depto_genera'];
+                    $deptoASF = mysqli_query($conexion,$consultaASF);
+
+                    
+                    foreach($nomF as $nF) {
+
+                ?>
+
+                
+                <tr>
+                    <td><?php echo $datosF['id_folio'];?></td>
+                    <td><?php echo $datosF['fecha'];?></td>
+                    <td><?php echo $nF['nombre']." ".$nF['apellidos']; ?></td>
+                    <td><?php echo $dF['nombre_departamentos'];?></td> 
+                    <td><?php foreach($deptoASF as $dASF) {echo $dASF['nombre_departamentos'];}?></td>                                                           
+                    <td><?php echo $datosF['asunto'];?></td>                    
+                    <td><?php echo $datosF['estado'];?></td>            
+
+                </tr>
+                <?php
+                        
+                    }   
+                }            
+                ?>
+            </table>
+           
+            <!-- VERSIÓN 1
             <h2>Folios generados</h2>
             <table class="table table-striped">
                 <tr>
@@ -217,13 +302,13 @@
                     <th>Departamento al que solicita</th>
                     <th>Asunto</th>                    
                     <th>Estado</th>
-                   <!-- <td>Modificar</td>
+                   <td>Modificar</td>
                     <td>Eliminar</td>
-                    <td>Imprimir</td> -->
+                    <td>Imprimir</td> 
                 </tr>
                 <?php
-                //seleccionar las solicitudes del usuario logueado                
-                $consultaSF="SELECT * FROM folios WHERE id_usuario = '$ID'";
+                //seleccionar los folios del depto del usuario que ha solicitado
+                $consultaSF="SELECT * FROM folios WHERE id_depto_sol = '$id_deptoU'";
                 $soliF = mysqli_query($conexion, $consultaSF);
 
                 //seleccionar el nombre del usuario logeado
@@ -257,7 +342,7 @@
                     <td><?php foreach($deptoASF as $dASF) {echo $dASF['nombre_departamentos'];}?></td>
                     <td><?php echo $datosF['asunto'];?></td>                    
                     <td><?php echo $datosF['estado'];?></td>
-                    <!-- <td>
+                     <td>
                         <form action="modificar.php" method="POST">
                             <input type="text" name="id" value=<?php //echo $datosF['id_solicitud'];?> hidden="true" >                            
                             <input type="text" name="dS" value=<?php //echo $datosF['id_depto_sol'];?> hidden="true">
@@ -274,7 +359,7 @@
                             <input type="text" name="daS" value=<?php //echo $datosF['id_depto_a_sol'];?> hidden="true">
                             <input type="submit" name="eliminar" value="Eliminar" >
                         </form>
-                    </td>   -->              
+                    </td>               
 
                 </tr>
                 <?php
@@ -283,7 +368,7 @@
                 }
                     mysqli_close($conexion);
                 ?>
-            </table>
+            </table> -->  
 
 
         </div>
