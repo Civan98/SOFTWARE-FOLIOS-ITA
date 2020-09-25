@@ -81,11 +81,13 @@
         <select id="inputState" class="form-control" name="departamento">
         <?php 
         //Consulta para rellenar el combobox
+        $indice = 0;
           while($row =  mysqli_fetch_array($consulta))
           {
+            $indice++;
             $depto = $row['nombre_departamentos'];
             ?>
-              <option value="<?php echo $depto?>"> <?php echo $depto?></option>
+              <option value="<?php echo $depto?>"> <?php echo $indice.' - '.$depto?></option>
             <?php
           }
         ?>

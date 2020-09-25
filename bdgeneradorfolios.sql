@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-09-2020 a las 04:10:49
--- Versión del servidor: 10.4.14-MariaDB
--- Versión de PHP: 7.4.10
+-- Tiempo de generación: 26-09-2020 a las 00:59:38
+-- Versión del servidor: 10.1.38-MariaDB
+-- Versión de PHP: 7.3.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -37,9 +38,31 @@ CREATE TABLE `departamentos` (
 --
 
 INSERT INTO `departamentos` (`id_depto`, `nombre_departamentos`) VALUES
-(1, 'Ingeniería en Sistemas Computacionales'),
-(2, 'Dirección'),
-(3, 'Subdirección');
+(1, 'Dirección'),
+(2, 'Subdirección de Planeación y Vinculación'),
+(3, 'Departamento de Comunicación y Difusión'),
+(4, 'Planeación, Programación y Presupuestación'),
+(5, 'Departamento de Servicios Escolares'),
+(6, 'Departamento de Gestión Tecnológica y Vinculación'),
+(7, 'Centro de Información'),
+(8, 'Departamento de Actividades Extraescolares'),
+(9, 'Subdirección Académica'),
+(10, 'Departamento de Desarrollo Académico'),
+(11, 'Departamento de Ciencias Básicas'),
+(12, 'Departamento de Bioquímica'),
+(13, 'Departamento de Arquitectura'),
+(14, 'Departamento de Sistemas y Computación'),
+(15, 'Departamento de Ciencias Económico-Administrativas'),
+(16, 'Departamento de Metalmecánica'),
+(17, 'División de Posgrado e Investigación'),
+(18, 'División de Estudios Profesionales'),
+(19, 'Departamento de Gestión Empresarial'),
+(20, 'Subdirección de Servicios Administrativos'),
+(21, 'Departamento de Recursos Financieros'),
+(22, 'Departamento de Recursos Humanos'),
+(23, 'Departamento de Recursos Materiales y Servicios'),
+(24, 'Centro de Cómputo'),
+(25, 'Departamento de Mantenimiento de Equipo');
 
 -- --------------------------------------------------------
 
@@ -57,36 +80,6 @@ CREATE TABLE `folios` (
   `asunto` varchar(100) NOT NULL,
   `estado` varchar(20) NOT NULL COMMENT 'aprobado, rechazado, solicitado'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `folios`
---
-
-INSERT INTO `folios` (`id_depto_genera`, `id_folio`, `id_depto_sol`, `id_usuario`, `id_solicitud`, `fecha`, `asunto`, `estado`) VALUES
-(1, 1, 1, 3, 1, '2020-09-22', 'Alumnos de nuevo ingreso\r\n', 'Autorizado'),
-(2, 2, 1, 3, 2, '2020-09-22', 'Alumnos de residencias', 'Autorizado'),
-(2, 3, 2, 4, 3, '2020-09-22', 'Mantenimiento', 'Autorizado'),
-(1, 4, 2, 4, 4, '2020-09-22', 'Alumnos para pintar', 'Autorizado'),
-(2, 5, 2, 4, 5, '2020-09-22', 'pruebas', 'Cancelado'),
-(1, 6, 2, 4, 6, '2020-09-22', 'alumnos para limpiar', 'Autorizado'),
-(1, 7, 2, 4, 6, '2020-09-22', 'alumnos para limpiar', 'Autorizado'),
-(1, 8, 2, 4, 7, '2020-09-22', 'Limpiar PC', 'Cancelado'),
-(1, 9, 2, 4, 7, '2020-09-22', 'Limpiar PC', 'Cancelado'),
-(1, 10, 2, 4, 7, '2020-09-22', 'Limpiar PC', 'Cancelado'),
-(3, 11, 3, 5, 8, '2020-09-22', 'prueba3', 'Autorizado'),
-(3, 12, 3, 5, 9, '2020-09-22', 'prueba de ciclo', 'Autorizado'),
-(3, 13, 3, 5, 9, '2020-09-22', 'prueba de ciclo', 'Autorizado'),
-(3, 14, 3, 5, 10, '2020-09-22', 'prueba ciclo 22', 'Cancelado'),
-(3, 15, 3, 5, 10, '2020-09-22', 'prueba ciclo 22', 'Cancelado'),
-(2, 16, 3, 5, 12, '2020-09-22', 'prueba para dirección', 'Autorizado'),
-(2, 17, 3, 5, 12, '2020-09-22', 'prueba para dirección', 'Autorizado'),
-(1, 18, 3, 5, 11, '2020-09-22', 'prueba para sistemas', 'Cancelado'),
-(1, 19, 3, 5, 11, '2020-09-22', 'prueba para sistemas', 'Cancelado'),
-(2, 20, 2, 4, 13, '2020-09-22', 'prueba de nuevos campos edición de por usuario editó iván', 'Cancelado'),
-(2, 21, 2, 4, 13, '2020-09-22', 'prueba de nuevos campos edición de por usuario editó iván', 'Cancelado'),
-(2, 22, 2, 6, 14, '2020-09-22', 'Prueba con iván', 'Autorizado'),
-(2, 23, 1, 7, 15, '2020-09-22', '2 servicio social\r\n', 'Cancelado'),
-(2, 24, 1, 7, 15, '2020-09-22', '2 servicio social\r\n', 'Cancelado');
 
 -- --------------------------------------------------------
 
@@ -111,27 +104,6 @@ CREATE TABLE `solicitudes` (
   `fecha_cancel` datetime DEFAULT NULL COMMENT 'fecha cuando se canceló la solicitud'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Volcado de datos para la tabla `solicitudes`
---
-
-INSERT INTO `solicitudes` (`id_depto_sol`, `id_solicitud`, `id_depto_genera`, `cantidad`, `asunto`, `estado`, `id_usuario`, `fecha`, `id_usuario_edit`, `fecha_edit`, `id_usuario_auto`, `fecha_auto`, `id_usuario_cancel`, `fecha_cancel`) VALUES
-(1, 1, 1, 1, 'Alumnos de nuevo ingreso\r\n', 'Autorizado', 3, '2020-09-22', NULL, NULL, 3, '2020-09-22 19:28:37', NULL, NULL),
-(1, 2, 2, 1, 'Alumnos de residencias', 'Autorizado', 3, '2020-09-22', NULL, NULL, 4, '2020-09-22 19:32:05', NULL, NULL),
-(2, 3, 2, 1, 'Mantenimiento', 'Autorizado', 4, '2020-09-22', NULL, NULL, 4, '2020-09-22 19:33:28', NULL, NULL),
-(2, 4, 1, 1, 'Alumnos para pintar', 'Autorizado', 4, '2020-09-22', NULL, NULL, 3, '2020-09-22 19:49:03', NULL, NULL),
-(2, 5, 2, 1, 'pruebas', 'Cancelado', 4, '2020-09-22', NULL, NULL, NULL, NULL, 4, '2020-09-22 19:50:26'),
-(2, 6, 1, 2, 'alumnos para limpiar', 'Autorizado', 4, '2020-09-22', NULL, NULL, 3, '2020-09-22 19:56:34', NULL, NULL),
-(2, 7, 1, 3, 'Limpiar PC', 'Cancelado', 4, '2020-09-22', NULL, NULL, NULL, NULL, 3, '2020-09-22 20:00:11'),
-(3, 8, 3, 1, 'prueba3', 'Autorizado', 5, '2020-09-22', 5, '2020-09-22 20:03:51', 5, '2020-09-22 20:04:02', NULL, NULL),
-(3, 9, 3, 2, 'prueba de ciclo', 'Autorizado', 5, '2020-09-22', NULL, NULL, 5, '2020-09-22 20:05:11', NULL, NULL),
-(3, 10, 3, 2, 'prueba ciclo 22', 'Cancelado', 5, '2020-09-22', NULL, NULL, NULL, NULL, 5, '2020-09-22 20:06:33'),
-(3, 11, 1, 2, 'prueba para sistemas', 'Cancelado', 5, '2020-09-22', NULL, NULL, NULL, NULL, 3, '2020-09-22 20:08:50'),
-(3, 12, 2, 2, 'prueba para dirección', 'Autorizado', 5, '2020-09-22', NULL, NULL, 4, '2020-09-22 20:07:55', NULL, NULL),
-(2, 13, 2, 2, 'prueba de nuevos campos edición de por usuario editó iván', 'Cancelado', 4, '2020-09-22', 6, '2020-09-22 20:49:00', NULL, NULL, 6, '2020-09-22 21:03:56'),
-(2, 14, 2, 1, 'Prueba con iván', 'Autorizado', 6, '2020-09-22', NULL, NULL, 6, '2020-09-22 21:05:05', NULL, NULL),
-(1, 15, 2, 2, '2 servicio social\r\n', 'Cancelado', 7, '2020-09-22', 3, '2020-09-22 21:07:52', NULL, NULL, 6, '2020-09-22 21:08:29');
-
 -- --------------------------------------------------------
 
 --
@@ -153,11 +125,7 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `nombre`, `apellidos`, `nombreUsuario`, `cargo`, `contrasena`, `id_depto`) VALUES
-(3, 'Juan Miguel', 'Hernández Bravo', 'JM', 'Jefe de departamento de Ingeniería en Sistemas Computacional', '1234', 1),
-(4, 'Aldo', 'Valdez Solís', 'AVS', 'Director del ITA', '1234', 2),
-(5, 'Pedro', 'Sánchez', 'PAS', 'Subdirector del ITA', '1234', 3),
-(6, 'Iván', 'Contreras', 'ICC', 'secretaria', '1234', 2),
-(7, 'Andres', 'Mayo', 'AMV', 'secretaria', '1234', 1);
+(3, 'Salvador ', 'Herrera Soriano', 'Salvador ', 'Director', '1234', 1);
 
 --
 -- Índices para tablas volcadas
@@ -203,25 +171,25 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `departamentos`
 --
 ALTER TABLE `departamentos`
-  MODIFY `id_depto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_depto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT de la tabla `folios`
 --
 ALTER TABLE `folios`
-  MODIFY `id_folio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id_folio` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `solicitudes`
 --
 ALTER TABLE `solicitudes`
-  MODIFY `id_solicitud` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_solicitud` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'identificador del usuario', AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'identificador del usuario', AUTO_INCREMENT=5;
 
 --
 -- Restricciones para tablas volcadas
