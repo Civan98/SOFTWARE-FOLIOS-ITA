@@ -1,4 +1,10 @@
-
+<?php
+  require 'logica/conexion.php';
+  session_start();
+  $q = "SELECT * from departamentos";
+  $consulta = mysqli_query($conexion,$q);
+  
+?>
 <!DOCTYPE html>
  <html lang="es">
 
@@ -73,14 +79,16 @@
       <div class="col">
         <label for="departamento">Departamento:</label>
         <select id="inputState" class="form-control" name="departamento">
-          <option value = "ISC">ISC</option>
-          <option value = "LA" >LA</option>
-          <option value = "IGE">IGE</option>
-          <option value = "CP">CP</option>
-          <option value = "IEM">IEM</option>
-          <option value = "ARQ">ARQ</option>
-          <option value = "Dirección">Dirección</option>
-          <option value = "Subdirección">Subdirección</option>
+        <?php 
+        //Consulta para rellenar el combobox
+          while($row =  mysqli_fetch_array($consulta))
+          {
+            $depto = $row['nombre_departamentos'];
+            ?>
+              <option value="<?php echo $depto?>"> <?php echo $depto?></option>
+            <?php
+          }
+        ?>
         </select>
       </div>
 

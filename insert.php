@@ -13,7 +13,7 @@
     //Falta el condicional para asignar los departamentos
     if($password === $passwordretry){
 
-        if($departamento == "ISC"){
+       /* if($departamento == "ISC"){
             $nomDepto ="Ingeniería en Sistemas Computacionales";
         }
         if($departamento == "LA"){
@@ -27,7 +27,8 @@
         }
         if($departamento == "Subdirección"){
             $nomDepto ="Subdirección";
-        }
+        }*/
+          $nomDepto = $departamento;
           
         $buscarUsuario = "SELECT nombreUsuario FROM usuarios WHERE nombreUsuario ='$NombreUsuario'";
         $buscar = mysqli_query($conexion, $buscarUsuario);
