@@ -2,6 +2,8 @@
     require 'logica/conexion.php';
     session_start();
     $usuario = $_SESSION['username'];
+    $qDepto = "SELECT * from departamentos";
+    $consultaDepto = mysqli_query($conexion,$qDepto);
 
     if(!isset($usuario)){
         header("location: index.php");
@@ -33,7 +35,21 @@
                 <label for="deptoSol">Departamento que solicita: <?php echo $deptoU['nombre_departamentos']; ?></label>
                 <br><br>
                 <label for="deptoSol">Departamento a solicitar: </label>
-                <select name="depto_a_Sol" id="listaDaS">
+                <select id="inputState" class="form-control" name="depto_a_Sol">
+            <?php 
+            //Consulta para rellenar el combobox
+            $indice = 0;
+            while($row =  mysqli_fetch_array($consultaDepto))
+            {
+                $indice++;
+                $depto = $row['nombre_departamentos'];
+                ?>
+                <option value="<?php echo $depto?>"> <?php echo $indice.' - '.$depto?></option>
+                <?php
+            }
+            ?>
+            </select>
+                <!--<select name="depto_a_Sol" id="listaDaS">
                     <option value="Ingeniería en Sistemas Computacionales">Ingeniería en Sistemas Computacionales</option>
                     <option value="Arquitectura">Arquitectura</option>
                     <option value="Licenciatura en Administración">Licenciatura en Administración</option>
@@ -43,7 +59,9 @@
                     <option value="Ingeniería en Electromecánica">Ingeniería en Electromecánica</option>
                     <option value="Dirección">Dirección</option>
                     <option value="Subdirección">Subdirección</option>
-                </select><br><br>
+                </select>-->
+                
+                <br><br>
                 <label for="cantidad">Cantidad: </label>
                 <input type="number" name="cantidad" id="cantidad" min="1" pattern="^[0-9]+"><br><br>
                 <label for="asunto">Asunto:</label>
