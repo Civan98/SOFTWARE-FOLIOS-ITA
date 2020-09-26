@@ -26,6 +26,8 @@
         $ID = $array['id'];
         $nombre = $array['nombre'];
         $id_deptoU = $array['id_depto'];
+       /* $typeUser =$array['cargo']; Selección del tipo de usuario:jefe,director*/
+
         
 
         // consulta para obtener el nombre del depa del usuario
@@ -51,14 +53,18 @@
     <head>
         <title>Control de folios</title>
         <meta charset="utf-8">
-          <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+          <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
           <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
     </head>
     <body>
     
+    <div align="center">
+    <img src=imagenes/header.png width="850" height="133">
+</div>
+
   <nav class="navbar navbar-expand-lg navbar-light navbar-dark" style="background-color: #1B396A">
-      <a class="navbar-brand" href="#"> <?php echo "BIENVENIDO $usuario" ?> </a>
+      <a class="navbar-brand" href="#"> <?php echo "¡BIENVENIDO! $usuario" ?> </a>
  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4"
     aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -66,14 +72,34 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
     <ul class="navbar-nav ml-auto">
-      <li class="nav-item active">
+      <li class="nav-item">
+
         <a class="nav-link" href="logica/salir.php">
             Salir
           <i class="fa fa-sign-in" aria-hidden="true"></i>
-         
-          <span class="sr-only">(current)</span>
-        </a>
+
       </li>
+      </a>
+      <li>
+       
+
+           <a class="nav-link" href="solicitar.php">
+            Solicitar
+          <i class="fa fa-wrench" aria-hidden="true"></i>
+
+        </a>
+        </li>
+
+        <li>
+       
+
+           <a class="nav-link" href="autorizar.php">
+            Autorizar
+          <i class="fa fa-bolt" aria-hidden="true"></i>
+
+        </a>
+        </li>
+
      <!-- <li class="nav-item">
         <a class="nav-link" href="#">
             aaa
@@ -86,14 +112,16 @@
 </nav>
 
         <h2>Solicitudes de folios</h2>
+        <div align="center" style="margin:10px;">
         <form action="control.php" method="POST">
         <label for="fecha_inicio">Fecha inicial:</label>
         <input type="date" id="fecha" name="fecha_inicio" value="<?php echo $fecha_inicio;?>">
         <label for="fecha_final">Fecha final:  </label>  
         <input type="date" id="fecha" name="fecha_final" value="<?php echo $fecha_final; ?>">  
         <label for=""> <?php echo $fecha_final ?></label>            
-        <input type="submit" value="Filtrar">
+        <input type="submit" value="Filtrar" class="btn info-btn">
         </form>
+        </div>
         <div>
             <table class="table table-striped">
                 <tr>

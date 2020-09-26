@@ -8,7 +8,7 @@
     if(!isset($usuario)){
         header("location: index.php");
     }else{
-        echo "<hi> BIENVENIDO $usuario </h1><br>";
+        
         $q = "SELECT * from usuarios where nombreUsuario = '$usuario' ";
         $consulta = mysqli_query($conexion,$q);
         $array = mysqli_fetch_array($consulta);
@@ -17,7 +17,7 @@
         $conDepto = "SELECT * FROM departamentos WHERE id_depto ='$deptoUsuario'";
         $ejecutar = mysqli_query($conexion,$conDepto);
         $deptoU = mysqli_fetch_array($ejecutar);
-        echo "<a href= 'logica/salir.php'> SALIR </a> ";
+       
     }
 ?>
 <!DOCTYPE html>
@@ -25,11 +25,77 @@
     <head>
         <title>Solicitar folios</title>
         <meta charset="utf-8">
+         <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+            <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
     </head>
     <body>
-        <div>
+    <div align="center">
+    <img src=imagenes/header.png width="850" height="133">
+    </div>
+
+      <nav class="navbar navbar-expand-lg navbar-light navbar-dark" style="background-color: #1B396A">
+      <a class="navbar-brand" href="#"> <?php echo "BIENVENIDO $usuario" ?> </a>
+ <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4"
+    aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+
+        <a class="nav-link" href="logica/salir.php">
+            Salir
+          <i class="fa fa-sign-in" aria-hidden="true"></i>
+
+      </li>
+      </a>
+            <li>
+       
+
+           <a class="nav-link" href="solicitar.php">
+            Solicitar
+          <i class="fa fa-wrench" aria-hidden="true"></i>
+
+        </a>
+        </li>
+
+        <li>
+       
+
+           <a class="nav-link" href="autorizar.php">
+            Autorizar
+          <i class="fa fa-bolt" aria-hidden="true"></i>
+
+        </a>
+        </li>
+
+        <li>
+        
+
+           <a class="nav-link" href="control.php">
+            Volver
+          <i class="fa fa-reply" aria-hidden="true"></i>
+
+        </a>
+        </li>
+     <!-- <li class="nav-item">
+        <a class="nav-link" href="#">
+            aaa
+         </a>
+      </li>
+     -->
+    </ul>
+  </div>
+  
+</nav>
+
+
+        <div align="center" style="margin: 10px;">
             <form action="solicitar.php" method="POST">
-                <p>Solicitud de folios</p><br>
+                <div class="form-group">
+                <h1>Solicitud de folios</h1>
                 <label for="fecha">Fecha: <?php date_default_timezone_set("America/Mexico_City"); echo date("d-m-Y");?> </label><br>
                 <!--<input type="date" id="fecha" name="fecha" value="<?php echo date("Y-m-d");?>"><br><br>-->
                 <label for="deptoSol">Departamento que solicita: <?php echo $deptoU['nombre_departamentos']; ?></label>
@@ -66,7 +132,8 @@
                 <input type="number" name="cantidad" id="cantidad" min="1" pattern="^[0-9]+"><br><br>
                 <label for="asunto">Asunto:</label>
                 <textarea name="asunto" id="asunto" maxlength="100" cols="50" rows="5"></textarea><br><br>
-                <input type="submit" name="enviar" id="enviar">
+                <input type="submit" name="enviar" id="enviar" class="btn btn-primary btn-lg">
+            </div>
             </form>
 
         </div>

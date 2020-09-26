@@ -16,7 +16,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>TecNM | Tecnológico Nacional de México Campus Acapulco</title>
     <link rel="stylesheet" type="text/css" href="css/gral.css">
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 </head>
 
 
@@ -43,9 +43,9 @@
       <a class="nav-item nav-link" href="register.php">Registrarse</a>
     </div>
   </div>
-
+  </nav>
   </div>
-</nav>
+
 
 
   <img src="imagenes/fachada.jpg" alt="Fachada" width="850" height="533">

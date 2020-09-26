@@ -6,13 +6,13 @@
     if(!isset($usuario)){
         header("location: index.php");
     }else{
-        echo "<hi> BIENVENIDO $usuario </h1><br>";
+        
         $q = "SELECT * from usuarios where nombreUsuario = '$usuario ' ";
         $consulta = mysqli_query($conexion,$q);
         $array = mysqli_fetch_array($consulta);
         $IDU = $array['id'];
         $deptoUsuario = $array['id_depto'];
-       echo "<a href= 'logica/salir.php'> SALIR </a> ";
+       
     }
 ?>
 
@@ -21,19 +21,79 @@
     <head>
         <title>Autorización de folios</title>
         <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
     </head>
     <body>
+        <div align="center">
+    <img src=imagenes/header.png width="850" height="133">
+</div>
+
+  <nav class="navbar navbar-expand-lg navbar-light navbar-dark" style="background-color: #1B396A">
+      <a class="navbar-brand" href="#"> <?php echo "¡BIENVENIDO! $usuario" ?> </a>
+ <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4"
+    aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+
+        <a class="nav-link" href="logica/salir.php">
+            Salir
+          <i class="fa fa-sign-in" aria-hidden="true"></i>
+
+      </li>
+      </a>
+      <li>
+       
+
+           <a class="nav-link" href="solicitar.php">
+            Solicitar
+          <i class="fa fa-wrench" aria-hidden="true"></i>
+
+        </a>
+        </li>
+
+        <li>
+       
+
+           <a class="nav-link" href="autorizar.php">
+            Autorizar
+          <i class="fa fa-bolt" aria-hidden="true"></i>
+
+        </a>
+        </li>
+
+        <li>
+        
+
+           <a class="nav-link" href="control.php">
+            Volver
+          <i class="fa fa-reply" aria-hidden="true"></i>
+
+        </a>
+        </li>
+
+    </ul>
+  </div>
+  
+</nav>
+
+
                 <!---------------tabla de los folios--------------->
         <h2>Folios generados</h2>
-        <table border="1">
+        <table class="table table-striped">
         <tr>
-            <td>Folio </td>
-            <td>Fecha</td>
-            <td>Nombre del solicitante</td>
-            <td>Departamento que solicita</td>
-            <td>Departamento al que solicita</td>
-            <td>Asunto</td>                    
-            <td>Estado</td>
+            <th>Folio </th>
+            <th>Fecha</th>
+            <th>Nombre del solicitante</th>
+            <th>Departamento que solicita</th>
+            <th>Departamento al que solicita</th>
+            <th>Asunto</th>                    
+            <th>Estado</th>
              <!-- <td>Modificar</td>
             <td>Eliminar</td>
             <td>Imprimir</td> -->
@@ -93,18 +153,18 @@
 
         <h2>Autorizar solicitudes de folios</h2>
         <div>
-            <table border="1">
+            <table class="table table-striped">
                 <tr>
-                    <td>Solicitud No.</td>
-                    <td>Fecha</td>
-                    <td>Nombre del solicitante</td>
-                    <td>Departamento que solicita</td>
-                    <td>Departamento al que solicita</td>
-                    <td>Asunto</td>
-                    <td>Cantidad</td>
-                    <td>Estado</td>                    
-                    <td>Autorizar</td>
-                    <td>Cancelar</td>
+                    <th>Solicitud No.</th>
+                    <th>Fecha</th>
+                    <th>Nombre del solicitante</th>
+                    <th>Departamento que solicita</th>
+                    <th>Departamento al que solicita</th>
+                    <th>Asunto</th>
+                    <th>Cantidad</th>
+                    <th>Estado</th>                    
+                    <th>Autorizar</th>
+                    <th>Cancelar</th>
                 </tr>
                 <?php
                 //seleccionar las solicitudes del departamento del usuario logueado (las que puede autorizar o cancelar)               
@@ -154,7 +214,7 @@
                             <input type="text" name="id" value=<?php echo $datos['id_solicitud'];?> hidden="true" >
                             <input type="text" name="auto" value="1" hidden="true" > 
                             <?php if($datos['estado']=="Solicitado"){ ?>                                                                                
-                            <input type="submit" name="autorizar" value="Autorizar" > 
+                            <input type="submit" name="autorizar" value="Autorizar" class="btn btn-success btn-lg" > 
                             <?php } ?>
                         </form>
                     </td>                 
@@ -163,7 +223,7 @@
                             <input type="text" name="id" value=<?php echo $datos['id_solicitud'];?> hidden="true">
                             <input type="text" name="auto" value="0" hidden="true"> 
                             <?php if($datos['estado']=="Solicitado"){ ?>  
-                            <input type="submit" name="cancelar" value="Cancelar" >
+                            <input type="submit" name="cancelar" value="Cancelar" class="btn btn-danger btn-lg" >
                             <?php } ?>
                         </form>
                     </td>                 
