@@ -53,7 +53,8 @@
     <head>
         <title>Control de folios</title>
         <meta charset="utf-8">
-          <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+
+         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
           <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
@@ -120,7 +121,7 @@
         <label for="fecha_final">Fecha final:  </label>  
         <input type="date" id="fecha" name="fecha_final" value="<?php echo $fecha_final; ?>">  
         <label for=""> <?php echo $fecha_final ?></label>            
-        <input type="submit" value="Filtrar" class="btn info-btn">
+        <button type="submit" value="Filtrar" class="btn btn-info">Filtrar</button>
         </form>
         </div>
         <div>
@@ -233,19 +234,26 @@
                             <input type="text" name="dS" value=<?php echo $datos['id_depto_sol'];?> hidden="true">
                             <input type="text" name="daS" value=<?php echo $datos['id_depto_genera'];?> hidden="true">
                             <?php if($datos['estado']=="Solicitado"){ ?>                             
-                                <input type="submit" name="editar" value="Editar" class="btn btn-danger" > 
+                                <input type="submit" name="editar" value="Editar" class="btn btn-warning" > 
                             <?php } ?>
                         </form>
-                    </td>                 
+                    </td>
+                    <!--   /*              
                     <td>
-                      <!--  <form action="eliminar.php" method="POST">
+                        <form action="eliminar.php" method="POST">
                             <input type="text" name="id" value=<?php echo $datos['id_solicitud'];?> hidden="true">
                             <input type="text" name="dS" value=<?php echo $datos['id_depto_sol'];?> hidden="true">
                             <input type="text" name="daS" value=<?php echo $datos['id_depto_genera'];?> hidden="true">
                             <input type="submit" name="eliminar" value="Eliminar"  class="btn btn-danger" > 
                         </form> 
-                        -->
-                    </td>                 
+                        
+                    </td> 
+                    */
+                    -->
+                    <td>
+
+                        <button class="btn btn-success">Imprimir</button>
+                    </td>                
 
                 </tr>
                 <?php
@@ -401,6 +409,8 @@
 
 
         </div>
+
+
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     </body>

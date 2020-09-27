@@ -25,7 +25,8 @@
     <head>
         <title>Solicitar folios</title>
         <meta charset="utf-8">
-         <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+ <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
             <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
     </head>
@@ -132,7 +133,7 @@
                 <input type="number" name="cantidad" id="cantidad" min="1" pattern="^[0-9]+"><br><br>
                 <label for="asunto">Asunto:</label>
                 <textarea name="asunto" id="asunto" maxlength="100" cols="50" rows="5"></textarea><br><br>
-                <input type="submit" name="enviar" id="enviar" class="btn btn-primary btn-lg">
+                <button type="submit" name="enviar" id="enviar" class="btn btn-primary btn-lg">Enviar</button>
             </div>
             </form>
 
