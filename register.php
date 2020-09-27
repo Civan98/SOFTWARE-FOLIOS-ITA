@@ -1,9 +1,9 @@
 <?php
-  require 'logica/conexion.php';
-  session_start();
-  $q = "SELECT * from departamentos";
-  $consulta = mysqli_query($conexion,$q);
-  
+require 'logica/conexion.php';
+session_start();
+$q        = "SELECT * from departamentos";
+$consulta = mysqli_query($conexion, $q);
+
 ?>
 <!DOCTYPE html>
  <html lang="es">
@@ -21,10 +21,10 @@
 <body>
 <div align="center">
   <img src=imagenes/header.png width="850" height="133"></div>
-      
+
   <div align="center"><span style="font-family: 'Montserrat', sans-serif; font-weight: normal; font-style: normal; text-decoration: none; font-size: 16pt; color:gray">
-   Tecnológico Nacional de México Campus Acapulco<br>  
- </span>    
+   Tecnológico Nacional de México Campus Acapulco<br>
+ </span>
 </div>
 
 <div align="center">
@@ -50,7 +50,7 @@
   <div class="border" style="padding: 10px;">
   <h1>Registro de usuario</h1>
   <h2>Porfavor, introduzca los datos solicitados:</h2>
-<form action ="insert.php" method ="POST">  
+<form action ="insert.php" method ="POST">
 <div class="row">
 
   <div class="col">
@@ -70,7 +70,7 @@
 
 </div>
 
-    <div class="row">      
+    <div class="row">
   <div class="col">
     <label for="cargo">Cargo:</label>
     <input type="text" class="form-control" placeholder="Cargo" id="cargo"  name="cargo">
@@ -79,18 +79,17 @@
       <div class="col">
         <label for="departamento">Departamento:</label>
         <select id="inputState" class="form-control" name="departamento">
-        <?php 
-        //Consulta para rellenar el combobox
-        $indice = 0;
-          while($row =  mysqli_fetch_array($consulta))
-          {
-            $indice++;
-            $depto = $row['nombre_departamentos'];
-            ?>
-              <option value="<?php echo $depto?>"> <?php echo $indice.' - '.$depto?></option>
+        <?php
+//Consulta para rellenar el combobox
+$indice = 0;
+while ($row = mysqli_fetch_array($consulta)) {
+    $indice++;
+    $depto = $row['nombre_departamentos'];
+    ?>
+              <option value="<?php echo $depto ?>"> <?php echo $indice . ' - ' . $depto ?></option>
             <?php
-          }
-        ?>
+}
+?>
         </select>
       </div>
 
@@ -105,7 +104,7 @@
 
         <div class="col">
            <label for="passwordretry">Confirmar contraseña:</label>
-          <input type="password" name="passwordretry" id="passwordretry" name="passwordretry" placeholder="Confirmar Contraseña" class="form-control" required>        
+          <input type="password" name="passwordretry" id="passwordretry" name="passwordretry" placeholder="Confirmar Contraseña" class="form-control" required>
         </div>
       </div>
       <br>
@@ -138,7 +137,7 @@
  <hr width="80%">
 
  <div class="pie">
-    <span style="font-family: 'Montserrat', sans-serif; font-weight: normal; font-style: normal; text-decoration: none; font-size: 8pt; color:gray"> 
+    <span style="font-family: 'Montserrat', sans-serif; font-weight: normal; font-style: normal; text-decoration: none; font-size: 8pt; color:gray">
     <span id="copyright_osvp">ITA - ALGUNOS DERECHOS RESERVADOS © 2019 <br>
           TecNM | Tecnológico Nacional de México Campus Acapulco<br>
           Instituto Tecnológico de Acapulco<br>
@@ -150,4 +149,4 @@
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 </body>
-</html> 
+</html>

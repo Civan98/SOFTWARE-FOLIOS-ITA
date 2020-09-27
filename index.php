@@ -1,10 +1,10 @@
 <?php
-    // redirecciona a control si hay una sesion activa
-    require 'logica/conexion.php';
-    session_start();
-    if(isset($_SESSION['username'])){
-      header("location: control.php");
-  }
+// redirecciona a control si hay una sesion activa
+require 'logica/conexion.php';
+session_start();
+if (isset($_SESSION['username'])) {
+    header("location: control.php");
+}
 ?>
 
 <!DOCTYPE html>
@@ -23,11 +23,11 @@
 
 <body>
 <div align="center">
-	<img src=imagenes/header.png width="850" height="133"></div>
-      
+  <img src=imagenes/header.png width="850" height="133"></div>
+
   <div align="center"><span style="font-family: 'Montserrat', sans-serif; font-weight: normal; font-style: normal; text-decoration: none; font-size: 16pt; color:gray">
-   Tecnológico Nacional de México Campus Acapulco<br>  
- </span>    
+   Tecnológico Nacional de México Campus Acapulco<br>
+ </span>
 </div>
 
 <div align="center">
@@ -73,7 +73,7 @@
  <hr width="80%">
 
  <div class="pie">
-    <span style="font-family: 'Montserrat', sans-serif; font-weight: normal; font-style: normal; text-decoration: none; font-size: 8pt; color:gray"> 
+    <span style="font-family: 'Montserrat', sans-serif; font-weight: normal; font-style: normal; text-decoration: none; font-size: 8pt; color:gray">
     <span id="copyright_osvp">ITA - ALGUNOS DERECHOS RESERVADOS © 2019 <br>
           TecNM | Tecnológico Nacional de México Campus Acapulco<br>
           Instituto Tecnológico de Acapulco<br>
@@ -86,4 +86,4 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 </body>
-</html> 
+</html>

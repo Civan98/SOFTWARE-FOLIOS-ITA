@@ -1,24 +1,24 @@
 <?php
-    require 'logica/conexion.php';
-    session_start();
-    $usuario = $_SESSION['username'];
-    $qDepto = "SELECT * from departamentos";
-    $consultaDepto = mysqli_query($conexion,$qDepto);
+require 'logica/conexion.php';
+session_start();
+$usuario       = $_SESSION['username'];
+$qDepto        = "SELECT * from departamentos";
+$consultaDepto = mysqli_query($conexion, $qDepto);
 
-    if(!isset($usuario)){
-        header("location: index.php");
-    }else{
-        
-        $q = "SELECT * from usuarios where nombreUsuario = '$usuario' ";
-        $consulta = mysqli_query($conexion,$q);
-        $array = mysqli_fetch_array($consulta);
-        $IDU = $array['id'];
-        $deptoUsuario = $array['id_depto'];
-        $conDepto = "SELECT * FROM departamentos WHERE id_depto ='$deptoUsuario'";
-        $ejecutar = mysqli_query($conexion,$conDepto);
-        $deptoU = mysqli_fetch_array($ejecutar);
-       
-    }
+if (!isset($usuario)) {
+    header("location: index.php");
+} else {
+
+    $q            = "SELECT * from usuarios where nombreUsuario = '$usuario' ";
+    $consulta     = mysqli_query($conexion, $q);
+    $array        = mysqli_fetch_array($consulta);
+    $IDU          = $array['id'];
+    $deptoUsuario = $array['id_depto'];
+    $conDepto     = "SELECT * FROM departamentos WHERE id_depto ='$deptoUsuario'";
+    $ejecutar     = mysqli_query($conexion, $conDepto);
+    $deptoU       = mysqli_fetch_array($ejecutar);
+
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -53,7 +53,7 @@
       </li>
       </a>
             <li>
-       
+
 
            <a class="nav-link" href="solicitar.php">
             Solicitar
@@ -63,7 +63,7 @@
         </li>
 
         <li>
-       
+
 
            <a class="nav-link" href="autorizar.php">
             Autorizar
@@ -73,7 +73,7 @@
         </li>
 
         <li>
-        
+
 
            <a class="nav-link" href="control.php">
             Volver
@@ -89,7 +89,7 @@
      -->
     </ul>
   </div>
-  
+
 </nav>
 
 
@@ -97,24 +97,24 @@
             <form action="solicitar.php" method="POST">
                 <div class="form-group">
                 <h1>Solicitud de folios</h1>
-                <label for="fecha">Fecha: <?php date_default_timezone_set("America/Mexico_City"); echo date("d-m-Y");?> </label><br>
-                <!--<input type="date" id="fecha" name="fecha" value="<?php echo date("Y-m-d");?>"><br><br>-->
+                <label for="fecha">Fecha: <?php date_default_timezone_set("America/Mexico_City");
+echo date("d-m-Y");?> </label><br>
+                <!--<input type="date" id="fecha" name="fecha" value="<?php echo date("Y-m-d"); ?>"><br><br>-->
                 <label for="deptoSol">Departamento que solicita: <?php echo $deptoU['nombre_departamentos']; ?></label>
                 <br><br>
                 <label for="deptoSol">Departamento a solicitar: </label>
                 <select id="inputState" class="form-control" name="depto_a_Sol">
-            <?php 
-            //Consulta para rellenar el combobox
-            $indice = 0;
-            while($row =  mysqli_fetch_array($consultaDepto))
-            {
-                $indice++;
-                $depto = $row['nombre_departamentos'];
-                ?>
-                <option value="<?php echo $depto?>"> <?php echo $indice.' - '.$depto?></option>
+            <?php
+//Consulta para rellenar el combobox
+$indice = 0;
+while ($row = mysqli_fetch_array($consultaDepto)) {
+    $indice++;
+    $depto = $row['nombre_departamentos'];
+    ?>
+                <option value="<?php echo $depto ?>"> <?php echo $indice . ' - ' . $depto ?></option>
                 <?php
-            }
-            ?>
+}
+?>
             </select>
                 <!--<select name="depto_a_Sol" id="listaDaS">
                     <option value="Ingeniería en Sistemas Computacionales">Ingeniería en Sistemas Computacionales</option>
@@ -127,7 +127,7 @@
                     <option value="Dirección">Dirección</option>
                     <option value="Subdirección">Subdirección</option>
                 </select>-->
-                
+
                 <br><br>
                 <label for="cantidad">Cantidad: </label>
                 <input type="number" name="cantidad" id="cantidad" min="1" pattern="^[0-9]+"><br><br>

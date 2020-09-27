@@ -1,10 +1,10 @@
 <?php
-    //funcion para cuando haya un usuario no se loge de nuevo
-    require 'logica/conexion.php';
-    session_start();
-    if(isset($_SESSION['username'])){
-        header("location: control.php");
-    }
+//funcion para cuando haya un usuario no se loge de nuevo
+require 'logica/conexion.php';
+session_start();
+if (isset($_SESSION['username'])) {
+    header("location: control.php");
+}
 ?>
 
 <!DOCTYPE html>
@@ -24,19 +24,21 @@
 <body>
 <div align="center">
   <img src=imagenes/header.png width="850" height="133"></div>
-      
+
   <div align="center"><span style="font-family: 'Montserrat', sans-serif; font-weight: normal; font-style: normal; text-decoration: none; font-size: 16pt; color:gray">
-   Tecnológico Nacional de México Campus Acapulco<br>  
- </span>    
+   Tecnológico Nacional de México Campus Acapulco<br>
+ </span>
 </div>
 
 <div align="center">
 
  <div class="container" style="margin-top: 20px; margin-bottom: 20px;">
   <nav class="navbar navbar-expand-lg navbar-light navbar-dark" style="background-color: #1B396A">
+
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
+
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
       <a class="nav-item nav-link " href="index.php">Home </a>
@@ -56,12 +58,12 @@
 <form action="logica/loguear.php" method="POST">
   <div class="form-group">
     <label for="username">Usuario</label>
-    <input type="text" class="form-control" id="username" aria-describedby="emailHelp" placeholder="Usuario" name="usuario">
+    <input type="text" class="form-control" id="username" aria-describedby="emailHelp" placeholder="Usuario" name="usuario" required>
     <!--<small id="emailHelp" class="form-text text-muted"></small>-->
   </div>
   <div class="form-group">
     <label for="exampleInputPassword1">Contraseña</label>
-    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Contraseña" name="clave">
+    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Contraseña" name="clave" required>
   </div>
   <div class="form-check">
     <input type="checkbox" class="form-check-input" id="exampleCheck1">
@@ -96,7 +98,7 @@
  <hr width="80%">
 
  <div class="pie">
-    <span style="font-family: 'Montserrat', sans-serif; font-weight: normal; font-style: normal; text-decoration: none; font-size: 8pt; color:gray"> 
+    <span style="font-family: 'Montserrat', sans-serif; font-weight: normal; font-style: normal; text-decoration: none; font-size: 8pt; color:gray">
     <span id="copyright_osvp">ITA - ALGUNOS DERECHOS RESERVADOS © 2019 <br>
           TecNM | Tecnológico Nacional de México Campus Acapulco<br>
           Instituto Tecnológico de Acapulco<br>
@@ -108,4 +110,4 @@
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 </body>
-</html> 
+</html>
