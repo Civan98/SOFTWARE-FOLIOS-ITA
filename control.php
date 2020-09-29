@@ -242,8 +242,13 @@ while ($datos = mysqli_fetch_array($soli)) {
                     */
                     -->
                     <td>
-
-                        <button class="btn btn-success">Imprimir</button>
+                        <form action="Imprimir.php" method="POST">
+                            <input type="text" name="id" value=<?php echo $datos['id_solicitud']; ?> hidden="true" >
+                            <input type="text" name="dS" value=<?php echo $datos['id_depto_sol']; ?> hidden="true">
+                            <input type="text" name="daS" value=<?php echo $datos['id_depto_genera']; ?> hidden="true">
+                            <input type="submit" name="Imprimir" value="Imprimir" class="btn btn-success" >
+                        </form>
+                       
                     </td>
 
                 </tr>
