@@ -13,6 +13,12 @@ if (!isset($usuario)) {
     $IDU          = $array['id'];
     $deptoUsuario = $array['id_depto'];
 
+    // consulta para obtener el nombre del depa del usuario
+    $q2        = "SELECT * FROM usuarios JOIN departamentos ON usuarios.id_depto = departamentos.id_depto WHERE usuarios.nombreUsuario = '$usuario' ";
+    $consulta2 = mysqli_query($conexion, $q2);
+    $array2    = mysqli_fetch_array($consulta2);
+    $depa      = $array2['nombre_departamentos'];
+
 }
 ?>
 
@@ -32,7 +38,7 @@ if (!isset($usuario)) {
 </div>
 
   <nav class="navbar navbar-expand-lg navbar-light navbar-dark" style="background-color: #1B396A">
-      <a class="navbar-brand" href="#"> <?php echo "¡BIENVENIDO! $usuario" ?> </a>
+      <a class="navbar-brand" href="#"> <?php echo "Departamento: $depa" ?> </a>
  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4"
     aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>

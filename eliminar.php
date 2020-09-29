@@ -26,7 +26,7 @@ if (!isset($usuario)) {
     </head>
     <body>
      <nav class="navbar navbar-expand-lg navbar-light navbar-dark" style="background-color: #1B396A">
-      <a class="navbar-brand" href="#"> <?php echo "BIENVENIDO $usuario" ?> </a>
+      <a class="navbar-brand" href="#"> <?php echo "Departamento:$depa" ?> </a>
  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4"
     aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>

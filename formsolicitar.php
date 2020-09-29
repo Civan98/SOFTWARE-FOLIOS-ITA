@@ -103,7 +103,7 @@ echo date("d-m-Y");?> </label><br>
                 <label for="deptoSol">Departamento que solicita: <?php echo $deptoU['nombre_departamentos']; ?></label>
                 <br><br>
                 <label for="deptoSol">Departamento a solicitar: </label>
-                <select id="inputState" class="form-control" name="depto_a_Sol">
+                <select id="inputState" class="form-control" name="depto_a_Sol" style="width: 33%;">
             <?php
 //Consulta para rellenar el combobox
 $indice = 0;
@@ -111,7 +111,9 @@ while ($row = mysqli_fetch_array($consultaDepto)) {
     $indice++;
     $depto = $row['nombre_departamentos'];
     ?>
-                <option value="<?php echo $depto ?>"> <?php echo $indice . ' - ' . $depto ?></option>
+                <option value="<?php echo $depto ?>">
+                    <?php echo $indice . ' - ' . $depto ?>
+                    </option>
                 <?php
 }
 ?>
@@ -130,9 +132,9 @@ while ($row = mysqli_fetch_array($consultaDepto)) {
 
                 <br><br>
                 <label for="cantidad">Cantidad: </label>
-                <input type="number" name="cantidad" id="cantidad" min="1" pattern="^[0-9]+"><br><br>
+                <input type="number" name="cantidad" id="cantidad" min="1" pattern="^[0-9]+" style="width: 5%;"><br><br>
                 <label for="asunto">Asunto:</label>
-                <textarea name="asunto" id="asunto" maxlength="100" cols="50" rows="5"></textarea><br><br>
+                <textarea name="asunto" id="asunto" maxlength="100" cols="50" rows="5" style="width: 43%;"></textarea><br><br>
                 <button type="submit" name="enviar" id="enviar" class="btn btn-primary btn-lg">Enviar</button>
             </div>
             </form>
