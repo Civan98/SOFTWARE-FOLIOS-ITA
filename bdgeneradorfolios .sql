@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 26-09-2020 a las 00:59:38
--- Versión del servidor: 10.1.38-MariaDB
--- Versión de PHP: 7.3.2
+-- Tiempo de generación: 29-09-2020 a las 06:15:15
+-- Versión del servidor: 10.4.14-MariaDB
+-- Versión de PHP: 7.4.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -81,6 +80,22 @@ CREATE TABLE `folios` (
   `estado` varchar(20) NOT NULL COMMENT 'aprobado, rechazado, solicitado'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Volcado de datos para la tabla `folios`
+--
+
+INSERT INTO `folios` (`id_depto_genera`, `id_folio`, `id_depto_sol`, `id_usuario`, `id_solicitud`, `fecha`, `asunto`, `estado`) VALUES
+(1, 1, 1, 3, 5, '2020-09-28', 'p5', 'Autorizado'),
+(1, 2, 1, 3, 5, '2020-09-28', 'p5', 'Autorizado'),
+(1, 3, 14, 5, 3, '2020-09-28', 'p3', 'Autorizado'),
+(1, 4, 14, 5, 3, '2020-09-28', 'p3', 'Autorizado'),
+(12, 1, 12, 6, 1, '2020-09-28', 'p1', 'Autorizado'),
+(12, 2, 12, 6, 1, '2020-09-28', 'p1', 'Autorizado'),
+(14, 1, 12, 6, 2, '2020-09-28', 'p2 dd', 'Autorizado'),
+(14, 1, 14, 5, 4, '2020-09-28', 'p4', 'Autorizado'),
+(14, 2, 12, 6, 2, '2020-09-28', 'p2 dd', 'Autorizado'),
+(14, 2, 14, 5, 4, '2020-09-28', 'p4', 'Autorizado');
+
 -- --------------------------------------------------------
 
 --
@@ -104,6 +119,17 @@ CREATE TABLE `solicitudes` (
   `fecha_cancel` datetime DEFAULT NULL COMMENT 'fecha cuando se canceló la solicitud'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Volcado de datos para la tabla `solicitudes`
+--
+
+INSERT INTO `solicitudes` (`id_depto_sol`, `id_solicitud`, `id_depto_genera`, `cantidad`, `asunto`, `estado`, `id_usuario`, `fecha`, `id_usuario_edit`, `fecha_edit`, `id_usuario_auto`, `fecha_auto`, `id_usuario_cancel`, `fecha_cancel`) VALUES
+(12, 1, 12, 2, 'p1', 'Autorizado', 6, '2020-09-28', NULL, NULL, 6, '2020-09-28 23:10:32', NULL, NULL),
+(12, 2, 14, 2, 'p2 dd', 'Autorizado', 6, '2020-09-28', NULL, NULL, 5, '2020-09-28 23:11:15', NULL, NULL),
+(14, 3, 1, 2, 'p3', 'Autorizado', 5, '2020-09-28', NULL, NULL, 3, '2020-09-28 23:11:43', NULL, NULL),
+(14, 4, 14, 2, 'p4', 'Autorizado', 5, '2020-09-28', NULL, NULL, 5, '2020-09-28 23:12:13', NULL, NULL),
+(1, 5, 1, 2, 'p5', 'Autorizado', 3, '2020-09-28', NULL, NULL, 3, '2020-09-28 23:14:41', NULL, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -125,7 +151,9 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `nombre`, `apellidos`, `nombreUsuario`, `cargo`, `contrasena`, `id_depto`) VALUES
-(3, 'Salvador ', 'Herrera Soriano', 'Salvador ', 'Director', '1234', 1);
+(3, 'Salvador ', 'Herrera Soriano', 'Salvador ', 'Director', '1234', 1),
+(5, 'Juan Miguel', 'Hernández Bravo', 'JM', 'Jefe de departamento de Ingeniería en Sistemas Computacional', '1234', 14),
+(6, 'Zaida', 'Villanueva', 'ZV', 'Jefa IBQ', '1234', 12);
 
 --
 -- Índices para tablas volcadas
@@ -141,7 +169,7 @@ ALTER TABLE `departamentos`
 -- Indices de la tabla `folios`
 --
 ALTER TABLE `folios`
-  ADD PRIMARY KEY (`id_folio`,`id_depto_genera`),
+  ADD PRIMARY KEY (`id_depto_genera`,`id_folio`,`id_depto_sol`),
   ADD KEY `fk_usuario_folio` (`id_usuario`),
   ADD KEY `fk_solicitud_folio` (`id_solicitud`),
   ADD KEY `fk_depto_sol_folio` (`id_depto_sol`),
@@ -174,22 +202,16 @@ ALTER TABLE `departamentos`
   MODIFY `id_depto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
--- AUTO_INCREMENT de la tabla `folios`
---
-ALTER TABLE `folios`
-  MODIFY `id_folio` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT de la tabla `solicitudes`
 --
 ALTER TABLE `solicitudes`
-  MODIFY `id_solicitud` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_solicitud` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'identificador del usuario', AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'identificador del usuario', AUTO_INCREMENT=7;
 
 --
 -- Restricciones para tablas volcadas

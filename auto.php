@@ -68,20 +68,57 @@
         $idU = $datos['id_usuario'];
         $idSoli = $datos['id_solicitud'];
 
-        
-        
-        for ($i=0; $i < $cantidad; $i++) { 
-            $insertar = "INSERT INTO folios (id_depto_genera, id_depto_sol, id_usuario,  id_solicitud, fecha, asunto, estado) VALUES ('$idDaS', '$idDS', '$idU', '$idSoli', CURDATE(), '$asunto', '$estado')";
-            $exec = mysqli_query($conexion, $insertar);
-            if(!$exec){
-                echo "<br>error al generar folios: ".mysqli_error($conexion);
+        //verificar que los folios sean del mismo depto para que esos folios los números sean consecutivos
+        if($idDS==$idDaS){
+            $ultimo_folio = mysqli_query($conexion, "SELECT MAX(id_folio) as id_folio FROM folios WHERE id_depto_genera ='$idDaS' and id_depto_sol = '$idDaS'");
+            if(!$ultimo_folio){
+                $folio = 0;
             }
             else{
-                
-                //echo "folios generados *link a página principal*";
-                header("location: autorizar.php");
+                $idF = mysqli_fetch_array($ultimo_folio);
+                $folio = $idF['id_folio'];
+            }
+
+            for ($i=0; $i < $cantidad; $i++) { 
+                $folio++;
+                //obtener el id_folio para incrementarle 1
+                $insertar = "INSERT INTO folios (id_depto_genera, id_folio, id_depto_sol, id_usuario,  id_solicitud, fecha, asunto, estado) VALUES ('$idDaS', '$folio','$idDS', '$idU', '$idSoli', CURDATE(), '$asunto', '$estado')";
+                $exec = mysqli_query($conexion, $insertar);
+                if(!$exec){
+                    echo $folio."<br>";
+                    echo "<br>error al generar folios: ".mysqli_error($conexion);
+                }
+                else{
+                    header("location: autorizar.php");
+                }
             }
         }
+        else{
+            $ultimo_folioD = mysqli_query($conexion, "SELECT MAX(id_folio) as id_folioD FROM folios WHERE (id_depto_genera <> '$idDS' and id_depto_sol <> '$idDS')");
+            if(!$ultimo_folioD){
+                $folioD = 0;
+            }
+            else{
+                $idFD = mysqli_fetch_array($ultimo_folioD);
+                $folioD = $idFD['id_folioD'];
+            }
+            for ($i=0; $i < $cantidad; $i++) { 
+                $folioD++;
+                //obtener el id_folio para incrementarle 1
+                $insertar = "INSERT INTO folios (id_depto_genera, id_folio, id_depto_sol, id_usuario,  id_solicitud, fecha, asunto, estado) VALUES ('$idDaS', '$folioD','$idDS', '$idU', '$idSoli', CURDATE(), '$asunto', '$estado')";
+                $exec = mysqli_query($conexion, $insertar);
+                if(!$exec){
+                    echo $folio."<br>";
+                    echo "<br>error al generar folios: ".mysqli_error($conexion);
+                }
+                else{
+                    header("location: autorizar.php");
+                }
+            }
+
+
+        }
+    
         
     }
     

@@ -8,7 +8,7 @@ $asunto   = $_POST['asunto'];
 if ($deptoAS == "" || $cantidad == "" || $asunto == "") {
     header("location: formsolicitar.php");
 } else {
-    echo "<br>" . $deptoAS . "<br>" . $cantidad . "<br>" . $asunto;
+   // echo "<br>" . $deptoAS . "<br>" . $cantidad . "<br>" . $asunto;
 
     //$conexion=new  mysqli("localhost",'root',"");
     require 'logica/conexion.php';
