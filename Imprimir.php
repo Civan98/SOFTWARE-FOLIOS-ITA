@@ -16,6 +16,8 @@
         {
             // Logo
             $this->Image('imagenes/header.png',30,10,160);
+            //marca de awa
+            $this->Image('imagenes/fondo.jpg',10,40,460);
             // Salto de línea
             $this->Ln(29);
             // Arial bold 15
