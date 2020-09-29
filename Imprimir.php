@@ -30,9 +30,9 @@
             $this->Ln(25);
             $this->SetFont('Arial','B',11);
             //alineador de la tabla
-            $this->Cell(10);
+            $this->Cell(5);
             //cabecera de la tabla
-            $this->Cell(45,10, 'DPTO. que lo genera', 1, 0, 'C', 0);
+            $this->Cell(50,10, 'DPTO. QUE LO GENERA', 1, 0, 'C', 0);
             $this->Cell(20,10, 'FOLIO', 1, 0, 'C', 0);
            // $this->Cell(45,10, 'DPTO. que lo solicita', 1, 0, 'C', 0);
             $this->Cell(25,10, 'USUARIO', 1, 0, 'C', 0);
@@ -74,8 +74,8 @@
         
         //$pdf->Cell(40,10,$usuario);
         while ($row = mysqli_fetch_array($consulta2)) {
-            $pdf->Cell(10);
-            $pdf->Cell(45,10, $row['id_depto_genera'], 1, 0, 'C', 0);
+            $pdf->Cell(5);
+            $pdf->Cell(50,10, $row['id_depto_genera'], 1, 0, 'C', 0);
             $pdf->Cell(20,10, $row['id_folio'], 1, 0, 'C', 0);
            // $pdf->Cell(45,10, $row['id_depto_sol'], 1, 0, 'C', 0);
             $pdf->Cell(25,10, $row['id_usuario'], 1, 0, 'C', 0);
