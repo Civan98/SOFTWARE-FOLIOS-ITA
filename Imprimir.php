@@ -53,6 +53,8 @@
             $this->Cell(0,10,utf8_decode('Página '.$this->PageNo()).'/{nb}',0,0,'C');
         }
         }
+        //****************************  CHEQUEN USEN LA SIGUIENTE CONSULTA PARA QUE SE ORDENE COMO QUIERE EL PROFE EL RESULTADO OMITIENDO LO DE LAS FECHAS, PORQUE QUIERE TODA LA TABLA   *****************************
+        //$consultaSF = "SELECT * FROM folios WHERE id_depto_sol = '$id_deptoU' and  DATE(fecha) >= '$fecha_inicio' and DATE(fecha) <= '$fecha_final' ORDER BY id_depto_genera ASC, id_folio DESC";
 
         $id_sol = $_POST['id'];//id de la solicitud
 
@@ -65,7 +67,7 @@
         $q2 = "SELECT * from folios where id_solicitud = '$id_sol' ";
         $consulta2  = mysqli_query($conexion, $q2);
        
-        
+    
     
         $pdf = new PDF();
         $pdf->AliasNbPages();

@@ -107,7 +107,7 @@ if (!isset($usuario)) {
         </tr>
             <?php
 //seleccionar los folios del departamento del usuario logeado
-$consultaSF = "SELECT * FROM folios WHERE id_depto_genera = '$deptoUsuario' ORDER BY fecha DESC";
+$consultaSF = "SELECT * FROM folios WHERE id_depto_genera = '$deptoUsuario' ORDER BY id_depto_genera ASC, id_folio DESC";
 $soliF      = mysqli_query($conexion, $consultaSF);
 
 //seleccionar el nombre del usuario logeado
