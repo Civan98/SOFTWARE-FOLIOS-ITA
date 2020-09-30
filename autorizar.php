@@ -107,7 +107,7 @@ if (!isset($usuario)) {
         </tr>
             <?php
 //seleccionar los folios del departamento del usuario logeado
-$consultaSF = "SELECT * FROM folios WHERE id_depto_genera = '$deptoUsuario' ORDER BY id_solicitud";
+$consultaSF = "SELECT * FROM folios WHERE id_depto_genera = '$deptoUsuario' ORDER BY fecha DESC";
 $soliF      = mysqli_query($conexion, $consultaSF);
 
 //seleccionar el nombre del usuario logeado
@@ -175,7 +175,7 @@ while ($datosF = mysqli_fetch_array($soliF)) {
                 </tr>
                 <?php
 //seleccionar las solicitudes del departamento del usuario logueado (las que puede autorizar o cancelar)
-$consultaS = "SELECT * FROM solicitudes WHERE id_depto_genera = '$deptoUsuario'";
+$consultaS = "SELECT * FROM solicitudes WHERE id_depto_genera = '$deptoUsuario' ORDER BY fecha DESC";
 $soli      = mysqli_query($conexion, $consultaS);
 
 //seleccionar el nombre del usuario logeado

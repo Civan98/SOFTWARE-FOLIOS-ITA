@@ -59,6 +59,7 @@
     $cantidad= 0;
 
     while($datos=mysqli_fetch_array($consulta)){
+        $anio_solicitud = $datos['year'];
         $cantidad = $datos['cantidad'];
         $fecha = $datos['fecha'];
         $idDS = $datos['id_depto_sol'];
@@ -68,8 +69,43 @@
         $idU = $datos['id_usuario'];
         $idSoli = $datos['id_solicitud'];
 
+        //seleccionar el último id folio con su año de solicitud
+        $anioActual = strftime("%Y");
+        $ultimo_folio = mysqli_query($conexion, "SELECT MAX(id_folio) as id_folio, year FROM folios WHERE id_depto_genera ='$idDaS' and year = '$anio_solicitud'");
+        if(!$ultimo_folio){
+            $folio = 0;
+        }
+        else{
+            $idF = mysqli_fetch_array($ultimo_folio);
+            if ($anioActual == $anio_solicitud){
+                $folio = $idF['id_folio'];
+            }
+            else{
+                $folio = 0;
+            }
+        }
+
+        for ($i=0; $i < $cantidad; $i++) { 
+            
+                $folio++;
+          
+            //obtener el id_folio para incrementarle 1
+            $insertar = "INSERT INTO folios ( year ,id_depto_genera, id_folio, id_depto_sol, id_usuario,  id_solicitud, fecha, asunto, estado) VALUES ('$anio_solicitud','$idDaS', '$folio','$idDS', '$idU', '$idSoli', NOW(), '$asunto', '$estado')";
+            $exec = mysqli_query($conexion, $insertar);
+            if(!$exec){
+                echo $folio."<br>";
+                echo "<br>error al generar folios: ".mysqli_error($conexion);
+            }
+            else{
+                header("location: autorizar.php");
+            }
+        }
+
+
+
+
         //verificar que los folios sean del mismo depto para que esos folios los números sean consecutivos
-        if($idDS==$idDaS){
+/*         if($idDS==$idDaS){
             $ultimo_folio = mysqli_query($conexion, "SELECT MAX(id_folio) as id_folio FROM folios WHERE id_depto_genera ='$idDaS' and id_depto_sol = '$idDaS'");
             if(!$ultimo_folio){
                 $folio = 0;
@@ -117,7 +153,7 @@
             }
 
 
-        }
+        } */
     
         
     }

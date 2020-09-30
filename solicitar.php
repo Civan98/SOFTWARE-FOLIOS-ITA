@@ -38,15 +38,35 @@ if ($deptoAS == "" || $cantidad == "" || $asunto == "") {
     foreach ($buscarDeptoAS as $DaS) {
         $depa = $DaS['id_depto'];
     }
-    //colocar el id del departamento al que pertenece el usuario de forma dinámica con datos del login, igual el id del usuario con los datos del login
-    $insertar = "INSERT INTO solicitudes (id_depto_sol, id_depto_genera, cantidad, asunto, estado, id_usuario, fecha) VALUES ('$deptoU', " . $depa . ",'$cantidad','$asunto','Solicitado', '$IDU', CURDATE())";
-    $exec     = mysqli_query($conexion, $insertar);
-
-    if (!$exec) {
-        echo "error" . mysqli_error($conexion);
+    //buscar el último id_solicitud y comparar el año
+    $anioActual = strftime("%Y");
+    $ultima_solicitud = mysqli_query ($conexion, "SELECT MAX(id_solicitud) as id_solicitud, year FROM solicitudes WHERE year = '$anioActual'");
+    $uS = mysqli_fetch_array($ultima_solicitud);
+    //$anioActual = strftime("%Y");
+    //$id_sol = 0;
+    if(!$ultima_solicitud){
+        $id_sol = 1;        
     } else {
+        //$id_sol = 1;
+        if ($anioActual == $uS['year']) {
+            $id_sol = $uS['id_solicitud'];
+            $id_sol++;
+        }
+        else{
+            $id_sol = 1;
+        }
+        
 
-        echo "<script language='javascript'> alert('Solicitud realizada con éxito');  window.location.href='formsolicitar.php';</script>";
+        $year = strftime("%Y");
+        $insertar = "INSERT INTO solicitudes ( year, id_depto_sol, id_solicitud, id_depto_genera, cantidad, asunto, estado, id_usuario, fecha) VALUES ('$year','$deptoU', '$id_sol', " . $depa . ",'$cantidad','$asunto','Solicitado', '$IDU', NOW())";
+        $exec     = mysqli_query($conexion, $insertar);
+
+        if (!$exec) {
+            echo "error ".mysqli_error($conexion);
+        } else {
+
+            echo "<script language='javascript'> alert('Solicitud realizada con éxito');  window.location.href='formsolicitar.php';</script>";
+        }
     }
     mysqli_close($conexion);
 }

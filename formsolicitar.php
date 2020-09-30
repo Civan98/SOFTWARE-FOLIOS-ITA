@@ -98,7 +98,7 @@ if (!isset($usuario)) {
                 <div class="form-group">
                 <h1>Solicitud de folios</h1>
                 <label for="fecha">Fecha: <?php date_default_timezone_set("America/Mexico_City");
-echo date("d-m-Y");?> </label><br>
+echo date("d-m-Y"); $Year = strftime("%Y"); echo $Year; ?> </label><br>
                 <!--<input type="date" id="fecha" name="fecha" value="<?php echo date("Y-m-d"); ?>"><br><br>-->
                 <label for="deptoSol">Departamento que solicita: <?php echo $deptoU['nombre_departamentos']; ?></label>
                 <br><br>

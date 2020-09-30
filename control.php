@@ -3,8 +3,7 @@ require 'logica/conexion.php';
 
 session_start();
 $usuario = $_SESSION['username'];
-//$fecha_inicio = $_POST['fecha_inicio'];
-//$fecha_final = $_POST['fecha_final'];
+
 if (isset($_POST['fecha_inicio']) || isset($_POST['fecha_final'])) {
     $fecha_inicio = $_POST['fecha_inicio'];
     $fecha_final  = $_POST['fecha_final'];
@@ -144,8 +143,13 @@ echo "<a href= 'logica/salir.php'> SALIR </a> ";
                     <th>Imprimir</th>
                 </tr>
                 <?php
-//seleccionar las solicitudes del departamento del usuario logueado  BETWEEN fecha = STR_TO_DATE('$fecha_inicio', '%Y-%m-%d') and fecha =STR_TO_DATE('$fecha_final', '%Y-%m-%d')
-$consultaS = "SELECT * FROM solicitudes WHERE id_depto_sol = '$id_deptoU' and  fecha BETWEEN STR_TO_DATE('$fecha_inicio', '%Y-%m-%d') and STR_TO_DATE('$fecha_final', '%Y-%m-%d')";
+//seleccionar las solicitudes del departamento del usuario logueado  
+//$consultaS = "SELECT * FROM solicitudes WHERE id_depto_sol = '$id_deptoU' and  fecha BETWEEN STR_TO_DATE('$fecha_inicio', '%Y-%m-%d') and STR_TO_DATE('$fecha_final', '%Y-%m-%d') ORDER BY fecha DESC";
+//$fecha_inicio .= ' 00:00:00';
+//$fecha_final .= ' 00:00:00';
+echo "<p>< ".$fecha_final."</p>";
+$consultaS = "SELECT * FROM solicitudes WHERE id_depto_sol = '$id_deptoU' and  DATE(fecha) >= '$fecha_inicio' and DATE(fecha) <= '$fecha_final'";
+
 $soli      = mysqli_query($conexion, $consultaS);
 
 //seleccionar el nombre del departamento del usuario logeado
@@ -282,7 +286,7 @@ while ($datos = mysqli_fetch_array($soli)) {
         </tr>
             <?php
 //seleccionar los folios del departamento del usuario logeado
-$consultaSF = "SELECT * FROM folios WHERE id_depto_sol = '$id_deptoU' ORDER BY id_solicitud";
+$consultaSF = "SELECT * FROM folios WHERE id_depto_sol = '$id_deptoU' ORDER BY fecha DESC";
 $soliF      = mysqli_query($conexion, $consultaSF);
 
 //seleccionar el nombre del departamento del usuario logeado (el que solicita)

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-09-2020 a las 06:15:15
+-- Tiempo de generación: 30-09-2020 a las 07:51:19
 -- Versión del servidor: 10.4.14-MariaDB
 -- Versión de PHP: 7.4.10
 
@@ -70,12 +70,13 @@ INSERT INTO `departamentos` (`id_depto`, `nombre_departamentos`) VALUES
 --
 
 CREATE TABLE `folios` (
+  `year` year(4) NOT NULL,
   `id_depto_genera` int(11) NOT NULL,
   `id_folio` int(11) NOT NULL,
   `id_depto_sol` int(11) NOT NULL COMMENT 'Departamento que solicita\r\n',
   `id_usuario` int(11) NOT NULL COMMENT 'Usuario que pidió el folio',
   `id_solicitud` int(11) NOT NULL,
-  `fecha` date NOT NULL,
+  `fecha` datetime NOT NULL,
   `asunto` varchar(100) NOT NULL,
   `estado` varchar(20) NOT NULL COMMENT 'aprobado, rechazado, solicitado'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -84,17 +85,16 @@ CREATE TABLE `folios` (
 -- Volcado de datos para la tabla `folios`
 --
 
-INSERT INTO `folios` (`id_depto_genera`, `id_folio`, `id_depto_sol`, `id_usuario`, `id_solicitud`, `fecha`, `asunto`, `estado`) VALUES
-(1, 1, 1, 3, 5, '2020-09-28', 'p5', 'Autorizado'),
-(1, 2, 1, 3, 5, '2020-09-28', 'p5', 'Autorizado'),
-(1, 3, 14, 5, 3, '2020-09-28', 'p3', 'Autorizado'),
-(1, 4, 14, 5, 3, '2020-09-28', 'p3', 'Autorizado'),
-(12, 1, 12, 6, 1, '2020-09-28', 'p1', 'Autorizado'),
-(12, 2, 12, 6, 1, '2020-09-28', 'p1', 'Autorizado'),
-(14, 1, 12, 6, 2, '2020-09-28', 'p2 dd', 'Autorizado'),
-(14, 1, 14, 5, 4, '2020-09-28', 'p4', 'Autorizado'),
-(14, 2, 12, 6, 2, '2020-09-28', 'p2 dd', 'Autorizado'),
-(14, 2, 14, 5, 4, '2020-09-28', 'p4', 'Autorizado');
+INSERT INTO `folios` (`year`, `id_depto_genera`, `id_folio`, `id_depto_sol`, `id_usuario`, `id_solicitud`, `fecha`, `asunto`, `estado`) VALUES
+(2019, 1, 1, 1, 3, 1, '2020-09-30 00:00:55', 'p1', 'Autorizado'),
+(2019, 1, 2, 1, 3, 1, '2020-09-30 00:00:55', 'p1', 'Autorizado'),
+(2019, 1, 3, 1, 3, 1, '2020-09-30 00:00:55', 'p1', 'Autorizado'),
+(2020, 1, 1, 1, 3, 1, '2020-09-30 00:01:24', 'nuevo año', 'Autorizado'),
+(2020, 1, 2, 1, 3, 1, '2020-09-30 00:01:24', 'nuevo año', 'Autorizado'),
+(2020, 1, 3, 1, 3, 1, '2020-09-30 00:01:24', 'nuevo año', 'Autorizado'),
+(2020, 1, 4, 1, 3, 2, '2020-09-30 00:01:59', 'nuevo año 2', 'Autorizado'),
+(2020, 1, 5, 1, 3, 2, '2020-09-30 00:01:59', 'nuevo año 2', 'Autorizado'),
+(2020, 1, 6, 1, 3, 2, '2020-09-30 00:01:59', 'nuevo año 2', 'Autorizado');
 
 -- --------------------------------------------------------
 
@@ -103,6 +103,7 @@ INSERT INTO `folios` (`id_depto_genera`, `id_folio`, `id_depto_sol`, `id_usuario
 --
 
 CREATE TABLE `solicitudes` (
+  `year` year(4) NOT NULL,
   `id_depto_sol` int(11) NOT NULL,
   `id_solicitud` int(11) NOT NULL,
   `id_depto_genera` int(11) NOT NULL,
@@ -110,7 +111,7 @@ CREATE TABLE `solicitudes` (
   `asunto` varchar(100) NOT NULL,
   `estado` varchar(20) NOT NULL,
   `id_usuario` int(11) NOT NULL,
-  `fecha` date DEFAULT NULL COMMENT 'Fecha en que se creó la solicitud',
+  `fecha` datetime DEFAULT NULL COMMENT 'Fecha en que se creó la solicitud',
   `id_usuario_edit` int(11) DEFAULT NULL COMMENT 'Usuario que edita la solicitud',
   `fecha_edit` datetime DEFAULT NULL COMMENT 'Fecha en que el usuario editó la solicitud',
   `id_usuario_auto` int(11) DEFAULT NULL COMMENT 'id del usuario que editó',
@@ -123,12 +124,10 @@ CREATE TABLE `solicitudes` (
 -- Volcado de datos para la tabla `solicitudes`
 --
 
-INSERT INTO `solicitudes` (`id_depto_sol`, `id_solicitud`, `id_depto_genera`, `cantidad`, `asunto`, `estado`, `id_usuario`, `fecha`, `id_usuario_edit`, `fecha_edit`, `id_usuario_auto`, `fecha_auto`, `id_usuario_cancel`, `fecha_cancel`) VALUES
-(12, 1, 12, 2, 'p1', 'Autorizado', 6, '2020-09-28', NULL, NULL, 6, '2020-09-28 23:10:32', NULL, NULL),
-(12, 2, 14, 2, 'p2 dd', 'Autorizado', 6, '2020-09-28', NULL, NULL, 5, '2020-09-28 23:11:15', NULL, NULL),
-(14, 3, 1, 2, 'p3', 'Autorizado', 5, '2020-09-28', NULL, NULL, 3, '2020-09-28 23:11:43', NULL, NULL),
-(14, 4, 14, 2, 'p4', 'Autorizado', 5, '2020-09-28', NULL, NULL, 5, '2020-09-28 23:12:13', NULL, NULL),
-(1, 5, 1, 2, 'p5', 'Autorizado', 3, '2020-09-28', NULL, NULL, 3, '2020-09-28 23:14:41', NULL, NULL);
+INSERT INTO `solicitudes` (`year`, `id_depto_sol`, `id_solicitud`, `id_depto_genera`, `cantidad`, `asunto`, `estado`, `id_usuario`, `fecha`, `id_usuario_edit`, `fecha_edit`, `id_usuario_auto`, `fecha_auto`, `id_usuario_cancel`, `fecha_cancel`) VALUES
+(2019, 1, 1, 1, 3, 'p1', 'Autorizado', 3, '2020-09-30 00:00:35', NULL, NULL, 3, '2020-09-30 00:01:24', NULL, NULL),
+(2020, 1, 1, 1, 3, 'nuevo año', 'Autorizado', 3, '2020-09-30 00:01:10', NULL, NULL, 3, '2020-09-30 00:01:24', NULL, NULL),
+(2020, 1, 2, 1, 3, 'nuevo año 2', 'Autorizado', 3, '2020-09-30 00:01:50', NULL, NULL, 3, '2020-09-30 00:01:59', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -169,7 +168,7 @@ ALTER TABLE `departamentos`
 -- Indices de la tabla `folios`
 --
 ALTER TABLE `folios`
-  ADD PRIMARY KEY (`id_depto_genera`,`id_folio`,`id_depto_sol`),
+  ADD PRIMARY KEY (`year`,`id_depto_genera`,`id_folio`,`id_depto_sol`),
   ADD KEY `fk_usuario_folio` (`id_usuario`),
   ADD KEY `fk_solicitud_folio` (`id_solicitud`),
   ADD KEY `fk_depto_sol_folio` (`id_depto_sol`),
@@ -179,7 +178,7 @@ ALTER TABLE `folios`
 -- Indices de la tabla `solicitudes`
 --
 ALTER TABLE `solicitudes`
-  ADD PRIMARY KEY (`id_solicitud`,`id_depto_sol`),
+  ADD PRIMARY KEY (`id_solicitud`,`id_depto_sol`,`year`) USING BTREE,
   ADD KEY `fk_usuario` (`id_usuario`),
   ADD KEY `fk_id_depto_genera` (`id_depto_genera`),
   ADD KEY `fk_id_depto_sol` (`id_depto_sol`);
@@ -200,12 +199,6 @@ ALTER TABLE `usuarios`
 --
 ALTER TABLE `departamentos`
   MODIFY `id_depto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
-
---
--- AUTO_INCREMENT de la tabla `solicitudes`
---
-ALTER TABLE `solicitudes`
-  MODIFY `id_solicitud` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
