@@ -33,6 +33,7 @@ if (!isset($usuario)) {
     $consulta2 = mysqli_query($conexion, $q2);
     $array2    = mysqli_fetch_array($consulta2);
     $depa      = $array2['nombre_departamentos'];
+
     /*
 echo "<hi> BIENVENIDO $usuario </h1><br>";
 echo "id_depto usuario:".$id_deptoU;
@@ -55,6 +56,12 @@ echo "<a href= 'logica/salir.php'> SALIR </a> ";
          <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
           <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<style type="text/css">
+    th {
+  background: white;
+  position: sticky;
+  top: 0; /* Don't forget this, required for the stickiness */}
+</style>
 
     </head>
     <body>
@@ -69,18 +76,34 @@ echo "<a href= 'logica/salir.php'> SALIR </a> ";
     aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
+  <span class="navbar-brand" style="margin-left: 25%;">
+      Control de folios
+    </span>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
     <ul class="navbar-nav ml-auto">
       <li class="nav-item">
 
-        <a class="nav-link" href="logica/salir.php">
-            Salir
-          <i class="fa fa-sign-in" aria-hidden="true"></i>
+        <a class="nav-link" href="#">
+            <?php echo "Usuario: $usuario"; ?>
+         </a>
 
       </li>
-      </a>
-      <li>
+
+      <li class="nav-item">
+
+
+           <a class="nav-link active" href="#">
+            Control
+            <span class="sr-only">(current)</span>
+          <i class="fa fa-address-book" aria-hidden="true"></i>
+
+
+        </a>
+        </li>
+
+
+      <li class="nav-item">
 
 
            <a class="nav-link" href="solicitar.php">
@@ -99,6 +122,15 @@ echo "<a href= 'logica/salir.php'> SALIR </a> ";
 
         </a>
         </li>
+
+        <li class="nav-item">
+
+        <a class="nav-link" href="logica/salir.php">
+            Salir
+          <i class="fa fa-sign-in" aria-hidden="true"></i>
+        </a>
+
+      </li>
 
      <!-- <li class="nav-item">
         <a class="nav-link" href="#">
@@ -121,34 +153,39 @@ echo "<a href= 'logica/salir.php'> SALIR </a> ";
         <button type="submit" value="Filtrar" class="btn btn-info">Filtrar</button>
         </form>
         </div>
+
+
         <div>
+            <div style="position: relative; height: 500px; overflow: auto;">
             <table class="table table-striped">
+               <thead>
                 <tr>
-                    <th>Solicitud No.</th>
+                    <th scope="col">Solicitud No.</th>
                     <th>Fecha</td>
-                    <th>Nombre del solicitante</th>
-                    <th>Departamento que solicita</th>
+                    <th scope="col">Nombre del solicitante</th>
+                    <th scope="col">Departamento que solicita</th>
                     <th>Departamento al que solicita</th>
-                    <th>Asunto</th>
-                    <th>Cantidad</th>
-                    <th>Estado</th>
-                    <th>Usuario que editó</th>
-                    <th>Fecha de edición</th>
-                    <th>Usuario que autorizó</th>
-                    <th>Fecha de autorización</th>
-                    <th>Usuario que canceló</th>
-                    <th>Fecha de cancelación</th>
-                    <th>Editar</th>
+                    <th scope="col">Asunto</th>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Usuario que editó</th>
+                    <th scope="col">Fecha de edición</th>
+                    <th scope="col">Usuario que autorizó</th>
+                    <th scope="col">Fecha de autorización</th>
+                    <th scope="col">Usuario que canceló</th>
+                    <th scope="col">Fecha de cancelación</th>
+                    <th scope="col">Editar</th>
                     <!--<th>Eliminar</th>-->
                     <th>Imprimir</th>
                 </tr>
+                </thead>
                 <?php
-//seleccionar las solicitudes del departamento del usuario logueado  
+//seleccionar las solicitudes del departamento del usuario logueado
 //$consultaS = "SELECT * FROM solicitudes WHERE id_depto_sol = '$id_deptoU' and  fecha BETWEEN STR_TO_DATE('$fecha_inicio', '%Y-%m-%d') and STR_TO_DATE('$fecha_final', '%Y-%m-%d') ORDER BY fecha DESC";
 
 $consultaS = "SELECT * FROM solicitudes WHERE id_depto_sol = '$id_deptoU' and  DATE(fecha) >= '$fecha_inicio' and DATE(fecha) <= '$fecha_final'";
 
-$soli      = mysqli_query($conexion, $consultaS);
+$soli = mysqli_query($conexion, $consultaS);
 
 //seleccionar el nombre del departamento del usuario logeado
 $consultaD = "SELECT nombre_departamentos FROM departamentos WHERE id_depto= '$id_deptoU' ";
@@ -207,9 +244,9 @@ while ($datos = mysqli_fetch_array($soli)) {
         //  if ($datos['id_usuario'] == $n['id']){
         ?>
 
-
+            <tbody>
                 <tr>
-                    <td><?php echo $datos['id_solicitud']; ?></td>
+                    <th scope="row" ><?php echo $datos['id_solicitud']; ?></th>
                     <td><?php echo $datos['fecha']; ?></td>
                     <td><?php foreach ($nom as $n) {echo $n['nombre'] . " " . $n['apellidos'];}?></td>
                     <td><?php foreach ($depto as $d) {echo $d['nombre_departamentos'];}?></td>
@@ -242,16 +279,18 @@ while ($datos = mysqli_fetch_array($soli)) {
                                 <input type="submit" name="Imprimir" value="Imprimir" class="btn btn-success" >
                             <?php }?>
                         </form>
-                       
+
                     </td>
 
                 </tr>
+                </tbody>
                 <?php
 /// }
     }
 }
 ?>
             </table>
+            </div>
 
 
 

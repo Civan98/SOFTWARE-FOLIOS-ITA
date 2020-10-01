@@ -18,6 +18,11 @@ if (!isset($usuario)) {
     $ejecutar     = mysqli_query($conexion, $conDepto);
     $deptoU       = mysqli_fetch_array($ejecutar);
 
+    $q2        = "SELECT * FROM usuarios JOIN departamentos ON usuarios.id_depto = departamentos.id_depto WHERE usuarios.nombreUsuario = '$usuario' ";
+    $consulta2 = mysqli_query($conexion, $q2);
+    $array2    = mysqli_fetch_array($consulta2);
+    $depa      = $array2['nombre_departamentos'];
+
 }
 ?>
 <!DOCTYPE html>
@@ -35,28 +40,45 @@ if (!isset($usuario)) {
     <img src=imagenes/header.png width="850" height="133">
     </div>
 
-      <nav class="navbar navbar-expand-lg navbar-light navbar-dark" style="background-color: #1B396A">
-      <a class="navbar-brand" href="#"> <?php echo "BIENVENIDO $usuario" ?> </a>
+
+<nav class="navbar navbar-expand-lg navbar-light navbar-dark" style="background-color: #1B396A">
+      <a class="navbar-brand" href="#"> <?php echo "Departamento: $depa" ?> </a>
  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4"
     aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
+  <span class="navbar-brand" style="margin-left: 25%;">
+      Solicitud de folios
+    </span>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
     <ul class="navbar-nav ml-auto">
       <li class="nav-item">
 
-        <a class="nav-link" href="logica/salir.php">
-            Salir
-          <i class="fa fa-sign-in" aria-hidden="true"></i>
+        <a class="nav-link" href="#">
+            <?php echo "Usuario: $usuario"; ?>
+         </a>
 
       </li>
-      </a>
-            <li>
+
+      <li class="nav-item">
 
 
-           <a class="nav-link" href="solicitar.php">
+           <a class="nav-link" href="control.php">
+            Control
+          <i class="fa fa-address-book" aria-hidden="true"></i>
+
+
+        </a>
+        </li>
+
+
+      <li class="nav-item">
+
+
+           <a class="nav-link active" href="#">
             Solicitar
+            <span class="sr-only">(current)</span>
           <i class="fa fa-wrench" aria-hidden="true"></i>
 
         </a>
@@ -72,15 +94,15 @@ if (!isset($usuario)) {
         </a>
         </li>
 
-        <li>
+        <li class="nav-item">
 
-
-           <a class="nav-link" href="control.php">
-            Volver
-          <i class="fa fa-reply" aria-hidden="true"></i>
-
+        <a class="nav-link" href="logica/salir.php">
+            Salir
+          <i class="fa fa-sign-in" aria-hidden="true"></i>
         </a>
-        </li>
+
+      </li>
+
      <!-- <li class="nav-item">
         <a class="nav-link" href="#">
             aaa
@@ -98,7 +120,9 @@ if (!isset($usuario)) {
                 <div class="form-group">
                 <h1>Solicitud de folios</h1>
                 <label for="fecha">Fecha: <?php date_default_timezone_set("America/Mexico_City");
-echo date("d-m-Y"); $Year = strftime("%Y"); echo $Year; ?> </label><br>
+echo date("d-m-Y");
+$Year = strftime("%Y");
+echo $Year;?> </label><br>
                 <!--<input type="date" id="fecha" name="fecha" value="<?php echo date("Y-m-d"); ?>"><br><br>-->
                 <label for="deptoSol">Departamento que solicita: <?php echo $deptoU['nombre_departamentos']; ?></label>
                 <br><br>
