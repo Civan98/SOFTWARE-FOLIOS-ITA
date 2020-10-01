@@ -298,6 +298,10 @@ while ($datos = mysqli_fetch_array($soli)) {
 
             <!---------------tabla de los folios V2--------------->
             <h2>Folios generados</h2>
+            <form action="imprimir2.php" method="POST">
+                                <input type="submit" name="Imprimir" value="Imprimir" class="btn btn-success" >
+            </form>
+            <br>
         <table class="table table-striped">
         <tr>
             <td>Folio </td>
