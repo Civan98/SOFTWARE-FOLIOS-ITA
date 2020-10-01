@@ -78,8 +78,8 @@ if (!isset($usuario)) {
     
     $q        = "SELECT * FROM folios WHERE id_depto_sol = '$id_deptoU' ORDER BY id_depto_genera ASC, id_folio DESC";
     $consulta = mysqli_query($conexion, $q);
-    //$array    = mysqli_fetch_array($consulta);
-    //$ID       = $array['id'];
+    $array1    = mysqli_fetch_array($consulta);
+   // $id_depto_g       = $array1['id_depto_genera'];
 
     //$pdf = new PDF();
     $pdf=new PDF('L','mm','A4');//lianea para PDF horizontal
@@ -87,7 +87,7 @@ if (!isset($usuario)) {
     $pdf->AddPage();
     $pdf->SetFont('Arial', '', 9);
 
-    //consultas para el depto que solicita
+    //consulta para el depto que solicita
     $q4        = "SELECT * from departamentos where id_depto = '$id_deptoU' ";
     $consulta4 = mysqli_query($conexion, $q4);
     $array4    = mysqli_fetch_array($consulta4);
@@ -96,12 +96,18 @@ if (!isset($usuario)) {
   
     while ($row = mysqli_fetch_array($consulta)) {
         $pdf->Cell(5);//alineador
+        //consulta para el depto que genera
+        $id_dg = $row['id_depto_genera'];
+        $q6        = "SELECT * from departamentos where id_depto = '$id_dg' ";
+        $consulta6 = mysqli_query($conexion, $q6);
+        $array6    = mysqli_fetch_array($consulta6);
+        $nombre_gen  = $array6['nombre_departamentos'];
 
         $pdf->Cell(20, 10, $row['id_folio'], 1, 0, 'C', 0);
         $pdf->Cell(40, 10, $row['fecha'], 1, 0, 'C', 0);
 
         $pdf->Cell(50, 10, utf8_decode($nombre_sol), 1, 0, 'C', 0);
-        $pdf->Cell(50, 10, utf8_decode($row['id_depto_genera']), 1, 0, 'C', 0);
+        $pdf->Cell(50, 10, utf8_decode($nombre_gen), 1, 0, 'C', 0);
 
         $pdf->Cell(50, 10, utf8_decode($row['asunto']), 1, 0, 'L', 0);
         $pdf->Cell(30, 10, $row['estado'], 1, 1, 'C', 0);
