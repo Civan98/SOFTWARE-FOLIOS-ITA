@@ -3,6 +3,10 @@ require 'logica/conexion.php';
 
 session_start();
 $usuario = $_SESSION['username'];
+if (!isset($usuario)) {
+    session_destroy();
+    header("location: index.php");
+} else {
 
 if (isset($_POST['fecha_inicio']) || isset($_POST['fecha_final'])) {
     $fecha_inicio = $_POST['fecha_inicio'];
@@ -14,6 +18,7 @@ if (isset($_POST['fecha_inicio']) || isset($_POST['fecha_final'])) {
 }
 
 if (!isset($usuario)) {
+    session_destroy();
     header("location: index.php");
 } else {
 
@@ -27,23 +32,12 @@ if (!isset($usuario)) {
     $id_deptoU = $array['id_depto'];
     /*Selección de departamento*/
 
-    /* $typeUser =$array['cargo']; Selección del tipo de usuario:jefe,director*/
-
     // consulta para obtener el nombre del depa del usuario
     $q2        = "SELECT * FROM usuarios JOIN departamentos ON usuarios.id_depto = departamentos.id_depto WHERE usuarios.nombreUsuario = '$usuario' ";
     $consulta2 = mysqli_query($conexion, $q2);
     $array2    = mysqli_fetch_array($consulta2);
     $depa      = $array2['nombre_departamentos'];
 
-    /*
-echo "<hi> BIENVENIDO $usuario </h1><br>";
-echo "id_depto usuario:".$id_deptoU;
-echo "<br>$ID<br>";
-echo "$nombre<br>";
-echo "$depa<br>";
-
-echo "<a href= 'logica/salir.php'> SALIR </a> ";
- */
 
 }
 ?>
@@ -107,7 +101,7 @@ echo "<a href= 'logica/salir.php'> SALIR </a> ";
       <li class="nav-item">
 
 
-           <a class="nav-link" href="solicitar.php">
+           <a class="nav-link" href="formsolicitar.php">
             Solicitar
           <i class="fa fa-wrench" aria-hidden="true"></i>
 
@@ -133,12 +127,6 @@ echo "<a href= 'logica/salir.php'> SALIR </a> ";
 
       </li>
 
-     <!-- <li class="nav-item">
-        <a class="nav-link" href="#">
-            aaa
-         </a>
-      </li>
-     -->
     </ul>
   </div>
 
@@ -175,14 +163,11 @@ echo "<a href= 'logica/salir.php'> SALIR </a> ";
                     <th scope="col">Fecha de autorización</th>
                     <th scope="col">Usuario que canceló</th>
                     <th scope="col">Fecha de cancelación</th>
-                    <th scope="col">Editar</th>
-                    <!--<th>Eliminar</th>-->
+                    <th scope="col">Editar</th>                   
                     <th>Imprimir</th>
                 </tr>
                 </thead>
                 <?php
-//seleccionar las solicitudes del departamento del usuario logueado
-//$consultaS = "SELECT * FROM solicitudes WHERE id_depto_sol = '$id_deptoU' and  fecha BETWEEN STR_TO_DATE('$fecha_inicio', '%Y-%m-%d') and STR_TO_DATE('$fecha_final', '%Y-%m-%d') ORDER BY fecha DESC";
 
 $consultaS = "SELECT * FROM solicitudes WHERE id_depto_sol = '$id_deptoU' and  DATE(fecha) >= '$fecha_inicio' and DATE(fecha) <= '$fecha_final'";
 
@@ -240,9 +225,8 @@ while ($datos = mysqli_fetch_array($soli)) {
         $fechaCancel  = "-";
     }
 
-    //********************************* mostrar sólo las solicitudes que el usuario ha hecho **********************
     foreach ($nom as $n) {
-        //  if ($datos['id_usuario'] == $n['id']){
+     
         ?>
 
             <tbody>
@@ -286,17 +270,13 @@ while ($datos = mysqli_fetch_array($soli)) {
                 </tr>
                 </tbody>
                 <?php
-/// }
+
     }
 }
 ?>
             </table>
             </div>
 
-
-
-
-            <!---------------tabla de los folios V2--------------->
             <h2>Folios generados</h2>
             <form action="imprimir2.php" method="POST">
                                 <input type="submit" name="Imprimir" value="Imprimir" class="btn btn-success" >
@@ -311,9 +291,6 @@ while ($datos = mysqli_fetch_array($soli)) {
             <td>Departamento al que solicita</td>
             <td>Asunto</td>
             <td>Estado</td>
-             <!-- <td>Modificar</td>
-            <td>Eliminar</td>
-            <td>Imprimir</td> -->
         </tr>
             <?php
 //seleccionar los folios del departamento del usuario logeado
@@ -339,10 +316,7 @@ while ($datosF = mysqli_fetch_array($soliF)) {
     $deptoASF    = mysqli_query($conexion, $consultaASF);
 
     foreach ($nomF as $nF) {
-
         ?>
-
-
                 <tr>
                     <td><?php echo $datosF['id_folio']; ?></td>
                     <td><?php echo $datosF['fecha']; ?></td>
@@ -354,96 +328,15 @@ while ($datosF = mysqli_fetch_array($soliF)) {
 
                 </tr>
                 <?php
-
     }
 }
 ?>
             </table>
-
-            <!-- VERSIÓN 1
-            <h2>Folios generados</h2>
-            <table class="table table-striped">
-                <tr>
-                    <th>Folio </th>
-                    <th>Fecha</th>
-                    <th>Nombre del solicitante</th>
-                    <th>Departamento que solicita</th>
-                    <th>Departamento al que solicita</th>
-                    <th>Asunto</th>
-                    <th>Estado</th>
-                   <td>Modificar</td>
-                    <td>Eliminar</td>
-                    <td>Imprimir</td>
-                </tr>
-                <?php
-//seleccionar los folios del depto del usuario que ha solicitado
-$consultaSF = "SELECT * FROM folios WHERE id_depto_sol = '$id_deptoU'";
-$soliF      = mysqli_query($conexion, $consultaSF);
-
-//seleccionar el nombre del usuario logeado
-$consultaUF = "SELECT id,nombre, apellidos FROM usuarios WHERE id = '$ID'";
-$nomF       = mysqli_query($conexion, $consultaUF);
-
-//seleccionar el nombre del departamento del usuario logeado
-$consultaDF = "SELECT nombre_departamentos FROM departamentos WHERE id_depto= '$id_deptoU'";
-$deptoF     = mysqli_query($conexion, $consultaDF);
-
-if (!$soliF) {
-    echo "error" . mysqli_error($conexion);
-}
-while ($datosF = mysqli_fetch_array($soliF)) {
-    //seleccionar el nombre del departamento al que se solicita el folio
-    $consultaASF = "SELECT nombre_departamentos FROM departamentos WHERE id_depto=" . $datosF['id_depto_genera'];
-    $deptoASF    = mysqli_query($conexion, $consultaASF);
-
-    //mostrar sólo las solicitudes que el usuario ha hecho
-    foreach ($nomF as $nF) {
-        if ($datosF['id_usuario'] == $nF['id']) {
-            ?>
-
-
-                <tr>
-                    <td><?php echo $datosF['id_folio']; ?></td>
-                    <td><?php echo $datosF['fecha']; ?></td>
-                    <td><?php foreach ($nomF as $nF) {echo $nF['nombre'] . " " . $nF['apellidos'];}?></td>
-                    <td><?php foreach ($deptoF as $dF) {echo $dF['nombre_departamentos'];}?></td>
-                    <td><?php foreach ($deptoASF as $dASF) {echo $dASF['nombre_departamentos'];}?></td>
-                    <td><?php echo $datosF['asunto']; ?></td>
-                    <td><?php echo $datosF['estado']; ?></td>
-                     <td>
-                        <form action="modificar.php" method="POST">
-                            <input type="text" name="id" value=<?php //echo $datosF['id_solicitud'];?> hidden="true" >
-                            <input type="text" name="dS" value=<?php //echo $datosF['id_depto_sol'];?> hidden="true">
-                            <input type="text" name="daS" value=<?php //echo $datosF['id_depto_a_sol'];?> hidden="true">
-                            <?php // if($datos['estado']=="pendiente"){ ?>
-                                <input type="submit" name="modificar" value="Modificar" >
-                            <?php //} ?>
-                        </form>
-                    </td>
-                    <td>
-                        <form action="eliminar.php" method="POST">
-                            <input type="text" name="id" value=<?php //echo $datosF['id_solicitud'];?> hidden="true">
-                            <input type="text" name="dS" value=<?php //echo $datosF['id_depto_sol'];?> hidden="true">
-                            <input type="text" name="daS" value=<?php //echo $datosF['id_depto_a_sol'];?> hidden="true">
-                            <input type="submit" name="eliminar" value="Eliminar" >
-                        </form>
-                    </td>
-
-                </tr>
-                <?php
-}
-    }
-}
-mysqli_close($conexion);
-?>
-            </table> -->
-
-
         </div>
-
 
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     </body>
 
 </html>
+<?php }?>

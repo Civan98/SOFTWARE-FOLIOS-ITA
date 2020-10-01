@@ -1,6 +1,5 @@
 <?php
     $idS = $_POST['id_so'];
-    //$fecha = $_POST['fecha'];
     $deptoAS = $_POST['depto_a_Sol'];
     $cantidad = $_POST['cantidad'];
     $asunto = $_POST['asunto'];
@@ -21,8 +20,7 @@
                 echo "no se encontró la base de datos";
             }
         }
-        //falta identificar los departamentos en la tabla departamentos
-        //falta identificar el usuario, eso lo obtenemos con los datos del login
+
         $q = "SELECT * from usuarios where nombreUsuario = '$usuario ' ";
         $consulta = mysqli_query($conexion,$q);
         $array = mysqli_fetch_array($consulta);

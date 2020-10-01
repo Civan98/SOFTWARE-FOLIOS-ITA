@@ -61,12 +61,7 @@ if (!isset($usuario)) {
 
         </a>
         </li>
-     <!-- <li class="nav-item">
-        <a class="nav-link" href="#">
-            aaa
-         </a>
-      </li>
-     -->
+
     </ul>
   </div>
 
@@ -77,7 +72,7 @@ if (!isset($usuario)) {
         <h2>Modificar solicitudes de folios</h2>
             <?php
 
-// echo "datos:". $id." ".$dS." ".$daS." ";
+
 //seleccionar la solicitud deseada
 $consultaS = "SELECT * FROM solicitudes WHERE id_solicitud = '$id'";
 $soli      = mysqli_query($conexion, $consultaS);

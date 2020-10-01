@@ -1,6 +1,4 @@
 <?php
-//$fecha = $_POST['fecha'];
-//$deptoS = $_POST['depto_Sol'];
 $deptoAS  = $_POST['depto_a_Sol'];
 $cantidad = $_POST['cantidad'];
 $asunto   = $_POST['asunto'];
@@ -8,9 +6,7 @@ $asunto   = $_POST['asunto'];
 if ($deptoAS == "" || $cantidad == "" || $asunto == "") {
     header("location: formsolicitar.php");
 } else {
-   // echo "<br>" . $deptoAS . "<br>" . $cantidad . "<br>" . $asunto;
 
-    //$conexion=new  mysqli("localhost",'root',"");
     require 'logica/conexion.php';
     session_start();
     $usuario = $_SESSION['username'];
@@ -27,8 +23,6 @@ if ($deptoAS == "" || $cantidad == "" || $asunto == "") {
             echo "no se encontró la base de datos";
         }
     }
-    //falta identificar los departamentos en la tabla departamentos
-    //falta identificar el usuario, eso lo obtenemos con los datos del login
 
     $buscarDeptoAS = mysqli_query($conexion, "SELECT id_depto FROM departamentos WHERE nombre_departamentos = '$deptoAS'");
     if (!$buscarDeptoAS) {
@@ -42,12 +36,11 @@ if ($deptoAS == "" || $cantidad == "" || $asunto == "") {
     $anioActual = strftime("%Y");
     $ultima_solicitud = mysqli_query ($conexion, "SELECT MAX(id_solicitud) as id_solicitud, year FROM solicitudes WHERE year = '$anioActual'");
     $uS = mysqli_fetch_array($ultima_solicitud);
-    //$anioActual = strftime("%Y");
-    //$id_sol = 0;
+
     if(!$ultima_solicitud){
         $id_sol = 1;        
     } else {
-        //$id_sol = 1;
+        
         if ($anioActual == $uS['year']) {
             $id_sol = $uS['id_solicitud'];
             $id_sol++;

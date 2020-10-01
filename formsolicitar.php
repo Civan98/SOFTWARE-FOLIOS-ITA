@@ -6,6 +6,7 @@ $qDepto        = "SELECT * from departamentos";
 $consultaDepto = mysqli_query($conexion, $qDepto);
 
 if (!isset($usuario)) {
+    session_destroy();
     header("location: index.php");
 } else {
 
@@ -103,12 +104,7 @@ if (!isset($usuario)) {
 
       </li>
 
-     <!-- <li class="nav-item">
-        <a class="nav-link" href="#">
-            aaa
-         </a>
-      </li>
-     -->
+
     </ul>
   </div>
 
@@ -121,9 +117,7 @@ if (!isset($usuario)) {
                 <h1>Solicitud de folios</h1>
                 <label for="fecha">Fecha: <?php date_default_timezone_set("America/Mexico_City");
 echo date("d-m-Y");
-$Year = strftime("%Y");
-echo $Year;?> </label><br>
-                <!--<input type="date" id="fecha" name="fecha" value="<?php echo date("Y-m-d"); ?>"><br><br>-->
+$Year = strftime("%Y");?> </label><br>
                 <label for="deptoSol">Departamento que solicita: <?php echo $deptoU['nombre_departamentos']; ?></label>
                 <br><br>
                 <label for="deptoSol">Departamento a solicitar: </label>
@@ -142,17 +136,6 @@ while ($row = mysqli_fetch_array($consultaDepto)) {
 }
 ?>
             </select>
-                <!--<select name="depto_a_Sol" id="listaDaS">
-                    <option value="Ingeniería en Sistemas Computacionales">Ingeniería en Sistemas Computacionales</option>
-                    <option value="Arquitectura">Arquitectura</option>
-                    <option value="Licenciatura en Administración">Licenciatura en Administración</option>
-                    <option value="Contador Público">Contador Público</option>
-                    <option value="Ingeniería en Bioquímica">Ingeniería en Bioquímica</option>
-                    <option value="Ingeniería en Gestión Empresarial">Ingeniería en Gestión Empresarial</option>
-                    <option value="Ingeniería en Electromecánica">Ingeniería en Electromecánica</option>
-                    <option value="Dirección">Dirección</option>
-                    <option value="Subdirección">Subdirección</option>
-                </select>-->
 
                 <br><br>
                 <label for="cantidad">Cantidad: </label>

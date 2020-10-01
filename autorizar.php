@@ -4,6 +4,7 @@ session_start();
 $usuario = $_SESSION['username'];
 
 if (!isset($usuario)) {
+    session_destroy();
     header("location: index.php");
 } else {
 
@@ -100,12 +101,6 @@ if (!isset($usuario)) {
 
       </li>
 
-     <!-- <li class="nav-item">
-        <a class="nav-link" href="#">
-            aaa
-         </a>
-      </li>
-     -->
     </ul>
   </div>
 
@@ -124,19 +119,13 @@ if (!isset($usuario)) {
             <th>Departamento al que solicita</th>
             <th>Asunto</th>
             <th>Estado</th>
-             <!-- <td>Modificar</td>
-            <td>Eliminar</td>
-            <td>Imprimir</td> -->
+            
         </tr>
             <?php
 //seleccionar los folios del departamento del usuario logeado
 $consultaSF = "SELECT * FROM folios WHERE id_depto_genera = '$deptoUsuario' ORDER BY id_depto_genera ASC, id_folio DESC";
 $soliF      = mysqli_query($conexion, $consultaSF);
 
-//seleccionar el nombre del usuario logeado
-//$consultaUF="SELECT id,nombre, apellidos FROM usuarios WHERE id = '$IDU'";
-//$nomF = mysqli_query($conexion, $consultaUF);
-//$nF = mysqli_fetch_array($nomF);
 
 //seleccionar el nombre del departamento del usuario logeado
 $consultaDF = "SELECT nombre_departamentos FROM departamentos WHERE id_depto= '$deptoUsuario'";
@@ -156,9 +145,9 @@ while ($datosF = mysqli_fetch_array($soliF)) {
     $consultaASF = "SELECT nombre_departamentos FROM departamentos WHERE id_depto=" . $datosF['id_depto_sol'];
     $deptoASF    = mysqli_query($conexion, $consultaASF);
 
-    //mostrar sólo las solicitudes que el usuario ha hecho
+    
     foreach ($nomF as $nF) {
-        // if ($datosF['id_usuario'] == $nF['id']){
+        
         ?>
 
 
@@ -201,10 +190,6 @@ while ($datosF = mysqli_fetch_array($soliF)) {
 $consultaS = "SELECT * FROM solicitudes WHERE id_depto_genera = '$deptoUsuario' ORDER BY fecha DESC";
 $soli      = mysqli_query($conexion, $consultaS);
 
-//seleccionar el nombre del usuario logeado
-//$consultaU="SELECT id, id_depto, nombre, apellidos FROM usuarios WHERE id = '$IDU'";
-//$nom = mysqli_query($conexion, $consultaU);
-//$n = mysqli_fetch_array($nom);
 
 //seleccionar el nombre del departamento del usuario logeado
 $consultaD = "SELECT nombre_departamentos FROM departamentos WHERE id_depto= '$deptoUsuario'";
@@ -225,7 +210,7 @@ while ($datos = mysqli_fetch_array($soli)) {
 
     // revisar si el departamento al que solicitan es al que el usuario pertenece
     foreach ($nom as $n) {
-        //if ($datos['id_depto_genera'] == $n['id_depto']){
+        
 
         ?>
 
@@ -258,7 +243,6 @@ while ($datos = mysqli_fetch_array($soli)) {
                     </td>
                 </tr>
                 <?php
-//}
     }
 }
 mysqli_close($conexion);

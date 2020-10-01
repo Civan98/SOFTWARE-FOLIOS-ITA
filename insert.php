@@ -10,24 +10,8 @@ $departamento  = $_POST['departamento'];
 $password      = $_POST['password'];
 $passwordretry = $_POST['passwordretry'];
 
-//Falta el condicional para asignar los departamentos
-if ($password === $passwordretry) {
 
-    /* if($departamento == "ISC"){
-    $nomDepto ="Ingeniería en Sistemas Computacionales";
-    }
-    if($departamento == "LA"){
-    $nomDepto ="Licenciatura en Administración";
-    }
-    if($departamento == "IGE"){
-    $nomDepto ="Ingeniería en Gestión Empresarial";
-    }
-    if($departamento == "Dirección"){
-    $nomDepto ="Dirección";
-    }
-    if($departamento == "Subdirección"){
-    $nomDepto ="Subdirección";
-    }*/
+if ($password === $passwordretry) {
     $nomDepto = $departamento;
 
     $buscarUsuario = "SELECT nombreUsuario FROM usuarios WHERE nombreUsuario ='$NombreUsuario'";
