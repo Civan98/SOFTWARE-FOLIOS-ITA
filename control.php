@@ -8,6 +8,7 @@ if (isset($_POST['fecha_inicio']) || isset($_POST['fecha_final'])) {
     $fecha_inicio = $_POST['fecha_inicio'];
     $fecha_final  = $_POST['fecha_final'];
 } else {
+    date_default_timezone_set("America/Mexico_City");
     $fecha_inicio = date("Y-m-01");
     $fecha_final  = date("Y-m-d");
 }
