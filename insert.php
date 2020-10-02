@@ -37,7 +37,7 @@ if (!isset($usuario)) {
                 if (!$exec) {
                     echo "error" . mysqli_error($conexion);
                 } else {
-                    echo "<script language='javascript'> alert('Usuario creado con éxito');  window.location.href='index.php';</script>";
+                    echo "<script language='javascript'> alert('Usuario creado con éxito');  window.location.href='register.php';</script>";
                 }
             } else {
                 echo "<script language='javascript'> alert('Ya existe un usuario con ese nombre de usuario');  window.location.href='register.php';</script>";
