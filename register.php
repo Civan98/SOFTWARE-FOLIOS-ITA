@@ -1,9 +1,28 @@
 <?php
 require 'logica/conexion.php';
 session_start();
+$usuario = $_SESSION['username'];
+
 $q        = "SELECT * from departamentos";
 $consulta = mysqli_query($conexion, $q);
 
+$q2         = "SELECT * from usuarios where nombreUsuario = '$usuario ' ";
+$consulta2  = mysqli_query($conexion, $q2);
+$array     = mysqli_fetch_array($consulta2);
+$admin     = $array['admin'];
+
+
+//se valida que haya usuario en sesion
+
+if (!isset($usuario)) {
+    session_destroy();
+    header("location: index.php");
+  } else {
+        if($admin == 0){  //valida que el usuario no sea admin
+          session_destroy();
+          header("location: index.php");
+        }else{
+    
 ?>
 <!DOCTYPE html>
  <html lang="es">
@@ -34,12 +53,74 @@ $consulta = mysqli_query($conexion, $q);
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+  <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
     <div class="navbar-nav">
-      <a class="nav-item nav-link " href="index.php">Home </a>
-      <a class="nav-item nav-link " href="signup.php">Iniciar sesión  </a>
-      <a class="nav-item nav-link active" href="#">Registrarse <span class="sr-only">(current)</span></a>
+    <ul class="navbar-nav ml-auto">
+    
+    <li class="nav-item">
+
+      <a class="nav-link" href="#">
+          <?php echo "Usuario: $usuario"; ?>
+       </a>
+
+    </li><!--validación del admin-->
+   
+        <li class="nav-item">
+          <a class="nav-link" href="register.php">
+              Registrar
+              <span class="sr-only">(current)</span>
+          </a>
+
+        </li> 
+
+
+    <li class="nav-item">
+
+
+         <a class="nav-link active" href="control.php">
+          Control
+          
+        <i class="fa fa-address-book" aria-hidden="true"></i>
+
+
+      </a>
+      </li>
+
+
+    <li class="nav-item">
+
+
+         <a class="nav-link" href="formsolicitar.php">
+          Solicitar
+        <i class="fa fa-wrench" aria-hidden="true"></i>
+
+      </a>
+      </li>
+
+      <li>
+
+
+         <a class="nav-link" href="autorizar.php">
+          Autorizar
+        <i class="fa fa-bolt" aria-hidden="true"></i>
+
+      </a>
+      </li>
+
+      <li class="nav-item">
+
+      <a class="nav-link" href="logica/salir.php">
+          Salir
+        <i class="fa fa-sign-in" aria-hidden="true"></i>
+      </a>
+
+    </li>
+
+  </ul>
+   
     </div>
+
+
   </div>
 
   </div>
@@ -74,6 +155,14 @@ $consulta = mysqli_query($conexion, $q);
   <div class="col">
     <label for="cargo">Cargo:</label>
     <input type="text" class="form-control" placeholder="Cargo" id="cargo"  name="cargo">
+  </div>
+
+  <div class="col">
+    <label for="cargo">Administrador:</label>
+          <select  id="inputState" class="form-control" name="administrador" >
+            <option value="1">Si</option>
+            <option value="0">No</option>
+          </select>
   </div>
 
       <div class="col">
@@ -150,3 +239,6 @@ while ($row = mysqli_fetch_array($consulta)) {
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 </body>
 </html>
+<?php }?>
+
+<?php }?>

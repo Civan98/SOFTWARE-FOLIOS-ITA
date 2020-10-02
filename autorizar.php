@@ -13,6 +13,7 @@ if (!isset($usuario)) {
     $array        = mysqli_fetch_array($consulta);
     $IDU          = $array['id'];
     $deptoUsuario = $array['id_depto'];
+    $admin        = $array['admin'];
 
     // consulta para obtener el nombre del depa del usuario
     $q2        = "SELECT * FROM usuarios JOIN departamentos ON usuarios.id_depto = departamentos.id_depto WHERE usuarios.nombreUsuario = '$usuario' ";
@@ -57,6 +58,14 @@ if (!isset($usuario)) {
          </a>
 
       </li>
+      <?php if ($admin == 1){?>
+          <li class="nav-item">
+            <a class="nav-link" href="register.php">
+                <?php echo "Registrar"; ?>
+            </a>
+
+          </li> 
+      <?php } ?>
 
       <li class="nav-item">
 

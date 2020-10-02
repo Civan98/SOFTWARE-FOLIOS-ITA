@@ -15,6 +15,7 @@ if (!isset($usuario)) {
     $array        = mysqli_fetch_array($consulta);
     $IDU          = $array['id'];
     $deptoUsuario = $array['id_depto'];
+    $admin     = $array['admin'];
     $conDepto     = "SELECT * FROM departamentos WHERE id_depto ='$deptoUsuario'";
     $ejecutar     = mysqli_query($conexion, $conDepto);
     $deptoU       = mysqli_fetch_array($ejecutar);
@@ -61,6 +62,14 @@ if (!isset($usuario)) {
          </a>
 
       </li>
+      <?php if ($admin == 1){?>
+          <li class="nav-item">
+            <a class="nav-link" href="register.php">
+                <?php echo "Registrar"; ?>
+            </a>
+
+          </li> 
+      <?php } ?>
 
       <li class="nav-item">
 
