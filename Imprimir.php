@@ -79,8 +79,8 @@ if (!isset($usuario)) {
 
     //consulta para obtener los folios de la solicitud
     $q2        = "SELECT * from folios where id_solicitud = '$id_sol' ";
-    $consulta2 = mysqli_query($conexion, $q2);
-    $consultar = mysqli_query($conexion, $q2);
+    $consulta2 = mysqli_query($conexion, $q2);//consulta para la obtencion del id del depto
+    $consultar = mysqli_query($conexion, $q2);//consulta para el ciclo while
     $array2    = mysqli_fetch_array($consulta2);
 
     // consulta para obtener el nombre del depa del usuario
