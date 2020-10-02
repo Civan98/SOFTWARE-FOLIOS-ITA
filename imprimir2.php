@@ -103,12 +103,177 @@ if (!isset($usuario)) {
         $array6    = mysqli_fetch_array($consulta6);
         $nombre_gen  = $array6['nombre_departamentos'];
 
+        $nombre_solA = "";
+        switch($nombre_sol){
+            case 'Dirección':
+                $nombre_solA = "Dirección";
+                break;
+                case 'Subdirección de Planeación y Vinculación':
+                    $nombre_solA = "Subd. De planeacion y vin.";
+                    break;
+                    case 'Departamento de Comunicación y Difusión':
+                        $nombre_solA = "Dpto. De C.y Difusión";
+                        break;
+                        case 'Planeación, Programación y Presupuestación':
+                            $nombre_solA = "Plan. Progr. y Pres.";
+                            break;
+                            case 'Departamento de Servicios Escolares':
+                                $nombre_solA = "Dpto. De S. E.";
+                                break;
+                                case 'Departamento de Gestión Tecnológica y Vinculación':
+                                    $nombre_solA = "Dpto. G.T.V.";
+                                    break;
+                                    case 'Centro de Información':
+                                        $nombre_solA = "Centro De Infor.";
+                                        break;
+                                        case 'Departamento de Actividades Extraescolares':
+                                            $nombre_solA = "Dpto. De Act. Extra.";
+                                            break;
+                                            case 'Subdirección Académica':
+                                                $nombre_solA = "Sub. Académica";
+                                                break;
+                                                case 'Departamento de Desarrollo Académico':
+                                                    $nombre_solA = "Dpto. De Des. Acad.";
+                                                    break;
+                                                    case 'Departamento de Ciencias Básicas':
+                                                        $nombre_solA = "Dpto. Cien. Bás.";
+                                                        break;
+                                                        case 'Departamento de Bioquímica':
+                                                            $nombre_solA = "Dpto. De Bio.";
+                                                            break;
+                                                            case 'Departamento de Arquitectura':
+                                                                $nombre_solA = "Dpto. De Arq.";
+                                                                break;
+                                                                case 'Departamento de Sistemas y Computación':
+                                                                    $nombre_solA = "Dpto. De Sis. Y Com.";
+                                                                    break;
+                                                                    case 'Departamento de Ciencias Económico-Administrativas':
+                                                                        $nombre_solA = "Dpto. De Cien. E. Adm.";
+                                                                        break;
+                                                                        case 'Departamento de Metalmecánica':
+                                                                            $nombre_solA = "Dpto. De Metal.";
+                                                                            break;
+                                                                            case 'División de Posgrado e Investigación':
+                                                                                $nombre_solA = "Div. De Posg. E inv.";
+                                                                                break;
+                                                                                case 'División de Estudios Profesionales':
+                                                                                    $nombre_solA = "Div. De Est. Pro.";
+                                                                                    break;
+                                                                                    case 'Departamento de Gestión Empresarial':
+                                                                                        $nombre_solA = "Dpto. De G.E.";
+                                                                                        break;
+                                                                                        case 'Subdirección de Servicios Administrativos':
+                                                                                            $nombre_solA = "Sub. De Serv. Adm.";
+                                                                                            break;
+                                                                                            case 'Departamento de Recursos Financieros':
+                                                                                                $nombre_solA = "Dpto. De Rec. Fin.";
+                                                                                                break;
+                                                                                                case 'Departamento de Recursos Humanos':
+                                                                                                    $nombre_solA = "Dpto. De R. H.";
+                                                                                                    break;
+                                                                                                    case 'Departamento de Recursos Materiales y Servicios':
+                                                                                                        $nombre_solA = "Dpto. De Rec. M. y Ser.";
+                                                                                                        break;
+                                                                                                        case 'Centro de Cómputo':
+                                                                                                            $nombre_solA = "Centro de Cómputo";
+                                                                                                            break;
+                                                                                                            case 'Departamento de Mantenimiento de Equipo':
+                                                                                                                $nombre_solA = "Dpto. de M. de E.";
+                                                                                                                break;
+
+
+
+
+
+            }
+
+            $nombre_genA = "";
+            switch($nombre_gen){
+                case 'Dirección':
+                    $nombre_genA = "Dirección";
+                    break;
+                    case 'Subdirección de Planeación y Vinculación':
+                        $nombre_genA = "Subd. De planeacion y vin.";
+                        break;
+                        case 'Departamento de Comunicación y Difusión':
+                            $nombre_genA = "Dpto. De C.y Difusión";
+                            break;
+                            case 'Planeación, Programación y Presupuestación':
+                                $nombre_genA = "Plan. Progr. y Pres.";
+                                break;
+                                case 'Departamento de Servicios Escolares':
+                                    $nombre_genA = "Dpto. De S. E.";
+                                    break;
+                                    case 'Departamento de Gestión Tecnológica y Vinculación':
+                                        $nombre_genA = "Dpto. G.T.V.";
+                                        break;
+                                        case 'Centro de Información':
+                                            $nombre_genA = "Centro De Infor.";
+                                            break;
+                                            case 'Departamento de Actividades Extraescolares':
+                                                $nombre_genA= "Dpto. De Act. Extra.";
+                                                break;
+                                                case 'Subdirección Académica':
+                                                    $nombre_genA = "Sub. Académica";
+                                                    break;
+                                                    case 'Departamento de Desarrollo Académico':
+                                                        $nombre_genA = "Dpto. De Des. Acad.";
+                                                        break;
+                                                        case 'Departamento de Ciencias Básicas':
+                                                            $nombre_genA= "Dpto. Cien. Bás.";
+                                                            break;
+                                                            case 'Departamento de Bioquímica':
+                                                                $nombre_genA= "Dpto. De Bio.";
+                                                                break;
+                                                                case 'Departamento de Arquitectura':
+                                                                    $nombre_genA= "Dpto. De Arq.";
+                                                                    break;
+                                                                    case 'Departamento de Sistemas y Computación':
+                                                                        $nombre_genA= "Dpto. De Sis. Y Com.";
+                                                                        break;
+                                                                        case 'Departamento de Ciencias Económico-Administrativas':
+                                                                            $nombre_genA= "Dpto. De Cien. E. Adm.";
+                                                                            break;
+                                                                            case 'Departamento de Metalmecánica':
+                                                                                $nombre_genA = "Dpto. De Metal.";
+                                                                                break;
+                                                                                case 'División de Posgrado e Investigación':
+                                                                                    $nombre_genA = "Div. De Posg. E inv.";
+                                                                                    break;
+                                                                                    case 'División de Estudios Profesionales':
+                                                                                        $nombre_genA = "Div. De Est. Pro.";
+                                                                                        break;
+                                                                                        case 'Departamento de Gestión Empresarial':
+                                                                                            $nombre_genA = "Dpto. De G.E.";
+                                                                                            break;
+                                                                                            case 'Subdirección de Servicios Administrativos':
+                                                                                                $nombre_genA = "Sub. De Serv. Adm.";
+                                                                                                break;
+                                                                                                case 'Departamento de Recursos Financieros':
+                                                                                                    $nombre_genA = "Dpto. De Rec. Fin.";
+                                                                                                    break;
+                                                                                                    case 'Departamento de Recursos Humanos':
+                                                                                                        $nombre_genA = "Dpto. De R. H.";
+                                                                                                        break;
+                                                                                                        case 'Departamento de Recursos Materiales y Servicios':
+                                                                                                            $nombre_genA = "Dpto. De Rec. M. y Ser.";
+                                                                                                            break;
+                                                                                                            case 'Centro de Cómputo':
+                                                                                                                $nombre_genA = "Centro de Cómputo";
+                                                                                                                break;
+                                                                                                                case 'Departamento de Mantenimiento de Equipo':
+                                                                                                                    $nombre_genA = "Dpto. de M. de E.";
+                                                                                                                    break;
+    
+    
+    
+    
+    
+                }
         $pdf->Cell(20, 10, $row['id_folio'], 1, 0, 'C', 0);
         $pdf->Cell(40, 10, $row['fecha'], 1, 0, 'C', 0);
-
-        $pdf->Cell(50, 10, utf8_decode($nombre_sol), 1, 0, 'C', 0);
-        $pdf->Cell(50, 10, utf8_decode($nombre_gen), 1, 0, 'C', 0);
-
+        $pdf->Cell(50, 10, utf8_decode($nombre_solA), 1, 0, 'C', 0);
+        $pdf->Cell(50, 10, utf8_decode($nombre_genA), 1, 0, 'C', 0);
         $pdf->Cell(50, 10, utf8_decode($row['asunto']), 1, 0, 'L', 0);
         $pdf->Cell(30, 10, $row['estado'], 1, 1, 'C', 0);
     }
