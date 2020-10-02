@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-10-2020 a las 17:08:33
+-- Tiempo de generación: 02-10-2020 a las 17:14:41
 -- Versión del servidor: 10.4.14-MariaDB
 -- Versión de PHP: 7.4.10
 
@@ -29,39 +29,40 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `departamentos` (
   `id_depto` int(11) NOT NULL,
-  `nombre_departamentos` varchar(50) NOT NULL
+  `nombre_departamentos` varchar(50) NOT NULL,
+  `nom_corto` varchar(10) NOT NULL COMMENT 'nombre corto de los departamentos'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `departamentos`
 --
 
-INSERT INTO `departamentos` (`id_depto`, `nombre_departamentos`) VALUES
-(1, 'Dirección'),
-(2, 'Subdirección de Planeación y Vinculación'),
-(3, 'Departamento de Comunicación y Difusión'),
-(4, 'Planeación, Programación y Presupuestación'),
-(5, 'Departamento de Servicios Escolares'),
-(6, 'Departamento de Gestión Tecnológica y Vinculación'),
-(7, 'Centro de Información'),
-(8, 'Departamento de Actividades Extraescolares'),
-(9, 'Subdirección Académica'),
-(10, 'Departamento de Desarrollo Académico'),
-(11, 'Departamento de Ciencias Básicas'),
-(12, 'Departamento de Bioquímica'),
-(13, 'Departamento de Arquitectura'),
-(14, 'Departamento de Sistemas y Computación'),
-(15, 'Departamento de Ciencias Económico-Administrativas'),
-(16, 'Departamento de Metalmecánica'),
-(17, 'División de Posgrado e Investigación'),
-(18, 'División de Estudios Profesionales'),
-(19, 'Departamento de Gestión Empresarial'),
-(20, 'Subdirección de Servicios Administrativos'),
-(21, 'Departamento de Recursos Financieros'),
-(22, 'Departamento de Recursos Humanos'),
-(23, 'Departamento de Recursos Materiales y Servicios'),
-(24, 'Centro de Cómputo'),
-(25, 'Departamento de Mantenimiento de Equipo');
+INSERT INTO `departamentos` (`id_depto`, `nombre_departamentos`, `nom_corto`) VALUES
+(1, 'Dirección', ''),
+(2, 'Subdirección de Planeación y Vinculación', ''),
+(3, 'Departamento de Comunicación y Difusión', ''),
+(4, 'Planeación, Programación y Presupuestación', ''),
+(5, 'Departamento de Servicios Escolares', ''),
+(6, 'Departamento de Gestión Tecnológica y Vinculación', ''),
+(7, 'Centro de Información', ''),
+(8, 'Departamento de Actividades Extraescolares', ''),
+(9, 'Subdirección Académica', ''),
+(10, 'Departamento de Desarrollo Académico', ''),
+(11, 'Departamento de Ciencias Básicas', ''),
+(12, 'Departamento de Bioquímica', ''),
+(13, 'Departamento de Arquitectura', ''),
+(14, 'Departamento de Sistemas y Computación', ''),
+(15, 'Departamento de Ciencias Económico-Administrativas', ''),
+(16, 'Departamento de Metalmecánica', ''),
+(17, 'División de Posgrado e Investigación', ''),
+(18, 'División de Estudios Profesionales', ''),
+(19, 'Departamento de Gestión Empresarial', ''),
+(20, 'Subdirección de Servicios Administrativos', ''),
+(21, 'Departamento de Recursos Financieros', ''),
+(22, 'Departamento de Recursos Humanos', ''),
+(23, 'Departamento de Recursos Materiales y Servicios', ''),
+(24, 'Centro de Cómputo', ''),
+(25, 'Departamento de Mantenimiento de Equipo', '');
 
 -- --------------------------------------------------------
 
