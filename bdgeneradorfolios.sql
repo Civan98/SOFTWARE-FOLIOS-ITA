@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-09-2020 a las 07:51:19
+-- Tiempo de generación: 02-10-2020 a las 17:08:33
 -- Versión del servidor: 10.4.14-MariaDB
 -- Versión de PHP: 7.4.10
 
@@ -86,15 +86,24 @@ CREATE TABLE `folios` (
 --
 
 INSERT INTO `folios` (`year`, `id_depto_genera`, `id_folio`, `id_depto_sol`, `id_usuario`, `id_solicitud`, `fecha`, `asunto`, `estado`) VALUES
-(2019, 1, 1, 1, 3, 1, '2020-09-30 00:00:55', 'p1', 'Autorizado'),
-(2019, 1, 2, 1, 3, 1, '2020-09-30 00:00:55', 'p1', 'Autorizado'),
-(2019, 1, 3, 1, 3, 1, '2020-09-30 00:00:55', 'p1', 'Autorizado'),
-(2020, 1, 1, 1, 3, 1, '2020-09-30 00:01:24', 'nuevo año', 'Autorizado'),
-(2020, 1, 2, 1, 3, 1, '2020-09-30 00:01:24', 'nuevo año', 'Autorizado'),
-(2020, 1, 3, 1, 3, 1, '2020-09-30 00:01:24', 'nuevo año', 'Autorizado'),
-(2020, 1, 4, 1, 3, 2, '2020-09-30 00:01:59', 'nuevo año 2', 'Autorizado'),
-(2020, 1, 5, 1, 3, 2, '2020-09-30 00:01:59', 'nuevo año 2', 'Autorizado'),
-(2020, 1, 6, 1, 3, 2, '2020-09-30 00:01:59', 'nuevo año 2', 'Autorizado');
+(2020, 1, 1, 1, 3, 1, '2020-09-30 14:44:29', 'p1', 'Autorizado'),
+(2020, 1, 2, 1, 3, 1, '2020-09-30 14:44:29', 'p1', 'Autorizado'),
+(2020, 1, 3, 1, 3, 1, '2020-09-30 14:44:29', 'p1', 'Autorizado'),
+(2020, 1, 4, 14, 5, 2, '2020-09-30 14:45:19', 'p2', 'Autorizado'),
+(2020, 1, 5, 14, 5, 2, '2020-09-30 14:45:19', 'p2', 'Autorizado'),
+(2020, 1, 6, 14, 5, 2, '2020-09-30 14:45:19', 'p2', 'Autorizado'),
+(2020, 1, 7, 14, 5, 4, '2020-09-30 14:48:36', 'p5', 'Autorizado'),
+(2020, 1, 8, 14, 5, 4, '2020-09-30 14:48:36', 'p5', 'Autorizado'),
+(2020, 1, 9, 12, 6, 6, '2020-09-30 14:50:17', 'p7', 'Autorizado'),
+(2020, 1, 10, 12, 6, 6, '2020-09-30 14:50:17', 'p7', 'Autorizado'),
+(2020, 1, 11, 12, 6, 6, '2020-09-30 14:50:17', 'p7', 'Autorizado'),
+(2020, 1, 12, 1, 3, 8, '2020-10-01 17:28:55', 'p1', 'Autorizado'),
+(2020, 1, 13, 1, 3, 7, '2020-10-01 17:45:03', 'a', 'Autorizado'),
+(2020, 14, 1, 14, 5, 3, '2020-09-30 14:47:30', 'p3', 'Autorizado'),
+(2020, 14, 2, 14, 5, 3, '2020-09-30 14:47:30', 'p3', 'Autorizado'),
+(2020, 14, 3, 14, 5, 3, '2020-09-30 14:47:30', 'p3', 'Autorizado'),
+(2020, 14, 4, 14, 5, 5, '2020-09-30 14:49:05', 'p6', 'Autorizado'),
+(2020, 14, 5, 14, 5, 5, '2020-09-30 14:49:05', 'p6', 'Autorizado');
 
 -- --------------------------------------------------------
 
@@ -125,9 +134,14 @@ CREATE TABLE `solicitudes` (
 --
 
 INSERT INTO `solicitudes` (`year`, `id_depto_sol`, `id_solicitud`, `id_depto_genera`, `cantidad`, `asunto`, `estado`, `id_usuario`, `fecha`, `id_usuario_edit`, `fecha_edit`, `id_usuario_auto`, `fecha_auto`, `id_usuario_cancel`, `fecha_cancel`) VALUES
-(2019, 1, 1, 1, 3, 'p1', 'Autorizado', 3, '2020-09-30 00:00:35', NULL, NULL, 3, '2020-09-30 00:01:24', NULL, NULL),
-(2020, 1, 1, 1, 3, 'nuevo año', 'Autorizado', 3, '2020-09-30 00:01:10', NULL, NULL, 3, '2020-09-30 00:01:24', NULL, NULL),
-(2020, 1, 2, 1, 3, 'nuevo año 2', 'Autorizado', 3, '2020-09-30 00:01:50', NULL, NULL, 3, '2020-09-30 00:01:59', NULL, NULL);
+(2020, 1, 1, 1, 3, 'p1', 'Autorizado', 3, '2020-09-30 14:44:24', NULL, NULL, 3, '2020-09-30 14:44:29', NULL, NULL),
+(2020, 14, 2, 1, 3, 'p2', 'Autorizado', 5, '2020-09-30 14:45:08', NULL, NULL, 3, '2020-09-30 14:45:19', NULL, NULL),
+(2020, 14, 3, 14, 3, 'p3', 'Autorizado', 5, '2020-09-30 14:47:27', NULL, NULL, 5, '2020-09-30 14:47:30', NULL, NULL),
+(2020, 14, 4, 1, 2, 'p5', 'Autorizado', 5, '2020-09-30 14:48:21', NULL, NULL, 3, '2020-09-30 14:48:36', NULL, NULL),
+(2020, 14, 5, 14, 2, 'p6', 'Autorizado', 5, '2020-09-30 14:49:02', NULL, NULL, 5, '2020-09-30 14:49:05', NULL, NULL),
+(2020, 12, 6, 1, 3, 'p7', 'Autorizado', 6, '2020-09-30 14:50:02', NULL, NULL, 3, '2020-09-30 14:50:17', NULL, NULL),
+(2020, 1, 7, 1, 1, 'a', 'Autorizado', 3, '2020-09-30 15:16:25', NULL, NULL, 3, '2020-10-01 17:45:03', NULL, NULL),
+(2020, 1, 8, 1, 1, 'p1', 'Autorizado', 3, '2020-10-01 17:28:48', NULL, NULL, 3, '2020-10-01 17:28:55', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -142,17 +156,18 @@ CREATE TABLE `usuarios` (
   `nombreUsuario` varchar(20) NOT NULL COMMENT 'Usuario',
   `cargo` varchar(60) NOT NULL COMMENT 'Cargo que desempeña el trabajador (jefe, director)',
   `contrasena` varchar(50) NOT NULL,
-  `id_depto` int(11) NOT NULL
+  `id_depto` int(11) NOT NULL,
+  `admin` tinyint(1) NOT NULL COMMENT 'admin 1, no admin 0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`id`, `nombre`, `apellidos`, `nombreUsuario`, `cargo`, `contrasena`, `id_depto`) VALUES
-(3, 'Salvador ', 'Herrera Soriano', 'Salvador ', 'Director', '1234', 1),
-(5, 'Juan Miguel', 'Hernández Bravo', 'JM', 'Jefe de departamento de Ingeniería en Sistemas Computacional', '1234', 14),
-(6, 'Zaida', 'Villanueva', 'ZV', 'Jefa IBQ', '1234', 12);
+INSERT INTO `usuarios` (`id`, `nombre`, `apellidos`, `nombreUsuario`, `cargo`, `contrasena`, `id_depto`, `admin`) VALUES
+(3, 'Salvador ', 'Herrera Soriano', 'Salvador ', 'Director', '1234', 1, 0),
+(5, 'Juan Miguel', 'Hernández Bravo', 'JM', 'Jefe de departamento de Ingeniería en Sistemas Computacional', '1234', 14, 0),
+(6, 'Zaida', 'Villanueva', 'ZV', 'Jefa IBQ', '1234', 12, 0);
 
 --
 -- Índices para tablas volcadas
