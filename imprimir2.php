@@ -24,7 +24,7 @@ if (!isset($usuario)) {
             $ape       = $array5['apellidos'];
 
 
-            $fechaActual = "" . date("d") . " del " . date("m") . " de " . date("Y");
+            $fechaActual = "" . date("d") ."/" . date("m") . "/" . date("Y");
             // Logo (dirección de la imagen,Y,X,zoom)
             $this->Image('imagenes/header.png', 50, 5, 200);
             //marca de awa

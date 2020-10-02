@@ -24,7 +24,7 @@ if (!isset($usuario)) {
             $ape       = $array5['apellidos'];
 
 
-            $fechaActual = "" . date("d") . " del " . date("m") . " de " . date("Y");
+            $fechaActual = "" . date("d") . "/" . date("m") . "/" . date("Y");
             // Logo (dirección de la imagen,Y,X,zoom)
             $this->Image('imagenes/header.png', 50, 5, 200);
             //marca de awa
@@ -80,6 +80,7 @@ if (!isset($usuario)) {
     //consulta para obtener los folios de la solicitud
     $q2        = "SELECT * from folios where id_solicitud = '$id_sol' ";
     $consulta2 = mysqli_query($conexion, $q2);
+    $consultar = mysqli_query($conexion, $q2);
     $array2    = mysqli_fetch_array($consulta2);
 
     // consulta para obtener el nombre del depa del usuario
@@ -101,7 +102,7 @@ if (!isset($usuario)) {
     $pdf->SetFont('Arial', '', 9);
 
     //$pdf->Cell(40,10,$usuario);
-    while ($row = mysqli_fetch_array($consulta2)) {
+    while ($row = mysqli_fetch_array($consultar)) {
         $pdf->Cell(5);//alineador
 
        // $nombre_solA;
