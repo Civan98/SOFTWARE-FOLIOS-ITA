@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-10-2020 a las 17:14:41
--- Versión del servidor: 10.4.14-MariaDB
--- Versión de PHP: 7.4.10
+-- Tiempo de generación: 02-10-2020 a las 22:30:50
+-- Versión del servidor: 10.1.38-MariaDB
+-- Versión de PHP: 7.3.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -30,7 +31,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `departamentos` (
   `id_depto` int(11) NOT NULL,
   `nombre_departamentos` varchar(50) NOT NULL,
-  `nom_corto` varchar(10) NOT NULL COMMENT 'nombre corto de los departamentos'
+  `nom_corto` varchar(35) NOT NULL COMMENT 'nombre corto de los departamentos'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -38,31 +39,31 @@ CREATE TABLE `departamentos` (
 --
 
 INSERT INTO `departamentos` (`id_depto`, `nombre_departamentos`, `nom_corto`) VALUES
-(1, 'Dirección', ''),
-(2, 'Subdirección de Planeación y Vinculación', ''),
-(3, 'Departamento de Comunicación y Difusión', ''),
-(4, 'Planeación, Programación y Presupuestación', ''),
-(5, 'Departamento de Servicios Escolares', ''),
-(6, 'Departamento de Gestión Tecnológica y Vinculación', ''),
-(7, 'Centro de Información', ''),
-(8, 'Departamento de Actividades Extraescolares', ''),
-(9, 'Subdirección Académica', ''),
-(10, 'Departamento de Desarrollo Académico', ''),
-(11, 'Departamento de Ciencias Básicas', ''),
-(12, 'Departamento de Bioquímica', ''),
-(13, 'Departamento de Arquitectura', ''),
-(14, 'Departamento de Sistemas y Computación', ''),
-(15, 'Departamento de Ciencias Económico-Administrativas', ''),
-(16, 'Departamento de Metalmecánica', ''),
-(17, 'División de Posgrado e Investigación', ''),
-(18, 'División de Estudios Profesionales', ''),
-(19, 'Departamento de Gestión Empresarial', ''),
-(20, 'Subdirección de Servicios Administrativos', ''),
-(21, 'Departamento de Recursos Financieros', ''),
-(22, 'Departamento de Recursos Humanos', ''),
-(23, 'Departamento de Recursos Materiales y Servicios', ''),
-(24, 'Centro de Cómputo', ''),
-(25, 'Departamento de Mantenimiento de Equipo', '');
+(1, 'Dirección', 'Dirección'),
+(2, 'Subdirección de Planeación y Vinculación', 'Subd. De planeacion y vin.'),
+(3, 'Departamento de Comunicación y Difusión', 'Dpto. De C. y Difusión'),
+(4, 'Planeación, Programación y Presupuestación', 'Plan. Progr. y Pres.'),
+(5, 'Departamento de Servicios Escolares', 'Dpto. De S. E.'),
+(6, 'Departamento de Gestión Tecnológica y Vinculación', 'Dpto. G.T.V.'),
+(7, 'Centro de Información', 'Centro De Infor.'),
+(8, 'Departamento de Actividades Extraescolares', 'Dpto. De Act. Extra.'),
+(9, 'Subdirección Académica', 'Sub. Académica'),
+(10, 'Departamento de Desarrollo Académico', 'Dpto. De Des. Acad.'),
+(11, 'Departamento de Ciencias Básicas', 'Dpto. Cien. Bás.'),
+(12, 'Departamento de Bioquímica', 'Dpto. De Bio.'),
+(13, 'Departamento de Arquitectura', 'Dpto. De Arq.'),
+(14, 'Departamento de Sistemas y Computación', 'Dpto. De Sis. Y Com.'),
+(15, 'Departamento de Ciencias Económico-Administrativas', 'Dpto. De Cien. E. Adm.'),
+(16, 'Departamento de Metalmecánica', 'Dpto. De Metal.'),
+(17, 'División de Posgrado e Investigación', 'Div. De Posg. E Inv.'),
+(18, 'División de Estudios Profesionales', 'Div. De Est. Pro.'),
+(19, 'Departamento de Gestión Empresarial', 'Dpto. De G.E.'),
+(20, 'Subdirección de Servicios Administrativos', 'Sub. De Serv. Adm.'),
+(21, 'Departamento de Recursos Financieros', 'Dpto. De Rec. Fin.'),
+(22, 'Departamento de Recursos Humanos', 'Dpto. De R. H.'),
+(23, 'Departamento de Recursos Materiales y Servicios', 'Dpto. De Rec. M. y Ser.'),
+(24, 'Centro de Cómputo', 'Centro de Cómputo'),
+(25, 'Departamento de Mantenimiento de Equipo', 'Dpto. de M. de E.');
 
 -- --------------------------------------------------------
 
@@ -166,7 +167,7 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `nombre`, `apellidos`, `nombreUsuario`, `cargo`, `contrasena`, `id_depto`, `admin`) VALUES
-(3, 'Salvador ', 'Herrera Soriano', 'Salvador ', 'Director', '1234', 1, 0),
+(3, 'Salvador ', 'Herrera Soriano', 'Salvador ', 'Director', '1234', 1, 1),
 (5, 'Juan Miguel', 'Hernández Bravo', 'JM', 'Jefe de departamento de Ingeniería en Sistemas Computacional', '1234', 14, 0),
 (6, 'Zaida', 'Villanueva', 'ZV', 'Jefa IBQ', '1234', 12, 0);
 
@@ -220,7 +221,7 @@ ALTER TABLE `departamentos`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'identificador del usuario', AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'identificador del usuario', AUTO_INCREMENT=10;
 
 --
 -- Restricciones para tablas volcadas
