@@ -78,7 +78,7 @@ if (!isset($usuario)) {
     
     $q        = "SELECT * FROM folios WHERE id_depto_sol = '$id_deptoU' ORDER BY id_depto_genera ASC, id_folio DESC";
     $consulta = mysqli_query($conexion, $q);
-    $array1    = mysqli_fetch_array($consulta);
+   // $array1    = mysqli_fetch_array($consulta);
    // $id_depto_g       = $array1['id_depto_genera'];
 
     //$pdf = new PDF();
