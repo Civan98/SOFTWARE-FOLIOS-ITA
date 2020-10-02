@@ -44,7 +44,7 @@ if (!isset($usuario)) {
     aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <span class="navbar-brand" style="margin-left: 25%;">
+  <span class="navbar-brand" style="margin-left: 5%;">
       Autorizar folios
     </span>
 
@@ -73,7 +73,7 @@ if (!isset($usuario)) {
       <li class="nav-item">
 
 
-           <a class="nav-link" href="solicitar.php">
+           <a class="nav-link" href="formsolicitar.php">
             Solicitar
 
           <i class="fa fa-wrench" aria-hidden="true"></i>
@@ -119,13 +119,12 @@ if (!isset($usuario)) {
             <th>Departamento al que solicita</th>
             <th>Asunto</th>
             <th>Estado</th>
-            
+
         </tr>
             <?php
 //seleccionar los folios del departamento del usuario logeado
 $consultaSF = "SELECT * FROM folios WHERE id_depto_genera = '$deptoUsuario' ORDER BY id_depto_genera ASC, id_folio DESC";
 $soliF      = mysqli_query($conexion, $consultaSF);
-
 
 //seleccionar el nombre del departamento del usuario logeado
 $consultaDF = "SELECT nombre_departamentos FROM departamentos WHERE id_depto= '$deptoUsuario'";
@@ -145,9 +144,8 @@ while ($datosF = mysqli_fetch_array($soliF)) {
     $consultaASF = "SELECT nombre_departamentos FROM departamentos WHERE id_depto=" . $datosF['id_depto_sol'];
     $deptoASF    = mysqli_query($conexion, $consultaASF);
 
-    
     foreach ($nomF as $nF) {
-        
+
         ?>
 
 
@@ -190,7 +188,6 @@ while ($datosF = mysqli_fetch_array($soliF)) {
 $consultaS = "SELECT * FROM solicitudes WHERE id_depto_genera = '$deptoUsuario' ORDER BY fecha DESC";
 $soli      = mysqli_query($conexion, $consultaS);
 
-
 //seleccionar el nombre del departamento del usuario logeado
 $consultaD = "SELECT nombre_departamentos FROM departamentos WHERE id_depto= '$deptoUsuario'";
 $depto     = mysqli_query($conexion, $consultaD);
@@ -210,7 +207,6 @@ while ($datos = mysqli_fetch_array($soli)) {
 
     // revisar si el departamento al que solicitan es al que el usuario pertenece
     foreach ($nom as $n) {
-        
 
         ?>
 
@@ -243,7 +239,7 @@ while ($datos = mysqli_fetch_array($soli)) {
                     </td>
                 </tr>
                 <?php
-    }
+}
 }
 mysqli_close($conexion);
 ?>

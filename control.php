@@ -8,39 +8,38 @@ if (!isset($usuario)) {
     header("location: index.php");
 } else {
 
-if (isset($_POST['fecha_inicio']) || isset($_POST['fecha_final'])) {
-    $fecha_inicio = $_POST['fecha_inicio'];
-    $fecha_final  = $_POST['fecha_final'];
-} else {
-    date_default_timezone_set("America/Mexico_City");
-    $fecha_inicio = date("Y-m-01");
-    $fecha_final  = date("Y-m-d");
-}
+    if (isset($_POST['fecha_inicio']) || isset($_POST['fecha_final'])) {
+        $fecha_inicio = $_POST['fecha_inicio'];
+        $fecha_final  = $_POST['fecha_final'];
+    } else {
+        date_default_timezone_set("America/Mexico_City");
+        $fecha_inicio = date("Y-m-01");
+        $fecha_final  = date("Y-m-d");
+    }
 
-if (!isset($usuario)) {
-    session_destroy();
-    header("location: index.php");
-} else {
+    if (!isset($usuario)) {
+        session_destroy();
+        header("location: index.php");
+    } else {
 
-    //consulta para tener los datos del usuario que este logeado
-    $q         = "SELECT * from usuarios where nombreUsuario = '$usuario ' ";
-    $consulta  = mysqli_query($conexion, $q);
-    $info      = mysqli_num_rows($consulta);
-    $array     = mysqli_fetch_array($consulta);
-    $ID        = $array['id'];
-    $nombre    = $array['nombre'];
-    $id_deptoU = $array['id_depto'];
-    /*Selección de departamento*/
+        //consulta para tener los datos del usuario que este logeado
+        $q         = "SELECT * from usuarios where nombreUsuario = '$usuario ' ";
+        $consulta  = mysqli_query($conexion, $q);
+        $info      = mysqli_num_rows($consulta);
+        $array     = mysqli_fetch_array($consulta);
+        $ID        = $array['id'];
+        $nombre    = $array['nombre'];
+        $id_deptoU = $array['id_depto'];
+        /*Selección de departamento*/
 
-    // consulta para obtener el nombre del depa del usuario
-    $q2        = "SELECT * FROM usuarios JOIN departamentos ON usuarios.id_depto = departamentos.id_depto WHERE usuarios.nombreUsuario = '$usuario' ";
-    $consulta2 = mysqli_query($conexion, $q2);
-    $array2    = mysqli_fetch_array($consulta2);
-    $depa      = $array2['nombre_departamentos'];
+        // consulta para obtener el nombre del depa del usuario
+        $q2        = "SELECT * FROM usuarios JOIN departamentos ON usuarios.id_depto = departamentos.id_depto WHERE usuarios.nombreUsuario = '$usuario' ";
+        $consulta2 = mysqli_query($conexion, $q2);
+        $array2    = mysqli_fetch_array($consulta2);
+        $depa      = $array2['nombre_departamentos'];
 
-
-}
-?>
+    }
+    ?>
 
 <!DOCTYPE html>
 <html>
@@ -71,7 +70,7 @@ if (!isset($usuario)) {
     aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <span class="navbar-brand" style="margin-left: 25%;">
+  <span class="navbar-brand" style="margin-left: 5%;">
       Control de folios
     </span>
 
@@ -163,71 +162,71 @@ if (!isset($usuario)) {
                     <th scope="col">Fecha de autorización</th>
                     <th scope="col">Usuario que canceló</th>
                     <th scope="col">Fecha de cancelación</th>
-                    <th scope="col">Editar</th>                   
+                    <th scope="col">Editar</th>
                     <th>Imprimir</th>
                 </tr>
                 </thead>
                 <?php
 
-$consultaS = "SELECT * FROM solicitudes WHERE id_depto_sol = '$id_deptoU' and  DATE(fecha) >= '$fecha_inicio' and DATE(fecha) <= '$fecha_final'";
+    $consultaS = "SELECT * FROM solicitudes WHERE id_depto_sol = '$id_deptoU' and  DATE(fecha) >= '$fecha_inicio' and DATE(fecha) <= '$fecha_final'";
 
-$soli = mysqli_query($conexion, $consultaS);
+    $soli = mysqli_query($conexion, $consultaS);
 
 //seleccionar el nombre del departamento del usuario logeado
-$consultaD = "SELECT nombre_departamentos FROM departamentos WHERE id_depto= '$id_deptoU' ";
-$depto     = mysqli_query($conexion, $consultaD);
+    $consultaD = "SELECT nombre_departamentos FROM departamentos WHERE id_depto= '$id_deptoU' ";
+    $depto     = mysqli_query($conexion, $consultaD);
 
-if (!$soli) {
-    //echo "error".mysqli_error($conexion);
-}
-while ($datos = mysqli_fetch_array($soli)) {
-    //nombres de los usuarios que solicitaron
-    $id_usuarios = $datos['id_usuario'];
-    $consultaU   = "SELECT id, nombre, apellidos FROM usuarios WHERE id = '$id_usuarios'";
-    $nom         = mysqli_query($conexion, $consultaU);
-
-    //seleccionar el nombre del departamento al que se solicita el folio
-    $consultaAS = "SELECT nombre_departamentos FROM departamentos WHERE id_depto=" . $datos['id_depto_genera'];
-    $deptoAS    = mysqli_query($conexion, $consultaAS);
-
-    //Nombre de quién editó
-    if ($datos['id_usuario_edit']) {
-        $edit        = "SELECT id, nombre, apellidos FROM usuarios WHERE id =" . $datos['id_usuario_edit'];
-        $userEdit    = mysqli_query($conexion, $edit);
-        $uEdt        = mysqli_fetch_array($userEdit);
-        $nombreEdita = $uEdt['nombre'] . " " . $uEdt['apellidos'];
-        $fechaEdita  = $datos['fecha_edit'];
-    } else {
-        $nombreEdita = "-";
-        $fechaEdita  = "-";
+    if (!$soli) {
+        //echo "error".mysqli_error($conexion);
     }
+    while ($datos = mysqli_fetch_array($soli)) {
+        //nombres de los usuarios que solicitaron
+        $id_usuarios = $datos['id_usuario'];
+        $consultaU   = "SELECT id, nombre, apellidos FROM usuarios WHERE id = '$id_usuarios'";
+        $nom         = mysqli_query($conexion, $consultaU);
 
-    //nombre de quién autorizó
-    if ($datos['id_usuario_auto']) {
-        $auto       = "SELECT id, nombre, apellidos FROM usuarios WHERE id =" . $datos['id_usuario_auto'];
-        $userAuto   = mysqli_query($conexion, $auto);
-        $uAuto      = mysqli_fetch_array($userAuto);
-        $nombreAuto = $uAuto['nombre'] . " " . $uAuto['apellidos'];
-        $fechaAuto  = $datos['fecha_auto'];
-    } else {
-        $nombreAuto = "-";
-        $fechaAuto  = "-";
-    }
-    //nombre de quién canceló
-    if ($datos['id_usuario_cancel']) {
-        $cancel       = "SELECT id, nombre, apellidos FROM usuarios WHERE id =" . $datos['id_usuario_cancel'];
-        $userCancel   = mysqli_query($conexion, $cancel);
-        $uCancel      = mysqli_fetch_array($userCancel);
-        $nombreCancel = $uCancel['nombre'] . " " . $uCancel['apellidos'];
-        $fechaCancel  = $datos['fecha_cancel'];
-    } else {
-        $nombreCancel = "-";
-        $fechaCancel  = "-";
-    }
+        //seleccionar el nombre del departamento al que se solicita el folio
+        $consultaAS = "SELECT nombre_departamentos FROM departamentos WHERE id_depto=" . $datos['id_depto_genera'];
+        $deptoAS    = mysqli_query($conexion, $consultaAS);
 
-    foreach ($nom as $n) {
-     
-        ?>
+        //Nombre de quién editó
+        if ($datos['id_usuario_edit']) {
+            $edit        = "SELECT id, nombre, apellidos FROM usuarios WHERE id =" . $datos['id_usuario_edit'];
+            $userEdit    = mysqli_query($conexion, $edit);
+            $uEdt        = mysqli_fetch_array($userEdit);
+            $nombreEdita = $uEdt['nombre'] . " " . $uEdt['apellidos'];
+            $fechaEdita  = $datos['fecha_edit'];
+        } else {
+            $nombreEdita = "-";
+            $fechaEdita  = "-";
+        }
+
+        //nombre de quién autorizó
+        if ($datos['id_usuario_auto']) {
+            $auto       = "SELECT id, nombre, apellidos FROM usuarios WHERE id =" . $datos['id_usuario_auto'];
+            $userAuto   = mysqli_query($conexion, $auto);
+            $uAuto      = mysqli_fetch_array($userAuto);
+            $nombreAuto = $uAuto['nombre'] . " " . $uAuto['apellidos'];
+            $fechaAuto  = $datos['fecha_auto'];
+        } else {
+            $nombreAuto = "-";
+            $fechaAuto  = "-";
+        }
+        //nombre de quién canceló
+        if ($datos['id_usuario_cancel']) {
+            $cancel       = "SELECT id, nombre, apellidos FROM usuarios WHERE id =" . $datos['id_usuario_cancel'];
+            $userCancel   = mysqli_query($conexion, $cancel);
+            $uCancel      = mysqli_fetch_array($userCancel);
+            $nombreCancel = $uCancel['nombre'] . " " . $uCancel['apellidos'];
+            $fechaCancel  = $datos['fecha_cancel'];
+        } else {
+            $nombreCancel = "-";
+            $fechaCancel  = "-";
+        }
+
+        foreach ($nom as $n) {
+
+            ?>
 
             <tbody>
                 <tr>
@@ -256,7 +255,7 @@ while ($datos = mysqli_fetch_array($soli)) {
                         </form>
                     </td>
                     <td>
-                        <form action="Imprimir.php" method="POST">
+                        <form action="Imprimir.php" method="POST" target="_blank">
                             <input type="text" name="id" value=<?php echo $datos['id_solicitud']; ?> hidden="true" >
                             <input type="text" name="dS" value=<?php echo $datos['id_depto_sol']; ?> hidden="true">
                             <input type="text" name="daS" value=<?php echo $datos['id_depto_genera']; ?> hidden="true">
@@ -271,15 +270,15 @@ while ($datos = mysqli_fetch_array($soli)) {
                 </tbody>
                 <?php
 
+        }
     }
-}
-?>
+    ?>
             </table>
             </div>
 
             <h2>Folios generados</h2>
-            <form action="imprimir2.php" method="POST">
-                                <input type="submit" name="Imprimir" value="Imprimir" class="btn btn-success" >
+            <form action="imprimir2.php" method="POST" target="_blank">
+                                <input type="submit" name="Imprimir" value="Imprimir" class="btn btn-success">
             </form>
             <br>
         <table class="table table-striped">
@@ -294,29 +293,29 @@ while ($datos = mysqli_fetch_array($soli)) {
         </tr>
             <?php
 //seleccionar los folios del departamento del usuario logeado
-$consultaSF = "SELECT * FROM folios WHERE id_depto_sol = '$id_deptoU' and  DATE(fecha) >= '$fecha_inicio' and DATE(fecha) <= '$fecha_final' ORDER BY id_depto_genera ASC, id_folio DESC";
-$soliF      = mysqli_query($conexion, $consultaSF);
+    $consultaSF = "SELECT * FROM folios WHERE id_depto_sol = '$id_deptoU' and  DATE(fecha) >= '$fecha_inicio' and DATE(fecha) <= '$fecha_final' ORDER BY id_depto_genera ASC, id_folio DESC";
+    $soliF      = mysqli_query($conexion, $consultaSF);
 
 //seleccionar el nombre del departamento del usuario logeado (el que solicita)
-$consultaDF = "SELECT nombre_departamentos FROM departamentos WHERE id_depto= '$id_deptoU'";
-$deptoF     = mysqli_query($conexion, $consultaDF);
-$dF         = mysqli_fetch_array($deptoF);
+    $consultaDF = "SELECT nombre_departamentos FROM departamentos WHERE id_depto= '$id_deptoU'";
+    $deptoF     = mysqli_query($conexion, $consultaDF);
+    $dF         = mysqli_fetch_array($deptoF);
 
-if (!$soliF) {
-    echo "error" . mysqli_error($conexion);
-}
-while ($datosF = mysqli_fetch_array($soliF)) {
-    //Seleccionar nombre de los que solicitan los folios
-    $consultaUF = "SELECT id, id_depto, nombre, apellidos FROM usuarios WHERE id = " . $datosF['id_usuario'];
-    $nomF       = mysqli_query($conexion, $consultaUF);
-    $nF         = mysqli_fetch_array($nomF);
+    if (!$soliF) {
+        echo "error" . mysqli_error($conexion);
+    }
+    while ($datosF = mysqli_fetch_array($soliF)) {
+        //Seleccionar nombre de los que solicitan los folios
+        $consultaUF = "SELECT id, id_depto, nombre, apellidos FROM usuarios WHERE id = " . $datosF['id_usuario'];
+        $nomF       = mysqli_query($conexion, $consultaUF);
+        $nF         = mysqli_fetch_array($nomF);
 
-    //seleccionar el nombre del departamento que genera el folio
-    $consultaASF = "SELECT nombre_departamentos FROM departamentos WHERE id_depto=" . $datosF['id_depto_genera'];
-    $deptoASF    = mysqli_query($conexion, $consultaASF);
+        //seleccionar el nombre del departamento que genera el folio
+        $consultaASF = "SELECT nombre_departamentos FROM departamentos WHERE id_depto=" . $datosF['id_depto_genera'];
+        $deptoASF    = mysqli_query($conexion, $consultaASF);
 
-    foreach ($nomF as $nF) {
-        ?>
+        foreach ($nomF as $nF) {
+            ?>
                 <tr>
                     <td><?php echo $datosF['id_folio']; ?></td>
                     <td><?php echo $datosF['fecha']; ?></td>
@@ -328,14 +327,16 @@ while ($datosF = mysqli_fetch_array($soliF)) {
 
                 </tr>
                 <?php
-    }
 }
-?>
+    }
+    ?>
             </table>
         </div>
 
-    <script type="text/javascript" src="js/jquery.min.js"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
     </body>
 
 </html>

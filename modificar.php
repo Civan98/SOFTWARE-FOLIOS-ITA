@@ -72,7 +72,6 @@ if (!isset($usuario)) {
         <h2>Modificar solicitudes de folios</h2>
             <?php
 
-
 //seleccionar la solicitud deseada
 $consultaS = "SELECT * FROM solicitudes WHERE id_solicitud = '$id'";
 $soli      = mysqli_query($conexion, $consultaS);
@@ -127,6 +126,11 @@ $depto_a_S = mysqli_fetch_array($deptoAS);
                 <input type="number" name="cantidad" id="cantidad" min="1" pattern="^[0-9]+" value= <?php echo $s['cantidad']; ?> ><br><br>
                 <label for="Estado">Estado: <?php echo $s['estado']; ?></label> <br><br>
                 <input type="submit" name="modificar" id="modificar" value="Modificar" class="btn btn-primary btn-lg">
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
             </div>
             </form>
 
