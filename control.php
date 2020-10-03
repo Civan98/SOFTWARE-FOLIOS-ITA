@@ -1,14 +1,6 @@
 <?php
 require 'logica/conexion.php';
-<<<<<<< Updated upstream
-
-=======
-<<<<<<< HEAD
 ob_start();
-=======
-
->>>>>>> 64fc5b303c4ca4b35fba85e5b5fe3042ed32dfba
->>>>>>> Stashed changes
 session_start();
 $usuario = $_SESSION['username'];
 if (!isset($usuario)) {
@@ -86,24 +78,13 @@ if (!isset($usuario)) {
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
     <ul class="navbar-nav ml-auto">
-    
       <li class="nav-item">
 
         <a class="nav-link" href="#">
             <?php echo "Usuario: $usuario"; ?>
          </a>
 
-      </li><!--validación del admin-->
-      <?php if ($admin == 1){?>
-          <li class="nav-item">
-            <a class="nav-link" href="register.php">
-                <?php echo "Registrar"; ?>
-            </a>
-
-          </li> 
-    <?php } ?>
-<<<<<<< Updated upstream
-=======
+      </li>
 
 <!--validación del admin-->
       <?php if ($admin == 1) {?>
@@ -118,7 +99,6 @@ if (!isset($usuario)) {
           </li>
     <?php }?>
 
->>>>>>> Stashed changes
 
       <li class="nav-item">
 
