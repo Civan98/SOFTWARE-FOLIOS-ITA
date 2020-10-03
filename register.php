@@ -63,11 +63,29 @@ if (!isset($usuario)) {
           <?php echo "Usuario: $usuario"; ?>
        </a>
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+        <a class="nav-link" href="#">
+            <?php echo "Usuario: $usuario"; ?>
+         </a>
+
+      </li>
+      <!--validación del admin-->
+      <?php if ($admin == 1) {?>
+          <li class="nav-item">
+            <a class="nav-link active" href="register.php">
+=======
+>>>>>>> Stashed changes
     </li><!--validación del admin-->
    
         <li class="nav-item">
           <a class="nav-link" href="register.php">
               Registrar
+<<<<<<< Updated upstream
+=======
+>>>>>>> 64fc5b303c4ca4b35fba85e5b5fe3042ed32dfba
+>>>>>>> Stashed changes
               <span class="sr-only">(current)</span>
           </a>
 

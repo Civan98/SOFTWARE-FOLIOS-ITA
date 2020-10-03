@@ -1,6 +1,14 @@
 <?php
 require 'logica/conexion.php';
+<<<<<<< Updated upstream
 
+=======
+<<<<<<< HEAD
+ob_start();
+=======
+
+>>>>>>> 64fc5b303c4ca4b35fba85e5b5fe3042ed32dfba
+>>>>>>> Stashed changes
 session_start();
 $usuario = $_SESSION['username'];
 if (!isset($usuario)) {
@@ -12,6 +20,7 @@ if (!isset($usuario)) {
         $fecha_inicio = $_POST['fecha_inicio'];
         $fecha_final  = $_POST['fecha_final'];
     } else {
+
         date_default_timezone_set("America/Mexico_City");
         $fecha_inicio = date("Y-m-01");
         $fecha_final  = date("Y-m-d");
@@ -21,7 +30,7 @@ if (!isset($usuario)) {
         session_destroy();
         header("location: index.php");
     } else {
-
+        ob_end_flush();
         //consulta para tener los datos del usuario que este logeado
         $q         = "SELECT * from usuarios where nombreUsuario = '$usuario ' ";
         $consulta  = mysqli_query($conexion, $q);
@@ -55,7 +64,7 @@ if (!isset($usuario)) {
     th {
   background: white;
   position: sticky;
-  top: 0; /* Don't forget this, required for the stickiness */}
+  top: 0;
 </style>
 
     </head>
@@ -93,6 +102,23 @@ if (!isset($usuario)) {
 
           </li> 
     <?php } ?>
+<<<<<<< Updated upstream
+=======
+
+<!--validación del admin-->
+      <?php if ($admin == 1) {?>
+          <li class="nav-item">
+            <a class="nav-link" href="register.php">
+              <span class="sr-only">(current)</span>
+                <?php echo "Registrar"; ?>
+                <i class="fa fa-pencil" aria-hidden="true"></i>
+
+            </a>
+
+          </li>
+    <?php }?>
+
+>>>>>>> Stashed changes
 
       <li class="nav-item">
 
@@ -141,7 +167,19 @@ if (!isset($usuario)) {
 
 </nav>
 
-        <h2>Solicitudes de folios</h2>
+
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Solicitudes de folios</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Folios generados</a>
+  </li>
+</ul>
+
+<div class="tab-content" id="myTabContent">
+  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+              <h2>Solicitudes de folios</h2>
         <div align="center" style="margin:10px;">
         <form action="control.php" method="POST">
         <label for="fecha_inicio">Fecha inicial:</label>
@@ -153,7 +191,6 @@ if (!isset($usuario)) {
         </div>
 
 
-        <div>
             <div style="position: relative; height: 500px; overflow: auto;">
             <table class="table table-striped">
                <thead>
@@ -286,6 +323,9 @@ if (!isset($usuario)) {
             </table>
             </div>
 
+  </div>
+  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+
             <h2>Folios generados</h2>
             <form action="imprimir2.php" method="POST" target="_blank">
                                 <input type="submit" name="Imprimir" value="Imprimir" class="btn btn-success">
@@ -342,6 +382,10 @@ if (!isset($usuario)) {
     ?>
             </table>
         </div>
+
+  </div>
+</div>
+
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>

@@ -58,14 +58,14 @@ if (!isset($usuario)) {
          </a>
 
       </li>
-      <?php if ($admin == 1){?>
+      <?php if ($admin == 1) {?>
           <li class="nav-item">
             <a class="nav-link" href="register.php">
                 <?php echo "Registrar"; ?>
             </a>
 
-          </li> 
-      <?php } ?>
+          </li>
+      <?php }?>
 
       <li class="nav-item">
 
@@ -115,7 +115,16 @@ if (!isset($usuario)) {
 
 </nav>
 
-
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Folios generados</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Autorizar solicitudes de folios</a>
+  </li>
+</ul>
+<div class="tab-content" id="myTabContent">
+  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 
                 <!---------------tabla de los folios--------------->
         <h2>Folios generados</h2>
@@ -175,7 +184,8 @@ while ($datosF = mysqli_fetch_array($soliF)) {
 ?>
             </table>
 
-
+  </div>
+  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
 
         <h2>Autorizar solicitudes de folios</h2>
         <div>
@@ -256,6 +266,14 @@ mysqli_close($conexion);
 
 
         </div>
+
+  </div>
+</div>
+
+
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
     </body>
 
 </html>

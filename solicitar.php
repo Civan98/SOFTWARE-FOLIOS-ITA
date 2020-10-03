@@ -9,6 +9,7 @@ if ($deptoAS == "" || $cantidad == "" || $asunto == "") {
 
     require 'logica/conexion.php';
     session_start();
+    date_default_timezone_set("America/Mexico_City");
     $usuario = $_SESSION['username'];
     if (!$conexion) {
         echo "Falla en la conexión";
@@ -33,29 +34,27 @@ if ($deptoAS == "" || $cantidad == "" || $asunto == "") {
         $depa = $DaS['id_depto'];
     }
     //buscar el último id_solicitud y comparar el año
-    $anioActual = strftime("%Y");
-    $ultima_solicitud = mysqli_query ($conexion, "SELECT MAX(id_solicitud) as id_solicitud, year FROM solicitudes WHERE year = '$anioActual'");
-    $uS = mysqli_fetch_array($ultima_solicitud);
+    $anioActual       = strftime("%Y");
+    $ultima_solicitud = mysqli_query($conexion, "SELECT MAX(id_solicitud) as id_solicitud, year FROM solicitudes WHERE year = '$anioActual'");
+    $uS               = mysqli_fetch_array($ultima_solicitud);
 
-    if(!$ultima_solicitud){
-        $id_sol = 1;        
+    if (!$ultima_solicitud) {
+        $id_sol = 1;
     } else {
-        
+
         if ($anioActual == $uS['year']) {
             $id_sol = $uS['id_solicitud'];
             $id_sol++;
-        }
-        else{
+        } else {
             $id_sol = 1;
         }
-        
 
-        $year = strftime("%Y");
+        $year     = strftime("%Y");
         $insertar = "INSERT INTO solicitudes ( year, id_depto_sol, id_solicitud, id_depto_genera, cantidad, asunto, estado, id_usuario, fecha) VALUES ('$year','$deptoU', '$id_sol', " . $depa . ",'$cantidad','$asunto','Solicitado', '$IDU', NOW())";
         $exec     = mysqli_query($conexion, $insertar);
 
         if (!$exec) {
-            echo "error ".mysqli_error($conexion);
+            echo "error " . mysqli_error($conexion);
         } else {
 
             echo "<script language='javascript'> alert('Solicitud realizada con éxito');  window.location.href='formsolicitar.php';</script>";
