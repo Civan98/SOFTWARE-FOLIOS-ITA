@@ -1,5 +1,6 @@
 <?php
 require 'logica/conexion.php';
+
 session_start();
 $usuario = $_SESSION['username'];
 if (!isset($usuario)) {
@@ -29,6 +30,7 @@ if (!isset($usuario)) {
         $ID        = $array['id'];
         $nombre    = $array['nombre'];
         $id_deptoU = $array['id_depto'];
+        $admin     = $array['admin'];
         /*Selección de departamento*/
 
         // consulta para obtener el nombre del depa del usuario
@@ -75,13 +77,22 @@ if (!isset($usuario)) {
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
     <ul class="navbar-nav ml-auto">
+    
       <li class="nav-item">
 
         <a class="nav-link" href="#">
             <?php echo "Usuario: $usuario"; ?>
          </a>
 
-      </li>
+      </li><!--validación del admin-->
+      <?php if ($admin == 1){?>
+          <li class="nav-item">
+            <a class="nav-link" href="register.php">
+                <?php echo "Registrar"; ?>
+            </a>
+
+          </li> 
+    <?php } ?>
 
       <li class="nav-item">
 
