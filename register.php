@@ -6,24 +6,30 @@ $usuario = $_SESSION['username'];
 $q        = "SELECT * from departamentos";
 $consulta = mysqli_query($conexion, $q);
 
-$q2         = "SELECT * from usuarios where nombreUsuario = '$usuario ' ";
-$consulta2  = mysqli_query($conexion, $q2);
+$q2        = "SELECT * from usuarios where nombreUsuario = '$usuario ' ";
+$consulta2 = mysqli_query($conexion, $q2);
 $array     = mysqli_fetch_array($consulta2);
 $admin     = $array['admin'];
 
+// consulta para obtener el nombre del depa del usuario
+$q3        = "SELECT * FROM usuarios JOIN departamentos ON usuarios.id_depto = departamentos.id_depto WHERE usuarios.nombreUsuario = '$usuario' ";
+$consulta3 = mysqli_query($conexion, $q3);
+$array3    = mysqli_fetch_array($consulta3);
+$depa      = $array3['nombre_departamentos'];
 
 //se valida que haya usuario en sesion
 
 if (!isset($usuario)) {
     session_destroy();
     header("location: index.php");
-  } else {
-        if($admin == 0){  //valida que el usuario no sea admin
-          session_destroy();
-          header("location: index.php");
-        }else{
-    
-?>
+} else {
+    if ($admin == 0) {
+        //valida que el usuario no sea admin
+        session_destroy();
+        header("location: index.php");
+    } else {
+
+        ?>
 <!DOCTYPE html>
  <html lang="es">
 
@@ -34,6 +40,9 @@ if (!isset($usuario)) {
     <title>TecNM | Tecnológico Nacional de México Campus Acapulco</title>
     <link rel="stylesheet" type="text/css" href="css/gral.css">
  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
 </head>
 
 
@@ -49,86 +58,85 @@ if (!isset($usuario)) {
 <div align="center">
 
  <div class="container" style="margin-top: 20px; margin-bottom: 20px;">
+
+ <div class="container">
+  <div class="border" style="padding: 10px;">
   <nav class="navbar navbar-expand-lg navbar-light navbar-dark" style="background-color: #1B396A">
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <a class="navbar-brand" href="#"> <?php echo "Departamento: $depa" ?> </a>
+ <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4"
+    aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
+
   <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
-    <div class="navbar-nav">
     <ul class="navbar-nav ml-auto">
-    
-    <li class="nav-item">
-
-      <a class="nav-link" href="#">
-          <?php echo "Usuario: $usuario"; ?>
-       </a>
-
-    </li><!--validación del admin-->
-   
-        <li class="nav-item">
-          <a class="nav-link" href="register.php">
-              Registrar
-              <span class="sr-only">(current)</span>
-          </a>
-
-        </li> 
-
-
-    <li class="nav-item">
-
-
-         <a class="nav-link active" href="control.php">
-          Control
-          
-        <i class="fa fa-address-book" aria-hidden="true"></i>
-
-
-      </a>
-      </li>
-
-
-    <li class="nav-item">
-
-
-         <a class="nav-link" href="formsolicitar.php">
-          Solicitar
-        <i class="fa fa-wrench" aria-hidden="true"></i>
-
-      </a>
-      </li>
-
-      <li>
-
-
-         <a class="nav-link" href="autorizar.php">
-          Autorizar
-        <i class="fa fa-bolt" aria-hidden="true"></i>
-
-      </a>
-      </li>
 
       <li class="nav-item">
 
-      <a class="nav-link" href="logica/salir.php">
-          Salir
-        <i class="fa fa-sign-in" aria-hidden="true"></i>
-      </a>
+        <a class="nav-link" href="#">
+            <?php echo "Usuario: $usuario"; ?>
+         </a>
 
-    </li>
+      </li><!--validación del admin-->
+      <?php if ($admin == 1) {?>
+          <li class="nav-item">
+            <a class="nav-link active" href="register.php">
+              <span class="sr-only">(current)</span>
+                <?php echo "Registrar"; ?>
+                <i class="fa fa-pencil" aria-hidden="true"></i>
 
-  </ul>
-   
-    </div>
+            </a>
+
+          </li>
+    <?php }?>
+
+      <li class="nav-item">
 
 
-  </div>
+           <a class="nav-link" href="control.php">
+            Control
+          <i class="fa fa-address-book" aria-hidden="true"></i>
 
+
+        </a>
+        </li>
+
+
+      <li class="nav-item">
+
+
+           <a class="nav-link" href="formsolicitar.php">
+            Solicitar
+          <i class="fa fa-wrench" aria-hidden="true"></i>
+
+        </a>
+        </li>
+
+        <li>
+
+
+           <a class="nav-link" href="autorizar.php">
+            Autorizar
+          <i class="fa fa-bolt" aria-hidden="true"></i>
+
+        </a>
+        </li>
+
+        <li class="nav-item">
+
+        <a class="nav-link" href="logica/salir.php">
+            Salir
+          <i class="fa fa-sign-in" aria-hidden="true"></i>
+        </a>
+
+      </li>
+
+    </ul>
   </div>
 
 </nav>
 
- <div class="container">
-  <div class="border" style="padding: 10px;">
+
   <h1>Registro de usuario</h1>
   <h2>Porfavor, introduzca los datos solicitados:</h2>
 <form action ="insert.php" method ="POST">
@@ -170,15 +178,15 @@ if (!isset($usuario)) {
         <select id="inputState" class="form-control" name="departamento">
         <?php
 //Consulta para rellenar el combobox
-$indice = 0;
-while ($row = mysqli_fetch_array($consulta)) {
-    $indice++;
-    $depto = $row['nombre_departamentos'];
-    ?>
+        $indice = 0;
+        while ($row = mysqli_fetch_array($consulta)) {
+            $indice++;
+            $depto = $row['nombre_departamentos'];
+            ?>
               <option value="<?php echo $depto ?>"> <?php echo $indice . ' - ' . $depto ?></option>
             <?php
 }
-?>
+        ?>
         </select>
       </div>
 
@@ -234,9 +242,10 @@ while ($row = mysqli_fetch_array($consulta)) {
       vin_acapulco@tecnm.mx, <br>
     Teléfonos (744) 442-9010 ext 120 </span></p>
 </div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 
-<script type="text/javascript" src="js/jquery.min.js"></script>
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
 </body>
 </html>
 <?php }?>
