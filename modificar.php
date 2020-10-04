@@ -15,6 +15,15 @@ if (!isset($usuario)) {
     $array    = mysqli_fetch_array($consulta);
     $IDU      = $array['id'];
 
+    $q2        = "SELECT * from departamentos";
+    $consulta2 = mysqli_query($conexion, $q2);
+
+    // consulta para obtener el nombre del depa del usuario
+    $q3        = "SELECT * FROM usuarios JOIN departamentos ON usuarios.id_depto = departamentos.id_depto WHERE usuarios.nombreUsuario = '$usuario' ";
+    $consulta3 = mysqli_query($conexion, $q3);
+    $array3    = mysqli_fetch_array($consulta3);
+    $depa      = $array3['nombre_departamentos'];
+
 }
 ?>
 
@@ -36,7 +45,7 @@ if (!isset($usuario)) {
     </div>
 
           <nav class="navbar navbar-expand-lg navbar-light navbar-dark" style="background-color: #1B396A">
-      <a class="navbar-brand" href="#"> <?php "Departamento: $depa"?> </a>
+      <a class="navbar-brand" href="#"> <?php echo "Departamento: $depa" ?> </a>
  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4"
     aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -110,15 +119,19 @@ $depto_a_S = mysqli_fetch_array($deptoAS);
                 <select name="depto_a_Sol" id="listaDaS">
                     <!-- seleccionar por defecto el depto ya guardado -->
                     <option value="<?php echo $depto_a_S['nombre_departamentos']; ?> " selected> <?php echo $depto_a_S['nombre_departamentos']; ?> </option>
-                    <option value="Ingeniería en Sistemas Computacionales" >Ingeniería en Sistemas Computacionales</option>
-                    <option value="Arquitectura">Arquitectura</option>
-                    <option value="Licenciatura en Administración">Licenciatura en Administración</option>
-                    <option value="Contador Público">Contador Público</option>
-                    <option value="Ingeniería en Bioquímica">Ingeniería en Bioquímica</option>
-                    <option value="Ingeniería en Gestión Empresarial">Ingeniería en Gestión Empresarial</option>
-                    <option value="Ingeniería en Electromecánica">Ingeniería en Electromecánica</option>
-                    <option value="Dirección">Dirección</option>
-                    <option value="Subdirección">Subdirección</option>
+
+                           <?php
+//Consulta para rellenar el combobox
+$indice = 0;
+while ($row = mysqli_fetch_array($consulta2)) {
+    $indice++;
+    $depto = $row['nombre_departamentos'];
+    ?>
+                    <option value="<?php echo $depto ?>"> <?php echo $indice . ' - ' . $depto ?></option>
+                                <?php
+}
+?>
+
                 </select><br><br>
                 <label for="Asunto">Asunto: <?php echo $s['asunto']; ?>  ---></label>
                 <textarea name="asunto" id="asunto" maxlength="100" cols="50" rows="5" ><?php echo $s['asunto']; ?></textarea><br><br>
