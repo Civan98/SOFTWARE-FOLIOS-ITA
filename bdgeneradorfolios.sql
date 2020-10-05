@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-10-2020 a las 22:30:50
--- Versión del servidor: 10.1.38-MariaDB
--- Versión de PHP: 7.3.2
+-- Tiempo de generación: 06-10-2020 a las 01:59:00
+-- Versión del servidor: 10.4.14-MariaDB
+-- Versión de PHP: 7.4.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -143,7 +142,8 @@ INSERT INTO `solicitudes` (`year`, `id_depto_sol`, `id_solicitud`, `id_depto_gen
 (2020, 14, 5, 14, 2, 'p6', 'Autorizado', 5, '2020-09-30 14:49:02', NULL, NULL, 5, '2020-09-30 14:49:05', NULL, NULL),
 (2020, 12, 6, 1, 3, 'p7', 'Autorizado', 6, '2020-09-30 14:50:02', NULL, NULL, 3, '2020-09-30 14:50:17', NULL, NULL),
 (2020, 1, 7, 1, 1, 'a', 'Autorizado', 3, '2020-09-30 15:16:25', NULL, NULL, 3, '2020-10-01 17:45:03', NULL, NULL),
-(2020, 1, 8, 1, 1, 'p1', 'Autorizado', 3, '2020-10-01 17:28:48', NULL, NULL, 3, '2020-10-01 17:28:55', NULL, NULL);
+(2020, 1, 8, 1, 1, 'p1', 'Autorizado', 3, '2020-10-01 17:28:48', NULL, NULL, 3, '2020-10-01 17:28:55', NULL, NULL),
+(2020, 14, 9, 2, 4, 'Proyectores', 'Solicitado', 5, '2020-10-02 23:32:42', 5, '2020-10-03 16:18:06', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -167,9 +167,10 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `nombre`, `apellidos`, `nombreUsuario`, `cargo`, `contrasena`, `id_depto`, `admin`) VALUES
-(3, 'Salvador ', 'Herrera Soriano', 'Salvador ', 'Director', '1234', 1, 1),
+(3, 'Salvador ', 'Herrera Soriano  ', 'Salvador', 'Director', '1234', 1, 1),
 (5, 'Juan Miguel', 'Hernández Bravo', 'JM', 'Jefe de departamento de Ingeniería en Sistemas Computacional', '1234', 14, 0),
-(6, 'Zaida', 'Villanueva', 'ZV', 'Jefa IBQ', '1234', 12, 0);
+(6, 'Zaida ', 'Villanueva Solis  ', 'ZV', 'jefa', '1234', 12, 0),
+(11, 'admin', 'admin', 'admin', 'admin', '1234', 1, 1);
 
 --
 -- Índices para tablas volcadas
@@ -221,7 +222,7 @@ ALTER TABLE `departamentos`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'identificador del usuario', AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'identificador del usuario', AUTO_INCREMENT=24;
 
 --
 -- Restricciones para tablas volcadas
