@@ -61,7 +61,8 @@ if (!isset($usuario)) {
       <?php if ($admin == 1) {?>
           <li class="nav-item">
             <a class="nav-link" href="register.php">
-                <?php echo "Registrar"; ?>
+                <?php echo "Administrador"; ?>
+                <i class="fa fa-pencil" aria-hidden="true"></i>
             </a>
 
           </li>

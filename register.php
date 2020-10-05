@@ -83,7 +83,7 @@ if (!isset($usuario)) {
           <li class="nav-item">
             <a class="nav-link active" href="register.php">
               <span class="sr-only">(current)</span>
-                <?php echo "Registrar"; ?>
+                <?php echo "Adminstrador"; ?>
                 <i class="fa fa-pencil" aria-hidden="true"></i>
 
             </a>

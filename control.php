@@ -91,7 +91,7 @@ if (!isset($usuario)) {
           <li class="nav-item">
             <a class="nav-link" href="register.php">
               <span class="sr-only">(current)</span>
-                <?php echo "Registrar"; ?>
+                <?php echo "Administrador"; ?>
                 <i class="fa fa-pencil" aria-hidden="true"></i>
 
             </a>
