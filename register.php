@@ -12,7 +12,6 @@ $array     = mysqli_fetch_array($consulta2);
 $admin     = $array['admin'];
 $idDE      = $array['id_depto'];
 
-
 // consulta para obtener el nombre del depa del usuario
 $q3        = "SELECT * FROM usuarios JOIN departamentos ON usuarios.id_depto = departamentos.id_depto WHERE usuarios.nombreUsuario = '$usuario' ";
 $consulta3 = mysqli_query($conexion, $q3);
@@ -40,7 +39,6 @@ if (!isset($usuario)) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>TecNM | Tecnológico Nacional de México Campus Acapulco</title>
-    <link rel="stylesheet" type="text/css" href="css/gral.css">
  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -51,18 +49,7 @@ if (!isset($usuario)) {
 <body>
 <div align="center">
   <img src=imagenes/header.png width="850" height="133"></div>
-
-  <div align="center"><span style="font-family: 'Montserrat', sans-serif; font-weight: normal; font-style: normal; text-decoration: none; font-size: 16pt; color:gray">
-   Tecnológico Nacional de México Campus Acapulco<br>
- </span>
-</div>
-
 <div align="center">
-
- <div class="container" style="margin-top: 20px; margin-bottom: 20px;">
-
- <div class="container">
-  <div class="border" style="padding: 10px;">
   <nav class="navbar navbar-expand-lg navbar-light navbar-dark" style="background-color: #1B396A">
       <a class="navbar-brand" href="#"> <?php echo "Departamento: $depa" ?> </a>
  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4"
@@ -139,8 +126,18 @@ if (!isset($usuario)) {
 
 </nav>
 
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Registrar nuevo usuario</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Usuarios registrados</a>
+  </li>
+</ul>
+<div class="tab-content" id="myTabContent">
+  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 
-  <h1>Registro de usuario</h1>
+      <h1>Registro de usuario</h1>
   <h2>Porfavor, introduzca los datos solicitados:</h2>
 <form action ="insert.php" method ="POST">
 <div class="row">
@@ -175,28 +172,30 @@ if (!isset($usuario)) {
             <option value="0">No</option>
           </select>
   </div>
-
+</div>
+  <div class="row">
       <div class="col">
       <!--si es admin solo el da de alta otro depa de lo contrario se le asigna el depa del usario logeado-->
-      <?php if($usuario == 'admin'){ ?>
+      <?php if ($usuario == 'admin') {
+            ?>
           <label for="departamento">Departamento:</label>
           <select id="inputState" class="form-control" name="departamento">
           <?php
-          $indice = 0;
-          while ($row = mysqli_fetch_array($consulta)) {
-              $indice++;
-              $depto = $row['nombre_departamentos'];
-              ?>
+$indice = 0;
+            while ($row = mysqli_fetch_array($consulta)) {
+                $indice++;
+                $depto = $row['nombre_departamentos'];
+                ?>
                 <option value="<?php echo $depto ?>"> <?php echo $indice . ' - ' . $depto ?></option>
               <?php
-                }
-              ?>
+}
+            ?>
                <?php
-                }else{?>
+} else {?>
                   <input type="text" value ="<?php echo $depa ?>" name="departamento" hidden="true" >
                <?php }
-              ?>
-              
+        ?>
+
           </select>
       </div>
 
@@ -216,179 +215,160 @@ if (!isset($usuario)) {
       </div>
       <br>
 
-        <button type="submit" class="btn btn-primary btn-lg btn-block">Enviar</button>
+        <button type="submit" class="btn btn-primary btn-lg">Enviar</button>
 </form>
-</div>
-</div>
 
-<!-- EMPIEZA LA TABLA DE USUARIOS-->
+  </div>
+  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+    <h2>Usuarios registrados</h2>
+    <!-- EMPIEZA LA TABLA DE USUARIOS-->
 <br>
 <br>
 
-<?php 
-  //si es admin se muestra todos los usuarios
-  if($usuario == "admin"){
-  ?>
-    <table border= "1">
+<?php
+//si es admin se muestra todos los usuarios
+        if ($usuario == "admin") {
+            ?>
+    <table class="table table-striped">
+              <thead>
                       <tr>
-                        <td>Nombre</td>
-                        <td>Apellidos</td>
-                        <td>Nombre Usuario</td>
-                        <td>Cargo</td>
-                        <td>Contraseña</td>
-                        <td>Departamento</td>
-                        <td>Administrador</td>
-                        <td>Editar</td>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Apellidos</th>
+                        <th scope="col">Nombre Usuario</th>
+                        <th scope="col">Cargo</th>
+                        <th scope="col">Contraseña</th>
+                        <th scope="col">Departamento</th>
+                        <th scope="col">Administrador</th>
+                        <th scope="col">Editar</th>
                       </tr>
-                      <?php 
-                        $sql="SELECT * FROM usuarios";
-                        $result=mysqli_query($conexion, $sql);
+                    </thead>
+                      <?php
+$sql    = "SELECT * FROM usuarios";
+            $result = mysqli_query($conexion, $sql);
 
-                        while($mostrar=mysqli_fetch_array($result)){//cambia los 1 por SI y 0 por NO
-                         
-                          if($mostrar['admin'] == 1){
-                            $admin = "SI";
-                          }else{
-                            $admin ="NO";
-                          }
+            while ($mostrar = mysqli_fetch_array($result)) {
+//cambia los 1 por SI y 0 por NO
 
-                          //consulta para el nombre de los depas
-                          $idD =$mostrar['id_depto'];
-                          $sql2 ="SELECT * FROM departamentos WHERE id_depto = $idD";
-                          $result2 =mysqli_query($conexion, $sql2);
-                          $array    = mysqli_fetch_array($result2);
-                          $nom_depto  = $array['nombre_departamentos'];
-                         
+                if ($mostrar['admin'] == 1) {
+                    $admin = "SI";
+                } else {
+                    $admin = "NO";
+                }
 
-                      ?>
+                //consulta para el nombre de los depas
+                $idD       = $mostrar['id_depto'];
+                $sql2      = "SELECT * FROM departamentos WHERE id_depto = $idD";
+                $result2   = mysqli_query($conexion, $sql2);
+                $array     = mysqli_fetch_array($result2);
+                $nom_depto = $array['nombre_departamentos'];
+
+                ?>
                         <tr>
-                          <td><?php  echo $mostrar['nombre']?></td>
-                          <td><?php  echo $mostrar['apellidos']?></td>
-                          <td><?php  echo $mostrar['nombreUsuario']?></td>
-                          <td><?php  echo $mostrar['cargo']?></td>
-                          <td><?php  echo $mostrar['contrasena']?></td>
-                          <td><?php  echo $nom_depto?></td>
-                          <td><?php  echo $admin?></td>
-                          <td> 
+                          <td><?php echo $mostrar['nombre'] ?></td>
+                          <td><?php echo $mostrar['apellidos'] ?></td>
+                          <td><?php echo $mostrar['nombreUsuario'] ?></td>
+                          <td><?php echo $mostrar['cargo'] ?></td>
+                          <td><?php echo $mostrar['contrasena'] ?></td>
+                          <td><?php echo $nom_depto ?></td>
+                          <td><?php echo $admin ?></td>
+                          <td>
                                     <form action="modificarUser.php" method="POST">
                                       <input type="text" name="id_user" value=<?php echo $mostrar['id']; ?> hidden="true">
-                                      <input type="text" name="nombre" value= <?php  echo $mostrar['nombre']?> hidden="true">
-                                      <input type="text" name="apellidos" value= <?php  echo $mostrar['apellidos']?> hidden="true">
-                                      <input type="text" name="nombreUsuario" value= <?php  echo $mostrar['nombreUsuario']?> hidden="true">
-                                      <input type="text" name="cargo" value= <?php  echo $mostrar['cargo']?> hidden="true">
-                                      <input type="text" name="contrasena" value= <?php  echo $mostrar['contrasena']?> hidden="true">
-                                      <input type="text" name="nombre_departamento" value= <?php  echo $nom_depto?> hidden="true">
-                                      <input type="text" name="admin" value= <?php  echo $admin?> hidden="true">
+                                      <input type="text" name="nombre" value= <?php echo $mostrar['nombre'] ?> hidden="true">
+                                      <input type="text" name="apellidos" value= <?php echo $mostrar['apellidos'] ?> hidden="true">
+                                      <input type="text" name="nombreUsuario" value= <?php echo $mostrar['nombreUsuario'] ?> hidden="true">
+                                      <input type="text" name="cargo" value= <?php echo $mostrar['cargo'] ?> hidden="true">
+                                      <input type="text" name="contrasena" value= <?php echo $mostrar['contrasena'] ?> hidden="true">
+                                      <input type="text" name="nombre_departamento" value= <?php echo $nom_depto ?> hidden="true">
+                                      <input type="text" name="admin" value= <?php echo $admin ?> hidden="true">
                                       <input type="submit" name="editar" value="Editar" class="btn btn-warning" >
                                     </form>
                                     </td>
                         </tr>
                       <?php
-                        }
-                      ?>
+}
+            ?>
     </table>
-  <?php }else{?>
-              <table border= "1">
+  <?php } else {
+            ?>
+              <table class="table table-striped">
+                         <thead>
                                 <tr>
-                                  <td>Nombre</td>
-                                  <td>Apellidos</td>
-                                  <td>Nombre Usuario</td>
-                                  <td>Cargo</td>
-                                  <td>Contraseña</td>
-                                  <td>Departamento</td>
-                                  <td>Administrador</td>
-                                  <td>Editar</td>
+                                  <th scope="row">Nombre</th>
+                                  <th scope="row">Apellidos</th>
+                                  <th scope="row">Nombre Usuario</th>
+                                  <th scope="row">Cargo</th>
+                                  <th scope="row">Contraseña</th>
+                                  <th scope="row">Departamento</th>
+                                  <th scope="row">Administrador</th>
+                                  <th scope="row">Editar</th>
                                 </tr>
-                                <?php 
-                                  $sql="SELECT * FROM usuarios WHERE id_depto = $idDE";
-                                  $result=mysqli_query($conexion, $sql);
+                            </thead>
+                                <?php
+$sql    = "SELECT * FROM usuarios WHERE id_depto = $idDE";
+            $result = mysqli_query($conexion, $sql);
 
-                                  while($mostrar=mysqli_fetch_array($result)){//cambia los 1 por SI y 0 por NO
-                                    if($mostrar['admin'] == 1){
-                                      $admin = "SI";
-                                    }else{
-                                      $admin ="NO";
-                                    }
+            while ($mostrar = mysqli_fetch_array($result)) {
+//cambia los 1 por SI y 0 por NO
+                if ($mostrar['admin'] == 1) {
+                    $admin = "SI";
+                } else {
+                    $admin = "NO";
+                }
 
-                                    //consulta para el nombre de los depas
-                                    $idD =$mostrar['id_depto'];
-                                    $sql2 ="SELECT * FROM departamentos WHERE id_depto = $idD";
-                                    $result2 =mysqli_query($conexion, $sql2);
-                                    $array    = mysqli_fetch_array($result2);
-                                    $nom_depto  = $array['nombre_departamentos'];
+                //consulta para el nombre de los depas
+                $idD       = $mostrar['id_depto'];
+                $sql2      = "SELECT * FROM departamentos WHERE id_depto = $idD";
+                $result2   = mysqli_query($conexion, $sql2);
+                $array     = mysqli_fetch_array($result2);
+                $nom_depto = $array['nombre_departamentos'];
 
-                                              //para no mostrar el admin 
-                                    if($mostrar['nombreUsuario'] == "admin"){
-                                     
-                                  }else{
-                                ?>
+                //para no mostrar el admin
+                if ($mostrar['nombreUsuario'] == "admin") {
+
+                } else {
+                    ?>
                                   <tr>
-                                    <td><?php  echo $mostrar['nombre']?></td>
-                                    <td><?php  echo $mostrar['apellidos']?></td>
-                                    <td><?php  echo $mostrar['nombreUsuario']?></td>
-                                    <td><?php  echo $mostrar['cargo']?></td>
-                                    <td><?php  echo $mostrar['contrasena']?></td>
-                                    <td><?php  echo $nom_depto?></td>
-                                    <td><?php  echo $admin?></td>
-                                    <td> 
-                              <form action="modificarUser.php" method="POST">
-                                          <input type="text" name="id_user" value=<?php echo $mostrar['id']; ?> hidden="true">
-                                          <input type="text" name="nombre" value= <?php  echo $mostrar['nombre']?> hidden="true">
-                                          <input type="text" name="apellidos" value= <?php  echo $mostrar['apellidos']?> hidden="true">
-                                          <input type="text" name="nombreUsuario" value= <?php  echo $mostrar['nombreUsuario']?> hidden="true">
-                                          <input type="text" name="cargo" value= <?php  echo $mostrar['cargo']?> hidden="true">
-                                          <input type="text" name="contrasena" value= <?php  echo $mostrar['contrasena']?> hidden="true">
-                                          <input type="text" name="nombre_departamento" value= <?php  echo $nom_depto?> hidden="true">
-                                          <input type="text" name="admin" value= <?php  echo $admin?> hidden="true">
-                                          <input type="submit" name="editar" value="Editar" class="btn btn-warning" >
-                                        </form>
+                                    <td><?php echo $mostrar['nombre'] ?></td>
+                                    <td><?php echo $mostrar['apellidos'] ?></td>
+                                    <td><?php echo $mostrar['nombreUsuario'] ?></td>
+                                    <td><?php echo $mostrar['cargo'] ?></td>
+                                    <td><?php echo $mostrar['contrasena'] ?></td>
+                                    <td><?php echo $nom_depto ?></td>
+                                    <td><?php echo $admin ?></td>
+                                    <td>
+              <form action="modificarUser.php" method="POST">
+                          <input type="text" name="id_user" value=<?php echo $mostrar['id']; ?> hidden="true">
+                          <input type="text" name="nombre" value= <?php echo $mostrar['nombre'] ?> hidden="true">
+                          <input type="text" name="apellidos" value= <?php echo $mostrar['apellidos'] ?> hidden="true">
+                          <input type="text" name="nombreUsuario" value= <?php echo $mostrar['nombreUsuario'] ?> hidden="true">
+                          <input type="text" name="cargo" value= <?php echo $mostrar['cargo'] ?> hidden="true">
+                          <input type="text" name="contrasena" value= <?php echo $mostrar['contrasena'] ?> hidden="true">
+                          <input type="text" name="nombre_departamento" value= <?php echo $nom_depto ?> hidden="true">
+                          <input type="text" name="admin" value= <?php echo $admin ?> hidden="true">
+                          <input type="submit" name="editar" value="Editar" class="btn btn-warning" >
+                        </form>
                             </td>
-                              
+
                           <?php }
-                            ?>
-                                   
+                ?>
+
                                   </tr>
                                 <?php
-                                  }
-                                ?>
+}
+            ?>
               </table>
            <?php
-              }
-            ?>
+}
+        ?>
 
 
 
-<div class="contacto">
-  <p align="center">
-  <span style="font-family: 'Montserrat', sans-serif; font-weight: normal; font-style: normal; text-decoration: none; font-size: 14pt; color:#254ca7">
-  Contacto</span>
 
-    <table border="0" align="center" width="50%">
-      <tr>
-        <td ><div align="center"><img src="imagenes/mail.png" width="78" height="78"></div></td>
-        <td >&nbsp;</td>
-        <td ><div align="center"><img src="imagenes/fb.png" width="78" height="78"></div></td>
-      </tr>
-      <tr>
-        <td><div align="center"><div align="center"><span style="font-family: 'Montserrat', sans-serif; font-weight: normal; font-style: normal; text-decoration: none; font-size: 10pt; color:gray"> vinculacion@acapulco.tecnm.mx</span></div></div></td>
-        <td><div align="center"></div></td>
-        <td><div align="center"><a href="https://www.facebook.com/vinculacion.acapulco/" target="top"><div align="center"><span style="font-family: 'Montserrat', sans-serif; font-weight: normal; font-style: normal; text-decoration: none; font-size: 10pt; color:gray"> @vinculacion.acapulco</span></div></a></div></td>
-      </tr>
-    </table>
+  </div>
 </div>
 
 
- <hr width="80%">
-
- <div class="pie">
-    <span style="font-family: 'Montserrat', sans-serif; font-weight: normal; font-style: normal; text-decoration: none; font-size: 8pt; color:gray">
-    <span id="copyright_osvp">ITA - ALGUNOS DERECHOS RESERVADOS © 2019 <br>
-          TecNM | Tecnológico Nacional de México Campus Acapulco<br>
-          Instituto Tecnológico de Acapulco<br>
-          Av. Instituto Tecnológico s/n Crucero del Cayaco C.P. 39905 <br>
-      vin_acapulco@tecnm.mx, <br>
-    Teléfonos (744) 442-9010 ext 120 </span></p>
-</div>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>

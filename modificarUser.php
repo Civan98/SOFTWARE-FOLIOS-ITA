@@ -1,13 +1,12 @@
 <?php
-$id_user          = $_POST['id_user'];
-$nombre           = $_POST['nombre'];
-$apellidos        = $_POST['apellidos'];
-$nombreUsuario    = $_POST['nombreUsuario'];
-$cargo            = $_POST['cargo'];
-$contrasena       = $_POST['contrasena'];
+$id_user             = $_POST['id_user'];
+$nombre              = $_POST['nombre'];
+$apellidos           = $_POST['apellidos'];
+$nombreUsuario       = $_POST['nombreUsuario'];
+$cargo               = $_POST['cargo'];
+$contrasena          = $_POST['contrasena'];
 $nombre_departamento = $_POST['nombre_departamento'];
-$admin            = $_POST['admin'];
-
+$admin               = $_POST['admin'];
 
 require 'logica/conexion.php';
 session_start();
@@ -19,10 +18,8 @@ if (!isset($usuario)) {
     $q        = "SELECT * from usuarios where id = '$id_user' ";
     $consulta = mysqli_query($conexion, $q);
     $array    = mysqli_fetch_array($consulta);
-    $ape       = $array['apellidos'];
-    $car     = $array['cargo'];
-    
-   
+    $ape      = $array['apellidos'];
+    $car      = $array['cargo'];
 
     $q2        = "SELECT * from departamentos";
     $consulta2 = mysqli_query($conexion, $q2);
@@ -88,46 +85,78 @@ if (!isset($usuario)) {
 
         <div align="center">
         <h2>Modificar Usuario</h2>
-          
 
+        <div class="container">
             <form action="modUser.php" method="POST">
                 <div class="form-group">
-                <label for="nombre">Nombre: <?php echo $nombre ?> </label> <input type="text" name="nombre" value="<?php echo $nombre ?> " required> <br> <br>
-                <label for="apellidos">Apellidos: <?php echo $ape ?> </label> <input type="text" name="apellidos" value="<?php echo $ape ?> " required> <br> <br>
-                <label for="nombreUsuario">Nombre de Usuario: <?php echo $nombreUsuario ?> </label> <input type="text" name="nombreUsuario" value="<?php echo $nombreUsuario ?>" required> <br><br>
-                <label for="cargo">Cargo: <?php echo $car ?> </label> <input type="text" name="cargo" value="<?php echo $car ?>" sice= "30"required>  <br><br>
-                <label for="contrasena">Contraseña: <?php echo $contrasena ?> </label> <input type="text" name="contrasena" value="<?php echo $contrasena ?>" required>  <br><br>
-                <?php if ($usuario == "admin"){?>
-                <label for="nombre_departamento">Departamento: <?php echo $nombre_departamento ?></label>
-                <select name="nombre_departamento" id="listaDaS">
+                <div class="row">
+                    <div class="col">
+                <label for="nombre">Nombre:</label>
+                <input type="text" class="form-control" name="nombre" value="<?php echo $nombre ?> " required>
+                    </div>
+                    <div class="col">
+                <label for="apellidos">Apellidos:</label>
+                <input type="text" class="form-control" name="apellidos" value="<?php echo $ape ?> " required>
+                    </div>
+                    <div class="col">
+                <label for="nombreUsuario">Nombre de Usuario:</label>
+                <input type="text" class="form-control" name="nombreUsuario" value="<?php echo $nombreUsuario ?>" required>
+                </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                <label for="cargo">Cargo:</label>
+                 <input type="text" class="form-control" name="cargo" value="<?php echo $car ?>" sice= "30"required>
+                    </div>
+                    <div class="col">
+                <label for="contrasena">Contraseña:</label>
+                 <input type="text" class="form-control" name="contrasena" value="<?php echo $contrasena ?>" required>
+                 </div>
+                             </div>
+
+                <?php if ($usuario == "admin") {
+    ?>
+                <div class="row">
+                    <div class="col">
+                <label for="nombre_departamento">Departamento:</label>
+                <select  class="form-control" name="nombre_departamento" id="listaDaS">
                     <?php
-                        //Consulta para rellenar el combobox
-                        $indice = 0;
-                        while ($row = mysqli_fetch_array($consulta2)) {
-                            $indice++;
-                            $depto = $row['nombre_departamentos'];
-                            ?>
+//Consulta para rellenar el combobox
+    $indice = 0;
+    while ($row = mysqli_fetch_array($consulta2)) {
+        $indice++;
+        $depto = $row['nombre_departamentos'];
+        ?>
                                 <option value="<?php echo $depto ?>"> <?php echo $indice . ' - ' . $depto ?></option>
                                             <?php
-                            }
-                        ?>
+}
+    ?>
 
-                        </select><?php }else{//si no es admin le asigna el depa por defecto?>
-                            <input type="text" name="nombre_departamento" value= <?php echo $nombre_departamento?> hidden="true">
+                        </select>
+                        </div>
+
+<?php } else { //si no es admin le asigna el depa por defecto?>
+                            <input type="text" class="form-control" name="nombre_departamento" value= <?php echo $nombre_departamento ?> hidden="true">
                         <?php }?>
                   <br><br>
-                
-                <label for="nombre">Admistrador: <?php echo $admin ?> </label>
-                <select  id="inputState"  name="admin" >
+            </div>
+                <div class="row">
+                    <div class="col">
+                <label for="nombre">Admistrador:</label>
+                <select  id="inputState" class="form-control"  name="admin" >
                     <option value="1">Si</option>
                     <option value="0">No</option>
                 </select>
-          <br><br>
-   <br>
-                <input type="submit" name="modificar" id="modificar" value="Modificar" class="btn btn-primary btn-lg">
-
-            </div>
+                </div>
+                </div>
+                <br>
+             <div class="row">
+                 <div class="col">
+                     <input type="submit" name="modificar" id="modificar" value="Modificar" class="btn btn-primary btn-lg">
+                 </div>
+             </div>
             </form>
+            </div>
 
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

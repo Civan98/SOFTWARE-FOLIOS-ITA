@@ -179,7 +179,7 @@ if (!isset($usuario)) {
                     <th>Fecha</td>
                     <th scope="col">Nombre del solicitante</th>
                     <th scope="col">Departamento que solicita</th>
-                    <th>Departamento al que solicita</th>
+                    <th scope="col">Departamento al que solicita</th>
                     <th scope="col">Asunto</th>
                     <th scope="col">Cantidad</th>
                     <th scope="col">Estado</th>
