@@ -76,7 +76,13 @@ if (!isset($usuario)) {
     $array5    = mysqli_fetch_array($consulta5);
     $id_deptoU       = $array5['id_depto'];
     
-    $q        = "SELECT * FROM folios WHERE id_depto_sol = '$id_deptoU' ORDER BY id_depto_genera ASC, id_folio DESC";
+    if($usuario =="admin"){
+        $q  = "SELECT * FROM folios ORDER BY id_depto_genera ASC, id_folio DESC";
+    }else{
+        $q  = "SELECT * FROM folios WHERE id_depto_sol = '$id_deptoU' ORDER BY id_depto_genera ASC, id_folio DESC";
+    }
+   
+   
     $consulta = mysqli_query($conexion, $q);
    // $array1    = mysqli_fetch_array($consulta);
    // $id_depto_g       = $array1['id_depto_genera'];
@@ -91,17 +97,26 @@ if (!isset($usuario)) {
     $q4        = "SELECT * from departamentos where id_depto = '$id_deptoU' ";
     $consulta4 = mysqli_query($conexion, $q4);
     $array4    = mysqli_fetch_array($consulta4);
-    $nombre_sol  = $array4['nom_corto'];
+    //$nombre_sol  = $array4['nom_corto'];
 
   
     while ($row = mysqli_fetch_array($consulta)) {
         $pdf->Cell(5);//alineador
         //consulta para el depto que genera
         $id_dg = $row['id_depto_genera'];
-        $q6        = "SELECT * from departamentos where id_depto = '$id_dg' ";
+        $nombre_s = $row['id_depto_sol'];
+
+        $q6   = "SELECT * from departamentos where id_depto = '$id_dg' ";
+        $q7   = "SELECT * from departamentos where id_depto = '$nombre_s' ";
+
         $consulta6 = mysqli_query($conexion, $q6);
+        $consulta7 = mysqli_query($conexion, $q7);
+
         $array6    = mysqli_fetch_array($consulta6);
+        $array7    = mysqli_fetch_array($consulta7);
+
         $nombre_gen  = $array6['nom_corto'];
+        $nombre_sol  = $array7['nom_corto'];
 
         $pdf->Cell(20, 10, $row['id_folio'], 1, 0, 'C', 0);
         $pdf->Cell(40, 10, $row['fecha'], 1, 0, 'C', 0);

@@ -83,17 +83,24 @@ if (!isset($usuario)) {
     $consultar = mysqli_query($conexion, $q2);//consulta para el ciclo while
     $array2    = mysqli_fetch_array($consulta2);
 
-    // consulta para obtener el nombre del depa del usuario
-    $q3        = "SELECT * FROM usuarios JOIN departamentos ON usuarios.id_depto = departamentos.id_depto WHERE usuarios.nombreUsuario = '$usuario' ";
-    $consulta3 = mysqli_query($conexion, $q3);
-    $array3    = mysqli_fetch_array($consulta3);
 
-    //consulta para obtener el nombre del depa que genera
+    //consulta para obtener el nombre del depa 
+
     $id_genera      = $array2['id_depto_genera'];//id del que genera
+    $id_sol         = $array2['id_depto_sol'];//id del que solicita
+
     $q4        = "SELECT * from departamentos where id_depto = '$id_genera' ";
+    $qs        = "SELECT * from departamentos where id_depto = '$id_sol' ";
+
+
     $consulta4 = mysqli_query($conexion, $q4);
+    $consultaS = mysqli_query($conexion, $qs);
+
     $array4    = mysqli_fetch_array($consulta4);
+    $arrayS    = mysqli_fetch_array($consultaS);
+
     $nombre_genera  = $array4['nom_corto'];
+    $nombre_sol  = $arrayS['nom_corto'];
 
     //$pdf = new PDF();
     $pdf=new PDF('L','mm','A4');//lianea para PDF horizontal
@@ -108,7 +115,7 @@ if (!isset($usuario)) {
 
         $pdf->Cell(30,10, $row['id_solicitud'], 1, 0, 'C', 0);
         $pdf->Cell(40, 10, $row['fecha'], 1, 0, 'C', 0);
-        $pdf->Cell(50, 10, utf8_decode($array3['nom_corto']), 1, 0, 'C', 0);
+        $pdf->Cell(50, 10, utf8_decode($nombre_sol), 1, 0, 'C', 0);
         $pdf->Cell(50, 10, utf8_decode($nombre_genera), 1, 0, 'C', 0);
         $pdf->Cell(50, 10, utf8_decode($row['asunto']), 1, 0, 'L', 0);
         $pdf->Cell(20, 10, $row['id_folio'], 1, 0, 'C', 0);
