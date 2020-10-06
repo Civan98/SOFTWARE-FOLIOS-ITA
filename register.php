@@ -258,18 +258,7 @@ if (!isset($usuario)) {
                           $result2 =mysqli_query($conexion, $sql2);
                           $array    = mysqli_fetch_array($result2);
                           $nom_depto  = $array['nombre_departamentos'];
-                          
-                          //para no mostrar el admin 
-                          if($mostrar['nombreUsuario'] == "admin"){
-                          $mostrar['nombreUsuario'] ="    ----";
-                          $mostrar['nombre']="    ----";;
-                          $mostrar['apellidos']="    ----";;
-                          $mostrar['nombreUsuario']="    ----";;
-                          $mostrar['cargo']="    ----";;
-                          $mostrar['contrasena']="    ----";;
-                          $nom_depto="    ----";
-                          $admin="    ----";
-                       }
+                         
 
                       ?>
                         <tr>
@@ -280,25 +269,19 @@ if (!isset($usuario)) {
                           <td><?php  echo $mostrar['contrasena']?></td>
                           <td><?php  echo $nom_depto?></td>
                           <td><?php  echo $admin?></td>
-                      <?php if($mostrar['nombreUsuario'] == "    ----" ){?>
-                             <td></td>
-                            <?php
-                                }else{?>
-                                       <td> 
-                              <form action="modificarUser.php" method="POST">
-                                          <input type="text" name="id_user" value=<?php echo $mostrar['id']; ?> hidden="true">
-                                          <input type="text" name="nombre" value= <?php  echo $mostrar['nombre']?> hidden="true">
-                                          <input type="text" name="apellidos" value= <?php  echo $mostrar['apellidos']?> hidden="true">
-                                          <input type="text" name="nombreUsuario" value= <?php  echo $mostrar['nombreUsuario']?> hidden="true">
-                                          <input type="text" name="cargo" value= <?php  echo $mostrar['cargo']?> hidden="true">
-                                          <input type="text" name="contrasena" value= <?php  echo $mostrar['contrasena']?> hidden="true">
-                                          <input type="text" name="nombre_departamento" value= <?php  echo $nom_depto?> hidden="true">
-                                          <input type="text" name="admin" value= <?php  echo $admin?> hidden="true">
-                                          <input type="submit" name="editar" value="Editar" class="btn btn-warning" >
-                                        </form>
-                            </td>
-                                <?php }
-                            ?>
+                          <td> 
+                                    <form action="modificarUser.php" method="POST">
+                                      <input type="text" name="id_user" value=<?php echo $mostrar['id']; ?> hidden="true">
+                                      <input type="text" name="nombre" value= <?php  echo $mostrar['nombre']?> hidden="true">
+                                      <input type="text" name="apellidos" value= <?php  echo $mostrar['apellidos']?> hidden="true">
+                                      <input type="text" name="nombreUsuario" value= <?php  echo $mostrar['nombreUsuario']?> hidden="true">
+                                      <input type="text" name="cargo" value= <?php  echo $mostrar['cargo']?> hidden="true">
+                                      <input type="text" name="contrasena" value= <?php  echo $mostrar['contrasena']?> hidden="true">
+                                      <input type="text" name="nombre_departamento" value= <?php  echo $nom_depto?> hidden="true">
+                                      <input type="text" name="admin" value= <?php  echo $admin?> hidden="true">
+                                      <input type="submit" name="editar" value="Editar" class="btn btn-warning" >
+                                    </form>
+                                    </td>
                         </tr>
                       <?php
                         }
@@ -334,6 +317,10 @@ if (!isset($usuario)) {
                                     $array    = mysqli_fetch_array($result2);
                                     $nom_depto  = $array['nombre_departamentos'];
 
+                                              //para no mostrar el admin 
+                                    if($mostrar['nombreUsuario'] == "admin"){
+                                     
+                                  }else{
                                 ?>
                                   <tr>
                                     <td><?php  echo $mostrar['nombre']?></td>
@@ -344,18 +331,22 @@ if (!isset($usuario)) {
                                     <td><?php  echo $nom_depto?></td>
                                     <td><?php  echo $admin?></td>
                                     <td> 
-                                    <form action="modificarUser.php" method="POST">
-                                      <input type="text" name="id_user" value=<?php echo $mostrar['id']; ?> hidden="true">
-                                      <input type="text" name="nombre" value= <?php  echo $mostrar['nombre']?> hidden="true">
-                                      <input type="text" name="apellidos" value= <?php  echo $mostrar['apellidos']?> hidden="true">
-                                      <input type="text" name="nombreUsuario" value= <?php  echo $mostrar['nombreUsuario']?> hidden="true">
-                                      <input type="text" name="cargo" value= <?php  echo $mostrar['cargo']?> hidden="true">
-                                      <input type="text" name="contrasena" value= <?php  echo $mostrar['contrasena']?> hidden="true">
-                                      <input type="text" name="nombre_departamento" value= <?php  echo $nom_depto?> hidden="true">
-                                      <input type="text" name="admin" value= <?php  echo $admin?> hidden="true">
-                                      <input type="submit" name="editar" value="Editar" class="btn btn-warning" >
-                                    </form>
-                                    </td>
+                              <form action="modificarUser.php" method="POST">
+                                          <input type="text" name="id_user" value=<?php echo $mostrar['id']; ?> hidden="true">
+                                          <input type="text" name="nombre" value= <?php  echo $mostrar['nombre']?> hidden="true">
+                                          <input type="text" name="apellidos" value= <?php  echo $mostrar['apellidos']?> hidden="true">
+                                          <input type="text" name="nombreUsuario" value= <?php  echo $mostrar['nombreUsuario']?> hidden="true">
+                                          <input type="text" name="cargo" value= <?php  echo $mostrar['cargo']?> hidden="true">
+                                          <input type="text" name="contrasena" value= <?php  echo $mostrar['contrasena']?> hidden="true">
+                                          <input type="text" name="nombre_departamento" value= <?php  echo $nom_depto?> hidden="true">
+                                          <input type="text" name="admin" value= <?php  echo $admin?> hidden="true">
+                                          <input type="submit" name="editar" value="Editar" class="btn btn-warning" >
+                                        </form>
+                            </td>
+                              
+                          <?php }
+                            ?>
+                                   
                                   </tr>
                                 <?php
                                   }

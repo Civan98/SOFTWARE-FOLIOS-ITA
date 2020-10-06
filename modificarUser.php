@@ -20,6 +20,7 @@ if (!isset($usuario)) {
     $consulta = mysqli_query($conexion, $q);
     $array    = mysqli_fetch_array($consulta);
     $ape       = $array['apellidos'];
+    $car     = $array['cargo'];
     
    
 
@@ -94,7 +95,7 @@ if (!isset($usuario)) {
                 <label for="nombre">Nombre: <?php echo $nombre ?> </label> <input type="text" name="nombre" value="<?php echo $nombre ?> " required> <br> <br>
                 <label for="apellidos">Apellidos: <?php echo $ape ?> </label> <input type="text" name="apellidos" value="<?php echo $ape ?> " required> <br> <br>
                 <label for="nombreUsuario">Nombre de Usuario: <?php echo $nombreUsuario ?> </label> <input type="text" name="nombreUsuario" value="<?php echo $nombreUsuario ?>" required> <br><br>
-                <label for="cargo">Cargo: <?php echo $cargo ?> </label> <input type="text" name="cargo" value="<?php echo $cargo ?>" required>  <br><br>
+                <label for="cargo">Cargo: <?php echo $car ?> </label> <input type="text" name="cargo" value="<?php echo $car ?>" sice= "30"required>  <br><br>
                 <label for="contrasena">Contraseña: <?php echo $contrasena ?> </label> <input type="text" name="contrasena" value="<?php echo $contrasena ?>" required>  <br><br>
                 <?php if ($usuario == "admin"){?>
                 <label for="nombre_departamento">Departamento: <?php echo $nombre_departamento ?></label>
