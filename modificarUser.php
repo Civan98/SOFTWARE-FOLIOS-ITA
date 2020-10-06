@@ -148,6 +148,7 @@ if (!isset($usuario)) {
                     <option value="0">No</option>
                 </select>
                 </div>
+                <input type="text" name="nombreUsuario2" value= <?php echo $nombreUsuario ?> hidden="true">
                 </div>
                 <br>
              <div class="row">

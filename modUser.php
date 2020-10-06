@@ -2,12 +2,13 @@
         $nombre           = $_POST['nombre'];
         $apellidos        = $_POST['apellidos'];
         $nombreUsuario    = $_POST['nombreUsuario'];
+        $nombreUsuario2    = $_POST['nombreUsuario2'];
         $cargo            = $_POST['cargo'];
         $contrasena       = $_POST['contrasena'];
         $nombre_departamento = $_POST['nombre_departamento'];
         $admin            = $_POST['admin'];
 
-       // echo $nombre.$apellidos.$nombreUsuario.$cargo.$contrasena.$nombre_departamento.$admin
+       // echo $nombre.$apellidos.$nombreUsuario.$cargo.$contrasena.$nombre_departamento.$admin. " " .$nombreUsuario2
 
  
         require 'logica/conexion.php';
@@ -36,7 +37,9 @@
             $depa = $DaS['id_depto'];
             }
 
-        $actualizar = "UPDATE usuarios SET nombre = '$nombre', apellidos = '$apellidos', nombreUsuario = '$nombreUsuario', cargo = '$cargo', contrasena = '$contrasena', id_depto = '$depa', admin ='$admin'  WHERE nombreUsuario = '$nombreUsuario ' ";
+           
+
+        $actualizar = "UPDATE usuarios SET nombre = '$nombre', apellidos = '$apellidos', nombreUsuario = '$nombreUsuario', cargo = '$cargo', contrasena = '$contrasena', id_depto = '$depa', admin ='$admin'  WHERE nombreUsuario = '$nombreUsuario2 ' ";
         $exec = mysqli_query($conexion, $actualizar);
             
         if(!$exec){
@@ -47,5 +50,5 @@
         
         }
         mysqli_close($conexion);
-    
+   
 ?>
