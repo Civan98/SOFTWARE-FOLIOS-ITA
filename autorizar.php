@@ -13,6 +13,7 @@ if (!isset($usuario)) {
     $array        = mysqli_fetch_array($consulta);
     $IDU          = $array['id'];
     $deptoUsuario = $array['id_depto'];
+    $nomUsuario   = $array['nombreUsuario'];
     $admin        = $array['admin'];
 
     // consulta para obtener el nombre del depa del usuario
@@ -141,19 +142,22 @@ if (!isset($usuario)) {
 
         </tr>
             <?php
-//seleccionar los folios del departamento del usuario logeado
-$consultaSF = "SELECT * FROM folios WHERE id_depto_genera = '$deptoUsuario' ORDER BY id_depto_genera ASC, id_folio DESC";
+//seleccionar todos los folios si es admin
+if($nomUsuario == 'admin'){
+  $consultaSF = "SELECT * FROM folios ORDER BY id_depto_genera ASC, id_folio DESC";
+}else{
+  $consultaSF = "SELECT * FROM folios WHERE id_depto_genera = '$deptoUsuario' ORDER BY id_depto_genera ASC, id_folio DESC";
+}
+
 $soliF      = mysqli_query($conexion, $consultaSF);
 
-//seleccionar el nombre del departamento del usuario logeado
-$consultaDF = "SELECT nombre_departamentos FROM departamentos WHERE id_depto= '$deptoUsuario'";
-$deptoF     = mysqli_query($conexion, $consultaDF);
-$dF         = mysqli_fetch_array($deptoF);
+
 
 if (!$soliF) {
     echo "error" . mysqli_error($conexion);
 }
 while ($datosF = mysqli_fetch_array($soliF)) {
+    $depto_a_solicitar = $datosF['id_depto_genera'];
     //Seleccionar nombre de los que solicitan los folios
     $consultaUF = "SELECT id, id_depto, nombre, apellidos FROM usuarios WHERE id = " . $datosF['id_usuario'];
     $nomF       = mysqli_query($conexion, $consultaUF);
@@ -162,6 +166,11 @@ while ($datosF = mysqli_fetch_array($soliF)) {
     //seleccionar el nombre del departamento que solicita el folio
     $consultaASF = "SELECT nombre_departamentos FROM departamentos WHERE id_depto=" . $datosF['id_depto_sol'];
     $deptoASF    = mysqli_query($conexion, $consultaASF);
+
+    //seleccionar el nombre del departamento que genera el folio
+  $consultaDF = "SELECT nombre_departamentos FROM departamentos WHERE id_depto= '$depto_a_solicitar'";
+  $deptoF     = mysqli_query($conexion, $consultaDF);
+  $dF         = mysqli_fetch_array($deptoF);
 
     foreach ($nomF as $nF) {
 
@@ -204,19 +213,22 @@ while ($datosF = mysqli_fetch_array($soliF)) {
                     <th>Cancelar</th>
                 </tr>
                 <?php
-//seleccionar las solicitudes del departamento del usuario logueado (las que puede autorizar o cancelar)
-$consultaS = "SELECT * FROM solicitudes WHERE id_depto_genera = '$deptoUsuario' ORDER BY fecha DESC";
+//seleccionar todas las solicitudes si es admin (las que puede autorizar o cancelar)
+if($nomUsuario == 'admin'){
+  $consultaS = "SELECT * FROM solicitudes ORDER BY fecha DESC";
+}else{
+  $consultaS = "SELECT * FROM solicitudes WHERE id_depto_genera = '$deptoUsuario' ORDER BY fecha DESC";
+}
+
 $soli      = mysqli_query($conexion, $consultaS);
 
-//seleccionar el nombre del departamento del usuario logeado
-$consultaD = "SELECT nombre_departamentos FROM departamentos WHERE id_depto= '$deptoUsuario'";
-$depto     = mysqli_query($conexion, $consultaD);
-$d         = mysqli_fetch_array($depto);
+
 if (!$soli) {
     echo "error" . mysqli_error($conexion);
 }
 while ($datos = mysqli_fetch_array($soli)) {
-    //NOMBRE de los que solicitan folios
+    $depto_generaFolio = $datos['id_depto_genera'];
+  //NOMBRE de los que solicitan folios
     $consultaU = "SELECT id, id_depto, nombre, apellidos FROM usuarios WHERE id = " . $datos['id_usuario'];
     $nom       = mysqli_query($conexion, $consultaU);
     $n         = mysqli_fetch_array($nom);
@@ -224,6 +236,11 @@ while ($datos = mysqli_fetch_array($soli)) {
     //seleccionar el nombre del departamento que solicita el folio
     $consultaAS = "SELECT nombre_departamentos FROM departamentos WHERE id_depto=" . $datos['id_depto_sol'];
     $deptoS     = mysqli_query($conexion, $consultaAS);
+
+    //seleccionar el nombre del departamento que generará el folio
+    $consultaD = "SELECT nombre_departamentos FROM departamentos WHERE id_depto= '$depto_generaFolio'";
+    $depto     = mysqli_query($conexion, $consultaD);
+    $d         = mysqli_fetch_array($depto);
 
     // revisar si el departamento al que solicitan es al que el usuario pertenece
     foreach ($nom as $n) {
