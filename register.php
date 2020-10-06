@@ -260,18 +260,10 @@ if (!isset($usuario)) {
                           $nom_depto  = $array['nombre_departamentos'];
                           
                           //para no mostrar el admin 
-                          if($mostrar['nombreUsuario'] == "admin"){
-                          $mostrar['nombreUsuario'] ="    ----";
-                          $mostrar['nombre']="    ----";;
-                          $mostrar['apellidos']="    ----";;
-                          $mostrar['nombreUsuario']="    ----";;
-                          $mostrar['cargo']="    ----";;
-                          $mostrar['contrasena']="    ----";;
-                          $nom_depto="    ----";
-                          $admin="    ----";
-                       }
+                          if($mostrar['nombreUsuario'] == "admin"){?>
+                         
+                       <?php }else{?>
 
-                      ?>
                         <tr>
                           <td><?php  echo $mostrar['nombre']?></td>
                           <td><?php  echo $mostrar['apellidos']?></td>
@@ -280,11 +272,7 @@ if (!isset($usuario)) {
                           <td><?php  echo $mostrar['contrasena']?></td>
                           <td><?php  echo $nom_depto?></td>
                           <td><?php  echo $admin?></td>
-                      <?php if($mostrar['nombreUsuario'] == "    ----" ){?>
-                             <td></td>
-                            <?php
-                                }else{?>
-                                       <td> 
+                          <td> 
                               <form action="modificarUser.php" method="POST">
                                           <input type="text" name="id_user" value=<?php echo $mostrar['id']; ?> hidden="true">
                                           <input type="text" name="nombre" value= <?php  echo $mostrar['nombre']?> hidden="true">
@@ -297,9 +285,11 @@ if (!isset($usuario)) {
                                           <input type="submit" name="editar" value="Editar" class="btn btn-warning" >
                                         </form>
                             </td>
-                                <?php }
-                            ?>
+                               
                         </tr>
+                        <?php
+                        }
+                      ?>
                       <?php
                         }
                       ?>
