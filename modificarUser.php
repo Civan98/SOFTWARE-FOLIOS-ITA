@@ -121,22 +121,22 @@ if (!isset($usuario)) {
                 <label for="nombre_departamento">Departamento:</label>
                 <select  class="form-control" name="nombre_departamento" id="listaDaS">
                     <?php
-//Consulta para rellenar el combobox
-    $indice = 0;
-    while ($row = mysqli_fetch_array($consulta2)) {
-        $indice++;
-        $depto = $row['nombre_departamentos'];
-        ?>
-                                <option value="<?php echo $depto ?>"> <?php echo $indice . ' - ' . $depto ?></option>
-                                            <?php
-}
-    ?>
+                //Consulta para rellenar el combobox
+                 $indice = 0;
+                 while ($row = mysqli_fetch_array($consulta2)) {
+                 $indice++;
+                 $depto = $row['nombre_departamentos'];
+                ?>
+            <option value="<?php echo $depto ?>"> <?php echo $indice . ' - ' . $depto ?></option>
+            <?php
+                }
+            ?>
 
                         </select>
                         </div>
 
 <?php } else { //si no es admin le asigna el depa por defecto?>
-                            <input type="text" class="form-control" name="nombre_departamento" value= <?php echo $nombre_departamento ?> hidden="true">
+                            <input type="text" class="form-control" name="nombre_departamento" value= "<?php echo $depa ?>" hidden="true">
                         <?php }?>
                   <br><br>
             </div>

@@ -8,7 +8,7 @@
         $nombre_departamento = $_POST['nombre_departamento'];
         $admin            = $_POST['admin'];
 
-       // echo $nombre.$apellidos.$nombreUsuario.$cargo.$contrasena.$nombre_departamento.$admin. " " .$nombreUsuario2
+       //echo $nombre."--" .$apellidos."--" .$nombreUsuario."--" .$cargo."--" .$contrasena."--" .$nombre_departamento."--" .$admin. "--" .$nombreUsuario2;
 
  
         require 'logica/conexion.php';

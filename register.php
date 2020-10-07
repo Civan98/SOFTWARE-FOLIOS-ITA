@@ -305,7 +305,7 @@ $sql    = "SELECT * FROM usuarios";
                                 </tr>
                             </thead>
                                 <?php
-$sql    = "SELECT * FROM usuarios WHERE id_depto = $idDE";
+            $sql    = "SELECT * FROM usuarios WHERE id_depto = $idDE";
             $result = mysqli_query($conexion, $sql);
 
             while ($mostrar = mysqli_fetch_array($result)) {
