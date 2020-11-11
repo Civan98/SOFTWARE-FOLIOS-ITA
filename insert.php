@@ -32,7 +32,7 @@ if (!isset($usuario)) {
                 $depto      = mysqli_fetch_array($ejecutar);
                 $id         = $depto['id_depto'];
 
-                $insertar = "INSERT INTO usuarios (nombre, apellidos, nombreUsuario, cargo, contrasena, id_depto, admin) VALUES ('$nombre', '$Apellidos', '$NombreUsuario','$cargo','$password', '$id','$administrador')";
+                $insertar = "INSERT INTO usuarios (nombre, apellidos, nombreUsuario, cargo, contrasena, id_depto, admin, autoAutorizar) VALUES ('$nombre', '$Apellidos', '$NombreUsuario','$cargo','$password', '$id','$administrador', 1)";
                 $exec     = mysqli_query($conexion, $insertar);
                 if (!$exec) {
                     echo "error" . mysqli_error($conexion);

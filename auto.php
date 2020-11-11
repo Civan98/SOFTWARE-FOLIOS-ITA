@@ -7,7 +7,6 @@
         header("location: autorizar.php");
     }
 
-
     require 'logica/conexion.php';
     session_start();
     $usuario = $_SESSION['username'];
@@ -94,12 +93,8 @@
             else{
                 header("location: autorizar.php");
             }
-        }
-
-    
-        
-    }
-    
+        }        
+    }    
 
     mysqli_close($conexion);
 ?>
