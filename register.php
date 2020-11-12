@@ -239,6 +239,7 @@ $indice = 0;
                         <th scope="col">Contraseña</th>
                         <th scope="col">Departamento</th>
                         <th scope="col">Administrador</th>
+                        <th scope="col">Autorizar automatico</th>
                         <th scope="col">Editar</th>
                       </tr>
                     </thead>
@@ -253,6 +254,11 @@ $sql    = "SELECT * FROM usuarios";
                     $admin = "SI";
                 } else {
                     $admin = "NO";
+                }
+                if ($mostrar['autoAutorizar'] == 1) {
+                    $autorizar = 'SI';
+                } else {
+                    $autorizar = 'NO';
                 }
 
                 //consulta para el nombre de los depas
@@ -271,6 +277,7 @@ $sql    = "SELECT * FROM usuarios";
                           <td><?php echo $mostrar['contrasena'] ?></td>
                           <td><?php echo $nom_depto ?></td>
                           <td><?php echo $admin ?></td>
+                          <td><?php echo $autorizar ?></td>
                           <td>
                                     <form action="modificarUser.php" method="POST">
                                       <input type="text" name="id_user" value=<?php echo $mostrar['id']; ?> hidden="true">
@@ -280,6 +287,7 @@ $sql    = "SELECT * FROM usuarios";
                                       <input type="text" name="cargo" value= <?php echo $mostrar['cargo'] ?> hidden="true">
                                       <input type="text" name="contrasena" value= <?php echo $mostrar['contrasena'] ?> hidden="true">
                                       <input type="text" name="nombre_departamento" value= <?php echo $nom_depto ?> hidden="true">
+                                      <input type="text" name="autoAutorizar" value= <?php echo $mostrar['autoAutorizar'] ?> hidden="true" >
                                       <input type="text" name="admin" value= <?php echo $admin ?> hidden="true">
                                       <input type="submit" name="editar" value="Editar" class="btn btn-warning" >
                                     </form>
@@ -305,7 +313,7 @@ $sql    = "SELECT * FROM usuarios";
                                 </tr>
                             </thead>
                                 <?php
-            $sql    = "SELECT * FROM usuarios WHERE id_depto = $idDE";
+$sql    = "SELECT * FROM usuarios WHERE id_depto = $idDE";
             $result = mysqli_query($conexion, $sql);
 
             while ($mostrar = mysqli_fetch_array($result)) {

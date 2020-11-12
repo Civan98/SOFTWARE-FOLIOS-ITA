@@ -7,6 +7,7 @@ $cargo               = $_POST['cargo'];
 $contrasena          = $_POST['contrasena'];
 $nombre_departamento = $_POST['nombre_departamento'];
 $admin               = $_POST['admin'];
+$autoAutorizar10     = $_POST['autoAutorizar'];
 
 require 'logica/conexion.php';
 session_start();
@@ -121,20 +122,28 @@ if (!isset($usuario)) {
                 <label for="nombre_departamento">Departamento:</label>
                 <select  class="form-control" name="nombre_departamento" id="listaDaS">
                     <?php
-                //Consulta para rellenar el combobox
-                 $indice = 0;
-                 while ($row = mysqli_fetch_array($consulta2)) {
-                 $indice++;
-                 $depto = $row['nombre_departamentos'];
-                ?>
+//Consulta para rellenar el combobox
+    $indice = 0;
+    while ($row = mysqli_fetch_array($consulta2)) {
+        $indice++;
+        $depto = $row['nombre_departamentos'];
+        ?>
             <option value="<?php echo $depto ?>"> <?php echo $indice . ' - ' . $depto ?></option>
             <?php
-                }
-            ?>
+}
+    ?>
 
                         </select>
                         </div>
-
+                <div class="row">
+                    <div class="col">
+                <label for="autorizarauto">Autorizar automáticamente</label>
+                <select  id="inputState2" class="form-control"  name="autorizarauto">
+                    <option value="1" <?php echo ($autoAutorizar10 == 1) ? "selected" : "" ?> >Si</option>
+                    <option value="0"<?php echo ($autoAutorizar10 == 0) ? "selected" : "" ?> >No</option>
+                </select>
+                </div>
+                </div>
 <?php } else { //si no es admin le asigna el depa por defecto?>
                             <input type="text" class="form-control" name="nombre_departamento" value= "<?php echo $depa ?>" hidden="true">
                         <?php }?>
@@ -142,14 +151,16 @@ if (!isset($usuario)) {
             </div>
                 <div class="row">
                     <div class="col">
-                <label for="nombre">Admistrador:</label>
+                <label for="admin">Admistrador:</label>
                 <select  id="inputState" class="form-control"  name="admin" >
                     <option value="1">Si</option>
                     <option value="0">No</option>
                 </select>
                 </div>
-                <input type="text" name="nombreUsuario2" value= <?php echo $nombreUsuario ?> hidden="true">
+                <input type="text" name="nombreUsuario2" value= <?php echo $nombreUsuario ?>  hidden="true">
                 </div>
+
+
                 <br>
              <div class="row">
                  <div class="col">
