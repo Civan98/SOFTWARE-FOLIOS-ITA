@@ -93,15 +93,18 @@ if (!isset($usuario)) {
                 <div class="row">
                     <div class="col">
                 <label for="nombre">Nombre:</label>
-                <input type="text" class="form-control" name="nombre" value="<?php echo $nombre ?> " required>
+                <input type="text" class="form-control" name="nombre" value="<?php echo $nombre ?> " required
+                <?php echo ($nombre == "admin") ? "disabled" : "" ?> >
                     </div>
                     <div class="col">
                 <label for="apellidos">Apellidos:</label>
-                <input type="text" class="form-control" name="apellidos" value="<?php echo $ape ?> " required>
+                <input type="text" class="form-control" name="apellidos" value="<?php echo $ape ?> " required
+                    <?php echo ($ape == "admin") ? "disabled" : "" ?>     >
                     </div>
                     <div class="col">
                 <label for="nombreUsuario">Nombre de Usuario:</label>
-                <input type="text" class="form-control" name="nombreUsuario" value="<?php echo $nombreUsuario ?>" required>
+                <input type="text" class="form-control" name="nombreUsuario" value="<?php echo $nombreUsuario ?>" required
+                <?php echo ($nombreUsuario == "admin") ? "disabled" : "" ?>>
                 </div>
                 </div>
                 <div class="row">

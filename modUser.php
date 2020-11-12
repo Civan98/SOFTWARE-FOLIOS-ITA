@@ -19,7 +19,7 @@ $usuario = $_SESSION['username'];
 if (!$conexion) {
     echo "Falla en la conexión";
 } else {
-    $bd = mysqli_select_db($conexion, 'bdgeneradorfolios');
+    $bd = mysqli_select_db($conexion, 'db_controlfolios');
     if (!$bd) {
         echo "no se encontró la base de datos";
     }
