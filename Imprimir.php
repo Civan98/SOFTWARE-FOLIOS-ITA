@@ -112,15 +112,33 @@ if (!isset($usuario)) {
     while ($row = mysqli_fetch_array($consultar)) {
         $pdf->Cell(5);//alineador
 
+        $x_axis=$pdf->getx(); 
+        $c_width=40;// cell width 
+        $c_height=10;
+        $pdf->vcell(30,$c_height,$x_axis,$row['id_solicitud']);
+        $x_axis=$pdf->getx(); 
+        $pdf->vcell($c_width,$c_height,$x_axis,$row['fecha']);
+        $x_axis=$pdf->getx(); 
+        $pdf->vcell(50,$c_height,$x_axis,utf8_decode($nombre_sol));
+        $x_axis=$pdf->getx(); 
+        $pdf->vcell(50,$c_height,$x_axis,utf8_decode($nombre_genera));
+        $x_axis=$pdf->getx(); 
+        $pdf->vcell(50,$c_height,$x_axis,utf8_decode($row['asunto']));
+        $x_axis=$pdf->getx(); 
+        $pdf->vcell(20,$c_height,$x_axis,$row['id_folio']);
+        $x_axis=$pdf->getx();
+        $pdf->vcell(30,$c_height,$x_axis,$row['estado']);
+        $pdf->Ln();
 
-        $pdf->Cell(30,10, $row['id_solicitud'], 1, 0, 'C', 0);
-        $pdf->Cell(40, 10, $row['fecha'], 1, 0, 'C', 0);
-        $pdf->Cell(50, 10, utf8_decode($nombre_sol), 1, 0, 'C', 0);
-        $pdf->Cell(50, 10, utf8_decode($nombre_genera), 1, 0, 'C', 0);
-        $asunto_truncado = substr($row['asunto'], 0, 30); //permite 30 caracteres para imprimir
-        $pdf->Cell(50, 10, utf8_decode($asunto_truncado), 1, 0, 'L', 0);
-        $pdf->Cell(20, 10, $row['id_folio'], 1, 0, 'C', 0);
-        $pdf->Cell(30, 10, $row['estado'], 1, 1, 'C', 0);
+
+
+        // $pdf->Cell(30,10, $row['id_solicitud'], 1, 0, 'C', 0);
+        // $pdf->Cell(40, 10, $row['fecha'], 1, 0, 'C', 0);
+        // $pdf->Cell(50, 10, utf8_decode($nombre_sol), 1, 0, 'C', 0);
+        // $pdf->Cell(50, 10, utf8_decode($nombre_genera), 1, 0, 'C', 0);
+        // $pdf->Cell(50, 10, utf8_decode($row['asunto']), 1, 0, 'L', 0);
+        // $pdf->Cell(20, 10, $row['id_folio'], 1, 0, 'C', 0);
+        // $pdf->Cell(30, 10, $row['estado'], 1, 1, 'C', 0);
     }
 
     $pdf->Output();

@@ -47,8 +47,8 @@ if (!isset($usuario)) {
             $this->Cell(5);
             //cabecera de la tabla
             $this->SetFillColor(180, 180, 180);
-            $this->Cell(20, 10, 'FOLIO', 1, 0, 'C', true);
-            $this->Cell(40, 10, 'FECHA', 1, 0, 'C', true);
+            $this->Cell(50, 10, 'FOLIO', 1, 0, 'C', true);
+            $this->Cell(50, 10, 'FECHA', 1, 0, 'C', true);
             $this->Cell(50, 10, 'DPTO. QUE SOLICITA', 1, 0, 'C', true);
             $this->Cell(50, 10, 'DPTO. AL QUE SOLICITA', 1, 0, 'C', true);
             $this->Cell(50, 10, 'ASUNTO', 1, 0, 'C', true);
@@ -88,6 +88,8 @@ if (!isset($usuario)) {
    // $id_depto_g       = $array1['id_depto_genera'];
 
     //$pdf = new PDF();
+       
+
     $pdf=new PDF('L','mm','A4');//lianea para PDF horizontal
     $pdf->AliasNbPages();
     $pdf->AddPage();
@@ -117,14 +119,30 @@ if (!isset($usuario)) {
 
         $nombre_gen  = $array6['nom_corto'];
         $nombre_sol  = $array7['nom_corto'];
+          
 
-        $pdf->Cell(20, 10, $row['id_folio'], 1, 0, 'C', 0);
-        $pdf->Cell(40, 10, $row['fecha'], 1, 0, 'C', 0);
-        $pdf->Cell(50, 10, utf8_decode($nombre_sol), 1, 0, 'C', 0);
-        $pdf->Cell(50, 10, utf8_decode($nombre_gen), 1, 0, 'C', 0);
-        $asunto_truncado = substr($row['asunto'], 0, 30); //permite 30 caracteres para imprimir
-        $pdf->Cell(50, 10, utf8_decode($asunto_truncado), 1, 0, 'L', 0);
-        $pdf->Cell(30, 10, $row['estado'], 1, 1, 'C', 0);
+        $x_axis=$pdf->getx(); 
+        $c_width=50;// cell width 
+        $c_height=10;
+        $pdf->vcell($c_width,$c_height,$x_axis,$row['id_folio']);
+        $x_axis=$pdf->getx(); 
+        $pdf->vcell($c_width,$c_height,$x_axis,$row['fecha']);
+        $x_axis=$pdf->getx(); 
+        $pdf->vcell($c_width,$c_height,$x_axis,utf8_decode($nombre_sol));
+        $x_axis=$pdf->getx(); 
+        $pdf->vcell($c_width,$c_height,$x_axis,utf8_decode($nombre_gen));
+        $x_axis=$pdf->getx(); 
+        $pdf->vcell($c_width,$c_height,$x_axis,utf8_decode($row['asunto']));
+        $x_axis=$pdf->getx(); 
+        $pdf->vcell(30,$c_height,$x_axis,$row['estado']);
+        $pdf->Ln();
+
+        // $pdf->Cell(20, 10, $row['id_folio'], 1, 0, 'C', 0);
+        // $pdf->Cell(40, 10, $row['fecha'], 1, 0, 'C', 0);
+        // $pdf->Cell(50, 10, utf8_decode($nombre_sol), 1, 0, 'C', 0);
+        // $pdf->Cell(50, 10, utf8_decode($nombre_gen), 1, 0, 'C', 0);
+        // $pdf->Cell(50, 10, utf8_decode($row['asunto']), 1, 0, 'L', 0);
+        // $pdf->Cell(30, 10, $row['estado'], 1, 1, 'C', 0);
     }
 
     $pdf->Output();
