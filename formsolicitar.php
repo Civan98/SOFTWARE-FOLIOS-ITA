@@ -15,7 +15,7 @@ if (!isset($usuario)) {
     $array        = mysqli_fetch_array($consulta);
     $IDU          = $array['id'];
     $deptoUsuario = $array['id_depto'];
-    $admin     = $array['admin'];
+    $admin        = $array['admin'];
     $conDepto     = "SELECT * FROM departamentos WHERE id_depto ='$deptoUsuario'";
     $ejecutar     = mysqli_query($conexion, $conDepto);
     $deptoU       = mysqli_fetch_array($ejecutar);
@@ -62,15 +62,15 @@ if (!isset($usuario)) {
          </a>
 
       </li>
-      <?php if ($admin == 1){?>
+      <?php if ($admin == 1) {?>
           <li class="nav-item">
             <a class="nav-link" href="register.php">
                 <?php echo "Administrador"; ?>
                 <i class="fa fa-pencil" aria-hidden="true"></i>
             </a>
 
-          </li> 
-      <?php } ?>
+          </li>
+      <?php }?>
 
       <li class="nav-item">
 
@@ -151,7 +151,7 @@ while ($row = mysqli_fetch_array($consultaDepto)) {
                 <label for="cantidad">Cantidad: </label>
                 <input type="number" name="cantidad" id="cantidad" min="1" pattern="^[0-9]+" style="width: 5%;"><br><br>
                 <label for="asunto">Asunto:</label>
-                <textarea name="asunto" id="asunto" maxlength="100" cols="50" rows="5" style="width: 43%;"></textarea><br><br>
+                <textarea name="asunto" id="asunto" maxlength="500" cols="50" rows="5" style="width: 43%;"></textarea><br><br>
                 <button type="submit" name="enviar" id="enviar" class="btn btn-primary btn-lg">Enviar</button>
             </div>
             </form>

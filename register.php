@@ -42,7 +42,9 @@ if (!isset($usuario)) {
  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-
+<style type="text/css">
+  .hidetext { -webkit-text-security: square; }
+</style>
 </head>
 
 
@@ -138,7 +140,7 @@ if (!isset($usuario)) {
   <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 
       <h1>Registro de usuario</h1>
-  <h2>Porfavor, introduzca los datos solicitados:</h2>
+  <h2>Por favor, introduzca los datos solicitados:</h2>
 <form action ="insert.php" method ="POST">
 <div class="row">
 
@@ -213,16 +215,6 @@ $indice = 0;
           <input type="password" name="passwordretry" id="passwordretry" name="passwordretry" placeholder="Confirmar Contraseña" class="form-control" required>
         </div>
 
-
-          <div class="col">
-            <label for="autorizarauto">Autorizar automáticamente</label>
-                <select  id="inputState2" class="form-control"  name="autorizarauto">
-                    <option value="1" selected>Si</option>
-                    <option value="0">No</option>
-                </select>
-            </div>
-
-
         </div>
       <br>
 
@@ -250,7 +242,7 @@ $indice = 0;
                         <th scope="col">Contraseña</th>
                         <th scope="col">Departamento</th>
                         <th scope="col">Administrador</th>
-                        <th scope="col">Autorizar automatico</th>
+                        <th scope="col">Autorizar automático</th>
                         <th scope="col">Editar</th>
                       </tr>
                     </thead>
@@ -285,7 +277,7 @@ $sql    = "SELECT * FROM usuarios";
                           <td><?php echo $mostrar['apellidos'] ?></td>
                           <td><?php echo $mostrar['nombreUsuario'] ?></td>
                           <td><?php echo $mostrar['cargo'] ?></td>
-                          <td><?php echo $mostrar['contrasena'] ?></td>
+                          <td class="hidetext"><?php echo $mostrar['contrasena'] ?></td>
                           <td><?php echo $nom_depto ?></td>
                           <td><?php echo $admin ?></td>
                           <td><?php echo $autorizar ?></td>
@@ -298,7 +290,6 @@ $sql    = "SELECT * FROM usuarios";
                                       <input type="text" name="cargo" value= <?php echo $mostrar['cargo'] ?> hidden="true">
                                       <input type="text" name="contrasena" value= <?php echo $mostrar['contrasena'] ?> hidden="true">
                                       <input type="text" name="nombre_departamento" value= <?php echo $nom_depto ?> hidden="true">
-                                      <input type="text" name="autoAutorizar" value= <?php echo $mostrar['autoAutorizar'] ?> hidden="true" >
                                       <input type="text" name="admin" value= <?php echo $admin ?> hidden="true">
                                       <input type="submit" name="editar" value="Editar" class="btn btn-warning" >
                                     </form>
