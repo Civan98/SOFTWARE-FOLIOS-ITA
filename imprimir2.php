@@ -122,7 +122,8 @@ if (!isset($usuario)) {
         $pdf->Cell(40, 10, $row['fecha'], 1, 0, 'C', 0);
         $pdf->Cell(50, 10, utf8_decode($nombre_sol), 1, 0, 'C', 0);
         $pdf->Cell(50, 10, utf8_decode($nombre_gen), 1, 0, 'C', 0);
-        $pdf->Cell(50, 10, utf8_decode($row['asunto']), 1, 0, 'L', 0);
+        $asunto_truncado = substr($row['asunto'], 0, 30); //permite 30 caracteres para imprimir
+        $pdf->Cell(50, 10, utf8_decode($asunto_truncado), 1, 0, 'L', 0);
         $pdf->Cell(30, 10, $row['estado'], 1, 1, 'C', 0);
     }
 
