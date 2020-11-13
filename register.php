@@ -212,7 +212,18 @@ $indice = 0;
            <label for="passwordretry">Confirmar contraseña:</label>
           <input type="password" name="passwordretry" id="passwordretry" name="passwordretry" placeholder="Confirmar Contraseña" class="form-control" required>
         </div>
-      </div>
+
+
+          <div class="col">
+            <label for="autorizarauto">Autorizar automáticamente</label>
+                <select  id="inputState2" class="form-control"  name="autorizarauto">
+                    <option value="1" selected>Si</option>
+                    <option value="0">No</option>
+                </select>
+            </div>
+
+
+        </div>
       <br>
 
         <button type="submit" class="btn btn-primary btn-lg">Enviar</button>
