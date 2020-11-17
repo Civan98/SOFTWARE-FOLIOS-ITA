@@ -291,6 +291,7 @@ $sql    = "SELECT * FROM usuarios";
                                       <input type="text" name="contrasena" value= <?php echo $mostrar['contrasena'] ?> hidden="true">
                                       <input type="text" name="nombre_departamento" value= <?php echo $nom_depto ?> hidden="true">
                                       <input type="text" name="admin" value= <?php echo $admin ?> hidden="true">
+                                      <input type="text" name="autoAutorizar" value= <?php echo $autorizar ?> hidden="true">
                                       <input type="submit" name="editar" value="Editar" class="btn btn-warning" >
                                     </form>
                                     </td>
@@ -311,6 +312,7 @@ $sql    = "SELECT * FROM usuarios";
                                   <th scope="row">Contraseña</th>
                                   <th scope="row">Departamento</th>
                                   <th scope="row">Administrador</th>
+                                  <th scope="col">Autorizar automático</th>
                                   <th scope="row">Editar</th>
                                 </tr>
                             </thead>
@@ -325,6 +327,11 @@ $sql    = "SELECT * FROM usuarios WHERE id_depto = $idDE";
                 } else {
                     $admin = "NO";
                 }
+                if ($mostrar['autoAutorizar'] == 1) {
+                  $autorizar = 'SI';
+              } else {
+                  $autorizar = 'NO';
+              }
 
                 //consulta para el nombre de los depas
                 $idD       = $mostrar['id_depto'];
@@ -343,9 +350,10 @@ $sql    = "SELECT * FROM usuarios WHERE id_depto = $idDE";
                                     <td><?php echo $mostrar['apellidos'] ?></td>
                                     <td><?php echo $mostrar['nombreUsuario'] ?></td>
                                     <td><?php echo $mostrar['cargo'] ?></td>
-                                    <td><?php echo $mostrar['contrasena'] ?></td>
+                                    <td class="hidetext"><?php echo $mostrar['contrasena'] ?></td>
                                     <td><?php echo $nom_depto ?></td>
                                     <td><?php echo $admin ?></td>
+                                    <td><?php echo $autorizar ?></td>
                                     <td>
               <form action="modificarUser.php" method="POST">
                           <input type="text" name="id_user" value=<?php echo $mostrar['id']; ?> hidden="true">
@@ -356,6 +364,7 @@ $sql    = "SELECT * FROM usuarios WHERE id_depto = $idDE";
                           <input type="text" name="contrasena" value= <?php echo $mostrar['contrasena'] ?> hidden="true">
                           <input type="text" name="nombre_departamento" value= <?php echo $nom_depto ?> hidden="true">
                           <input type="text" name="admin" value= <?php echo $admin ?> hidden="true">
+                          <input type="text" name="autoAutorizar" value= <?php echo $autorizar ?> hidden="true">
                           <input type="submit" name="editar" value="Editar" class="btn btn-warning" >
                         </form>
                             </td>
