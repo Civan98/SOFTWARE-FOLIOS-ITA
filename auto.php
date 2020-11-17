@@ -3,6 +3,10 @@
     $idS = $_POST['id'];
     $autorizar = $_POST['auto'];
     $generados = "";
+   
+
+    
+
     if ($autorizar==""|| $idS == ""){
         header("location: autorizar.php");
     }
@@ -30,8 +34,12 @@
         }
     }
     else{
+        $infoCancelar =  $_POST['infoCancelar'];
         $actualizar = "UPDATE solicitudes SET estado = 'Cancelado' WHERE id_solicitud ='$idS'";
         $exec = mysqli_query($conexion, $actualizar);
+        //cancelar folios
+        $actualizarFolios = "UPDATE folios SET estado = 'Cancelado', observaciones = '$infoCancelar' WHERE id_solicitud ='$idS' ";
+        $ejecutarActualizarFolios = mysqli_query($conexion, $actualizarFolios);
         
         if(!$exec){
             echo "error".mysqli_error($conexion);

@@ -288,7 +288,7 @@ if (!isset($usuario)) {
                             <input type="text" name="id" value=<?php echo $datos['id_solicitud']; ?> hidden="true" >
                             <input type="text" name="dS" value=<?php echo $datos['id_depto_sol']; ?> hidden="true">
                             <input type="text" name="daS" value=<?php echo $datos['id_depto_genera']; ?> hidden="true">
-                            <?php if ($datos['estado'] == "Solicitado") {?>
+                            <?php if ($datos['estado'] != "Cancelado") {?>
                                 <input type="submit" name="editar" value="Editar" class="btn btn-warning" >
                             <?php }?>
                         </form>
@@ -331,6 +331,7 @@ if (!isset($usuario)) {
             <td>Departamento que solicita</td>
             <td>Departamento al que solicita</td>
             <td>Asunto</td>
+            <td>Observaciones</td>
             <td>Estado</td>
         </tr>
             <?php
@@ -375,6 +376,7 @@ if (!isset($usuario)) {
                     <td><?php echo $dF['nombre_departamentos']; ?></td>
                     <td><?php foreach ($deptoASF as $dASF) {echo $dASF['nombre_departamentos'];}?></td>
                     <td><?php echo $datosF['asunto']; ?></td>
+                    <td><?php echo $datosF['observaciones']; ?></td>
                     <td><?php echo $datosF['estado']; ?></td>
 
                 </tr>

@@ -269,8 +269,9 @@ while ($datos = mysqli_fetch_array($soli)) {
                         <form action="auto.php" method="POST">
                             <input type="text" name="id" value=<?php echo $datos['id_solicitud']; ?> hidden="true">
                             <input type="text" name="auto" value="0" hidden="true">
-                            <?php if ($datos['estado'] == "Solicitado") {?>
-                            <input type="submit" name="cancelar" value="Cancelar" class="btn btn-danger btn-lg" >
+                            <?php if ($datos['estado'] != "Cancelado") {?>
+                            <input type="text" class="form-control" placeholder="Motivos" id="infoCancelar" name="infoCancelar" required>                            
+                              <input type="submit" name="cancelar" value="Cancelar" class="btn btn-danger btn-lg" >
                             <?php }?>
                         </form>
                     </td>
