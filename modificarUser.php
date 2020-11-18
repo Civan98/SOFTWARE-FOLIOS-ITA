@@ -9,9 +9,9 @@ $nombre_departamento = $_POST['nombre_departamento'];
 $admin               = $_POST['admin'];
 $autoAutorizar10     = $_POST['autoAutorizar'];
 $flag                = false;
-/*
-echo $nombre . "--" . $apellidos . "--" . $nombreUsuario . "--" . $admin . "--" . $autoAutorizar10;
- */
+
+//echo $nombre . "--" . $apellidos . "--" . $nombreUsuario . "--" . $admin . "--" . $autoAutorizar10. '--'. $nombre_departamento;
+ 
 require 'logica/conexion.php';
 session_start();
 $usuario = $_SESSION['username'];
@@ -37,6 +37,12 @@ if (!isset($usuario)) {
     $consulta3 = mysqli_query($conexion, $q3);
     $array3    = mysqli_fetch_array($consulta3);
     $depa      = $array3['nombre_departamentos'];
+
+    //consulta para el departamento del usuario a cambiar
+    $q4        = "SELECT * FROM usuarios JOIN departamentos ON usuarios.id_depto = departamentos.id_depto WHERE usuarios.nombreUsuario = '$nombreUsuario' ";
+    $consulta4 = mysqli_query($conexion, $q4);
+    $array4    = mysqli_fetch_array($consulta4);
+    $depaUsuarioMod  = $array4['nombre_departamentos'];
 
 }
 ?>
@@ -129,17 +135,17 @@ if (!isset($usuario)) {
                     <div class="col">
                 <label for="nombre_departamento">Departamento:</label>
                 <select  class="form-control" name="nombre_departamento" id="listaDaS"<?php echo ($flag) ? "disabled" : "" ?>>
-                    <?php
-//Consulta para rellenar el combobox
-    $indice = 0;
-    while ($row = mysqli_fetch_array($consulta2)) {
-        $indice++;
-        $depto = $row['nombre_departamentos'];
-        ?>
-            <option value="<?php echo $depto ?>"> <?php echo $indice . ' - ' . $depto ?></option>
+         <?php
+        //Consulta para rellenar el combobox
+        $indice = 0;
+        while ($row = mysqli_fetch_array($consulta2)) {
+            $indice++;
+            $depto = $row['nombre_departamentos'];
+            ?>
+                <option value="<?php echo $depto ?>" <?php echo ($depaUsuarioMod == $depto) ? "selected" : ""  ?> > <?php echo $indice . ' - ' . $depto?></option>
             <?php
-}
-    ?>
+                }
+            ?>
 
                         </select>
                         </div>
@@ -161,10 +167,10 @@ if (!isset($usuario)) {
                 <div class="row">
                     <div class="col">
                 <label for="admin">Admistrador:</label>
-                <select  id="inputState" class="form-control"  name="admin"  <?php echo ($flag) ? "disabled" : "" ?>>
-                    <option value="1">Si</option>
-                    <option value="0">No</option>
-                </select>
+                    <select  id="inputState" class="form-control"  name="admin"  <?php echo ($flag) ? "disabled" : "" ?>>
+                        <option value="1" <?php echo ($admin == 'SI') ? "selected" : "" ?> >Si</option>
+                        <option value="0"<?php echo ($admin == 'NO') ? "selected" : "" ?> >No</option>
+                    </select>
                 </div>
                 <input type="text" name="nombreUsuario2" value= "<?php echo $nombreUsuario ?>"  hidden="true">
 
