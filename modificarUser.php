@@ -9,8 +9,9 @@ $nombre_departamento = $_POST['nombre_departamento'];
 $admin               = $_POST['admin'];
 $autoAutorizar10     = $_POST['autoAutorizar'];
 $flag                = false;
+/*
 echo $nombre . "--" . $apellidos . "--" . $nombreUsuario . "--" . $admin . "--" . $autoAutorizar10;
-
+ */
 require 'logica/conexion.php';
 session_start();
 $usuario = $_SESSION['username'];

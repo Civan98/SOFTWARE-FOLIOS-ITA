@@ -8,10 +8,10 @@ $contrasena          = $_POST['contrasena'];
 $nombre_departamento = $_POST['nombre_departamento'];
 $admin               = $_POST['admin'];
 $autoAutorizar       = $_POST['autorizarauto'];
-
+/*
 echo $nombre . "--" . $apellidos . "--" . $nombreUsuario . "--" . $cargo . "--" . $contrasena . "--" . $nombre_departamento . "--" . $admin . "--" . $nombreUsuario2;
 echo 'Autorizar:' . $autoAutorizar;
-
+ */
 require 'logica/conexion.php';
 session_start();
 $usuario = $_SESSION['username'];
