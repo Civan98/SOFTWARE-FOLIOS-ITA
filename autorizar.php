@@ -143,15 +143,13 @@ if (!isset($usuario)) {
         </tr>
             <?php
 //seleccionar todos los folios si es admin
-if($nomUsuario == 'admin'){
-  $consultaSF = "SELECT * FROM folios ORDER BY id_depto_genera ASC, id_folio DESC";
-}else{
-  $consultaSF = "SELECT * FROM folios WHERE id_depto_genera = '$deptoUsuario' ORDER BY id_depto_genera ASC, id_folio DESC";
+if ($nomUsuario == 'admin') {
+    $consultaSF = "SELECT * FROM folios ORDER BY id_depto_genera ASC, id_folio DESC";
+} else {
+    $consultaSF = "SELECT * FROM folios WHERE id_depto_genera = '$deptoUsuario' ORDER BY id_depto_genera ASC, id_folio DESC";
 }
 
-$soliF      = mysqli_query($conexion, $consultaSF);
-
-
+$soliF = mysqli_query($conexion, $consultaSF);
 
 if (!$soliF) {
     echo "error" . mysqli_error($conexion);
@@ -168,9 +166,9 @@ while ($datosF = mysqli_fetch_array($soliF)) {
     $deptoASF    = mysqli_query($conexion, $consultaASF);
 
     //seleccionar el nombre del departamento que genera el folio
-  $consultaDF = "SELECT nombre_departamentos FROM departamentos WHERE id_depto= '$depto_a_solicitar'";
-  $deptoF     = mysqli_query($conexion, $consultaDF);
-  $dF         = mysqli_fetch_array($deptoF);
+    $consultaDF = "SELECT nombre_departamentos FROM departamentos WHERE id_depto= '$depto_a_solicitar'";
+    $deptoF     = mysqli_query($conexion, $consultaDF);
+    $dF         = mysqli_fetch_array($deptoF);
 
     foreach ($nomF as $nF) {
 
@@ -211,24 +209,25 @@ while ($datosF = mysqli_fetch_array($soliF)) {
                     <th>Estado</th>
                     <th>Autorizar</th>
                     <th>Cancelar</th>
+
+
                 </tr>
                 <?php
 //seleccionar todas las solicitudes si es admin (las que puede autorizar o cancelar)
-if($nomUsuario == 'admin'){
-  $consultaS = "SELECT * FROM solicitudes ORDER BY fecha DESC";
-}else{
-  $consultaS = "SELECT * FROM solicitudes WHERE id_depto_genera = '$deptoUsuario' ORDER BY fecha DESC";
+if ($nomUsuario == 'admin') {
+    $consultaS = "SELECT * FROM solicitudes ORDER BY fecha DESC";
+} else {
+    $consultaS = "SELECT * FROM solicitudes WHERE id_depto_genera = '$deptoUsuario' ORDER BY fecha DESC";
 }
 
-$soli      = mysqli_query($conexion, $consultaS);
-
+$soli = mysqli_query($conexion, $consultaS);
 
 if (!$soli) {
     echo "error" . mysqli_error($conexion);
 }
 while ($datos = mysqli_fetch_array($soli)) {
     $depto_generaFolio = $datos['id_depto_genera'];
-  //NOMBRE de los que solicitan folios
+    //NOMBRE de los que solicitan folios
     $consultaU = "SELECT id, id_depto, nombre, apellidos FROM usuarios WHERE id = " . $datos['id_usuario'];
     $nom       = mysqli_query($conexion, $consultaU);
     $n         = mysqli_fetch_array($nom);
@@ -261,17 +260,18 @@ while ($datos = mysqli_fetch_array($soli)) {
                             <input type="text" name="id" value=<?php echo $datos['id_solicitud']; ?> hidden="true" >
                             <input type="text" name="auto" value="1" hidden="true" >
                             <?php if ($datos['estado'] == "Solicitado") {?>
-                            <input type="submit" name="autorizar" value="Autorizar" class="btn btn-success btn-lg" >
+                            <input type="submit" name="autorizar" value="Autorizar" class="btn btn-success  btn-lg" >
                             <?php }?>
                         </form>
                     </td>
-                    <td>
+                    <td colspan="1">
                         <form action="auto.php" method="POST">
                             <input type="text" name="id" value=<?php echo $datos['id_solicitud']; ?> hidden="true">
                             <input type="text" name="auto" value="0" hidden="true">
                             <?php if ($datos['estado'] != "Cancelado") {?>
-                            <input type="text" class="form-control" placeholder="Motivos" id="infoCancelar" name="infoCancelar" required>                            
-                              <input type="submit" name="cancelar" value="Cancelar" class="btn btn-danger btn-lg" >
+                            <textarea type="textarea" class="form-control" placeholder="Motivos" id="infoCancelar" name="infoCancelar" required></textarea>
+                            <br>
+                              <input type="submit" name="cancelar" value="Cancelar" class="btn btn-danger btn-lg btn-block" >
                             <?php }?>
                         </form>
                     </td>
