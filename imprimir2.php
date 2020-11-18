@@ -136,7 +136,8 @@ if (!isset($usuario)) {
         $pdf->vcell($c_width,$c_height,$x_axis,utf8_decode($row['asunto']));
         $x_axis=$pdf->getx(); 
         $pdf->vcell(30,$c_height,$x_axis,$row['estado']);
-        $pdf->vcell(75,$c_height,$x_axis,utf8_decode($row['observaciones']));
+        $x_axis=$pdf->getx();
+        $pdf->vcell(45,$c_height,$x_axis,utf8_decode($row['observaciones']));
         $pdf->Ln();
 
         // $pdf->Cell(20, 10, $row['id_folio'], 1, 0, 'C', 0);
