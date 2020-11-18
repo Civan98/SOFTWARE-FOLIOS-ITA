@@ -8,12 +8,16 @@ $contrasena          = $_POST['contrasena'];
 $nombre_departamento = $_POST['nombre_departamento'];
 $admin               = $_POST['admin'];
 $autoAutorizar10     = $_POST['autoAutorizar'];
-
+$flag                = false;
 echo $nombre . "--" . $apellidos . "--" . $nombreUsuario . "--" . $admin . "--" . $autoAutorizar10;
 
 require 'logica/conexion.php';
 session_start();
 $usuario = $_SESSION['username'];
+
+if ($nombreUsuario == "admin") {
+    $flag = true;
+}
 
 if (!isset($usuario)) {
     header("location: index.php");
@@ -96,23 +100,21 @@ if (!isset($usuario)) {
                     <div class="col">
                 <label for="nombre">Nombre:</label>
                 <input type="text" class="form-control" name="nombre" value="<?php echo $nombre ?> " required
-                <?php echo ($nombre == "admin") ? "disabled" : "" ?> >
+                <?php echo ($flag) ? "disabled" : "" ?>>
                     </div>
                     <div class="col">
                 <label for="apellidos">Apellidos:</label>
-                <input type="text" class="form-control" name="apellidos" value="<?php echo $ape ?> " required
-                    <?php echo ($ape == "admin") ? "disabled" : "" ?>     >
+                <input type="text" class="form-control" name="apellidos" value="<?php echo $ape ?> "  <?php echo ($flag) ? "disabled" : "" ?>>
                     </div>
                     <div class="col">
                 <label for="nombreUsuario">Nombre de Usuario:</label>
-                <input type="text" class="form-control" name="nombreUsuario" value="<?php echo $nombreUsuario ?>" required
-                <?php echo ($nombreUsuario == "admin") ? "disabled" : "" ?>>
+                <input type="text" class="form-control" name="nombreUsuario" value="<?php echo $nombreUsuario ?>" required  <?php echo ($flag) ? "disabled" : "" ?>>
                 </div>
                 </div>
                 <div class="row">
                     <div class="col">
                 <label for="cargo">Cargo:</label>
-                 <input type="text" class="form-control" name="cargo" value="<?php echo $car ?>" sice= "30"required>
+                 <input type="text" class="form-control" name="cargo" value="<?php echo $car ?>" sice= "30"required <?php echo ($flag) ? "disabled" : "" ?>>
                     </div>
                     <div class="col">
                 <label for="contrasena">Contraseña:</label>
@@ -125,7 +127,7 @@ if (!isset($usuario)) {
                 <div class="row">
                     <div class="col">
                 <label for="nombre_departamento">Departamento:</label>
-                <select  class="form-control" name="nombre_departamento" id="listaDaS">
+                <select  class="form-control" name="nombre_departamento" id="listaDaS"<?php echo ($flag) ? "disabled" : "" ?>>
                     <?php
 //Consulta para rellenar el combobox
     $indice = 0;
@@ -143,9 +145,9 @@ if (!isset($usuario)) {
                 <div class="row">
                     <div class="col">
                 <label for="autorizarauto">Autorizar automáticamente</label>
-                <select  id="inputState2" class="form-control"  name="autorizarauto">
-                    <option value="1"  >Si</option>
-                    <option value="0" >No</option>
+                <select  id="inputState2" class="form-control"  name="autorizarauto"<?php echo ($flag) ? "disabled" : "" ?>>
+                    <option value="1" <?php echo ($autoAutorizar10 == 1) ? "selected" : "" ?> >Si</option>
+                    <option value="0"<?php echo ($autoAutorizar10 == 0) ? "selected" : "" ?> >No</option>
                 </select>
                 </div>
                 </div>
@@ -158,12 +160,13 @@ if (!isset($usuario)) {
                 <div class="row">
                     <div class="col">
                 <label for="admin">Admistrador:</label>
-                <select  id="inputState" class="form-control"  name="admin" >
+                <select  id="inputState" class="form-control"  name="admin"  <?php echo ($flag) ? "disabled" : "" ?>>
                     <option value="1">Si</option>
                     <option value="0">No</option>
                 </select>
                 </div>
                 <input type="text" name="nombreUsuario2" value= "<?php echo $nombreUsuario ?>"  hidden="true">
+
                 </div>
 
 

@@ -8,10 +8,10 @@ $contrasena          = $_POST['contrasena'];
 $nombre_departamento = $_POST['nombre_departamento'];
 $admin               = $_POST['admin'];
 $autoAutorizar       = $_POST['autorizarauto'];
-/*
+
 echo $nombre . "--" . $apellidos . "--" . $nombreUsuario . "--" . $cargo . "--" . $contrasena . "--" . $nombre_departamento . "--" . $admin . "--" . $nombreUsuario2;
 echo 'Autorizar:' . $autoAutorizar;
- */
+
 require 'logica/conexion.php';
 session_start();
 $usuario = $_SESSION['username'];
@@ -37,14 +37,13 @@ $depa = "";
 foreach ($buscarDeptoAS as $DaS) {
     $depa = $DaS['id_depto'];
 }
-if($nombreUsuario2 == 'admin'){
+if ($nombreUsuario2 == 'admin') {
     $actualizar = "UPDATE usuarios SET  contrasena = '$contrasena' WHERE nombreUsuario = '$nombreUsuario2' ";
-}else{
+} else {
     $actualizar = "UPDATE usuarios SET nombre = '$nombre', apellidos = '$apellidos', nombreUsuario = '$nombreUsuario', cargo = '$cargo', contrasena = '$contrasena', id_depto = '$depa', admin ='$admin', autoAutorizar = '$autoAutorizar'  WHERE nombreUsuario = '$nombreUsuario2' ";
 }
 
-
-$exec       = mysqli_query($conexion, $actualizar);
+$exec = mysqli_query($conexion, $actualizar);
 
 if (!$exec) {
     echo "error" . mysqli_error($conexion);
