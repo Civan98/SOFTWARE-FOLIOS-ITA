@@ -47,11 +47,11 @@ if (!isset($usuario)) {
             $this->Cell(-1);
             //cabecera de la tabla
             $this->SetFillColor(180, 180, 180);
-            $this->Cell(20, 10, 'FOLIO', 1, 0, 'C', true);
+            $this->Cell(13, 10, 'FOLIO', 1, 0, 'C', true);
             $this->Cell(35, 10, 'FECHA', 1, 0, 'C', true);
             $this->Cell(50, 10, 'DPTO. QUE SOLICITA', 1, 0, 'C', true);
             $this->Cell(50, 10, 'DPTO. AL QUE SOLICITA', 1, 0, 'C', true);
-            $this->Cell(50, 10, 'ASUNTO', 1, 0, 'C', true);
+            $this->Cell(60, 10, 'ASUNTO', 1, 0, 'C', true);
            // $this->Cell(25, 10, 'SOLICITANTE', 1, 0, 'C', true);
             $this->Cell(30, 10, 'ESTADO', 1, 0, 'C', true);
             $this->Cell(45, 10, 'OBSERVACIONES', 1, 1, 'C', true);
@@ -125,7 +125,7 @@ if (!isset($usuario)) {
         $x_axis=$pdf->getx(); 
         $c_width=50;// cell width 
         $c_height=10;
-        $pdf->vcell(20,$c_height,$x_axis,$row['id_folio']);
+        $pdf->vcell(13,$c_height,$x_axis,$row['id_folio']);
         $x_axis=$pdf->getx(); 
         $pdf->vcell(35,$c_height,$x_axis,$row['fecha']);
         $x_axis=$pdf->getx(); 
@@ -133,7 +133,7 @@ if (!isset($usuario)) {
         $x_axis=$pdf->getx(); 
         $pdf->vcell($c_width,$c_height,$x_axis,utf8_decode($nombre_gen));
         $x_axis=$pdf->getx(); 
-        $pdf->vcell($c_width,$c_height,$x_axis,utf8_decode($row['asunto']));
+        $pdf->vcell(60,$c_height,$x_axis,utf8_decode($row['asunto']));
         $x_axis=$pdf->getx(); 
         $pdf->vcell(30,$c_height,$x_axis,$row['estado']);
         $x_axis=$pdf->getx();
