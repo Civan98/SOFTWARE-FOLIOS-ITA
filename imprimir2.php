@@ -44,7 +44,7 @@ if (!isset($usuario)) {
             $this->Ln(25);
             $this->SetFont('Arial', 'B', 11);
             //alineador de la tabla
-            $this->Cell(5);
+            $this->Cell(-1);
             //cabecera de la tabla
             $this->SetFillColor(180, 180, 180);
             $this->Cell(20, 10, 'FOLIO', 1, 0, 'C', true);
@@ -104,7 +104,7 @@ if (!isset($usuario)) {
 
   
     while ($row = mysqli_fetch_array($consulta)) {
-        $pdf->Cell(5);//alineador
+        $pdf->Cell(-1);//alineador
         //consulta para el depto que genera
         $id_dg = $row['id_depto_genera'];
         $nombre_s = $row['id_depto_sol'];
