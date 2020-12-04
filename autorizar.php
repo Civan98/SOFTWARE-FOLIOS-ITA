@@ -142,6 +142,7 @@ if (!isset($usuario)) {
             <th>Observaciones</th>
             <th>Modificar</th>
             <th>Cancelar</th>
+            <th>Motivo de la cancelación</th>
         </tr>
             <?php
 //seleccionar todos los folios si es admin
@@ -186,28 +187,34 @@ while ($datosF = mysqli_fetch_array($soliF)) {
                     <td><?php echo $datosF['observaciones']; ?></td>
                     <td>
                         <form action="modificarFolio.php" method="POST">
-                            <input type="text" name="id" value=<?php echo $datosF['year'].",".$datosF['id_depto_genera'].
-                            ",".$datosF['id_folio'].",".$datosF['id_depto_sol'].",".$datosF['id_usuario'].
-                            ",".$datosF['id_solicitud'].",".$datosF['estado']; ?> hidden="true" >
+                            <input type="text" name="id" value=<?php echo $datosF['year'] . "," . $datosF['id_depto_genera'] .
+            "," . $datosF['id_folio'] . "," . $datosF['id_depto_sol'] . "," . $datosF['id_usuario'] .
+            "," . $datosF['id_solicitud'] . "," . $datosF['estado']; ?> hidden="true" >
                             <input type="text" name="auto" value="1" hidden="true" >
                             <?php if ($datosF['estado'] != "Cancelado") {?>
+                                <br>
                             <input type="submit" name="Modificar" value="Modificar" class="btn btn-success  btn-lg" >
                             <?php }?>
                         </form>
                     </td>
                     <td colspan="1">
                         <form action="cancelFolio.php" method="POST">
-                          <input type="text" name="id" value=<?php echo $datosF['year'].",".$datosF['id_depto_genera'].
-                              ",".$datosF['id_folio'].",".$datosF['id_depto_sol'].",".$datosF['id_usuario'].
-                              ",".$datosF['id_solicitud'].",".$datosF['estado']; ?> hidden="true" >
+                          <input type="text" name="id" value=<?php echo $datosF['year'] . "," . $datosF['id_depto_genera'] .
+            "," . $datosF['id_folio'] . "," . $datosF['id_depto_sol'] . "," . $datosF['id_usuario'] .
+            "," . $datosF['id_solicitud'] . "," . $datosF['estado']; ?> hidden="true" >
                             <input type="text" name="auto" value="1" hidden="true" >
                             <input type="text" name="auto" value="0" hidden="true">
                             <?php if ($datosF['estado'] != "Cancelado") {?>
-                              <textarea type="textarea" class="form-control" placeholder="Motivos" id="infoCancelar" name="infoCancelar" required></textarea>
+
                             <br>
-                              <input type="submit" name="cancelar" value="Cancelar" class="btn btn-danger btn-lg btn-block" >
-                            <?php }?>
+                              <input type="submit" name="cancelar" value="Cancelar" class="btn btn-danger btn-lg" >
+
                         </form>
+                    </td>
+                    <td>
+                        <br>
+                        <textarea type="textarea" class="form-control" placeholder="Motivos" id="infoCancelar" name="infoCancelar" required></textarea>
+                         <?php }?>
                     </td>
                 </tr>
                 <?php
@@ -234,6 +241,7 @@ while ($datosF = mysqli_fetch_array($soliF)) {
                     <th>Estado</th>
                     <th>Autorizar</th>
                     <th>Cancelar</th>
+                    <th>Motivos de la cancelación</th>
 
 
                 </tr>
@@ -242,7 +250,7 @@ while ($datosF = mysqli_fetch_array($soliF)) {
 if ($nomUsuario == 'admin') {
     $consultaS = "SELECT * FROM solicitudes ORDER BY fecha DESC";
 } else {
-  // $consultaS = "SELECT * FROM solicitudes WHERE id_depto_genera = '$deptoUsuario' ORDER BY fecha DESC";
+    // $consultaS = "SELECT * FROM solicitudes WHERE id_depto_genera = '$deptoUsuario' ORDER BY fecha DESC";
     $consultaS = "SELECT * FROM solicitudes WHERE id_depto_sol = '$deptoUsuario' ORDER BY fecha DESC";
 }
 
@@ -295,11 +303,15 @@ while ($datos = mysqli_fetch_array($soli)) {
                             <input type="text" name="id" value=<?php echo $datos['id_solicitud']; ?> hidden="true">
                             <input type="text" name="auto" value="0" hidden="true">
                             <?php if ($datos['estado'] != "Cancelado") {?>
-                            <textarea type="textarea" class="form-control" placeholder="Motivos" id="infoCancelar" name="infoCancelar" required></textarea>
+
                             <br>
                               <input type="submit" name="cancelar" value="Cancelar" class="btn btn-danger btn-lg btn-block" >
-                            <?php }?>
+
                         </form>
+                    </td>
+                    <td>
+                              <textarea type="textarea" class="form-control" placeholder="Motivos" id="infoCancelar" name="infoCancelar" required></textarea>
+                        <?php }?>
                     </td>
                 </tr>
                 <?php

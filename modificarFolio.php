@@ -1,17 +1,16 @@
 <?php
-$id     = $_POST['id'];
+$id = $_POST['id'];
 
 $claves = explode(',', $id);
 
-$year= $claves[0];
-$daS= $claves[1];
-$id_folio = $claves[2];
-$dS= $claves[3];
-$id_usuario= $claves[4];
-$id_solicitud= $claves[5];
-$estado = $claves[6];
-$flag   = false;
-
+$year         = $claves[0];
+$daS          = $claves[1];
+$id_folio     = $claves[2];
+$dS           = $claves[3];
+$id_usuario   = $claves[4];
+$id_solicitud = $claves[5];
+$estado       = $claves[6];
+$flag         = false;
 
 if ($estado == "Autorizado") {
     $flag = true;
@@ -80,7 +79,7 @@ if (!isset($usuario)) {
       <li>
 
 
-           <a class="nav-link" href="control.php">
+           <a class="nav-link" href="autorizar.php">
             Volver
           <i class="fa fa-reply" aria-hidden="true"></i>
 
@@ -98,7 +97,7 @@ if (!isset($usuario)) {
             <?php
 //seleccionar el folio deseado
 $consultaS = "SELECT * FROM folios WHERE year = '$year' and id_depto_genera = '$daS' and id_folio = '$id_folio' and id_depto_sol = '$dS' and id_usuario = '$id_usuario' and id_solicitud= '$id_solicitud'";
-$fol      = mysqli_query($conexion, $consultaS);
+$fol       = mysqli_query($conexion, $consultaS);
 
 //seleccionar el nombre del usuario logeado
 $consultaU = "SELECT nombre, apellidos FROM usuarios WHERE id = '$IDU'";
@@ -136,15 +135,15 @@ $depto_a_S = mysqli_fetch_array($deptoAS);
                  <br>
                 <label for="Departamento que solicita">Departamento que solicita: <?php echo $d['nombre_departamentos']; ?> </label> <br>
                 <br>
-                <label for="Departamento al que solicita">Departamento al que solicita: <?php echo $depto_a_S['nombre_departamentos']; ?>                  
+                <label for="Departamento al que solicita">Departamento al que solicita: <?php echo $depto_a_S['nombre_departamentos']; ?>
                  <br>
                  <br>
                 <label for="Asunto">Asunto: <?php echo $f['asunto']; ?>  ---></label>
-                <textarea  class="form-group" name="asunto" id="asunto" maxlength="100" cols="50" rows="5"><?php echo $f['asunto']; ?></textarea><br><br>            
+                <textarea  class="form-group" name="asunto" id="asunto" maxlength="100" cols="50" rows="5"><?php echo $f['asunto']; ?></textarea><br><br>
                 <label for="Estado">Estado: <?php echo $f['estado']; ?></label> <br><br>
-                <input type="text" name="id" value=<?php echo $f['year'].",".$f['id_depto_genera'].
-                            ",".$f['id_folio'].",".$f['id_depto_sol'].",".$f['id_usuario'].
-                            ",".$f['id_solicitud'].",".$f['asunto']; ?> hidden="true" >
+                <input type="text" name="id" value=<?php echo $f['year'] . "," . $f['id_depto_genera'] .
+    "," . $f['id_folio'] . "," . $f['id_depto_sol'] . "," . $f['id_usuario'] .
+    "," . $f['id_solicitud'] . "," . $f['asunto']; ?> hidden="true" >
                 <input type="text" name="observacion" value="<?php echo $f['asunto']; ?> " hidden="true" >
                 <input type="submit" name="modificar" id="modificar" value="Modificar" class="btn btn-primary btn-lg">
 
