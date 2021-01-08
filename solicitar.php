@@ -140,7 +140,7 @@ if ($deptoAS == "" || $cantidad == "" || $asunto == "") {
                     $folio++;
               
                 //obtener el id_folio para incrementarle 1
-                $insertar = "INSERT INTO folios ( year ,id_depto_genera, id_folio, id_depto_sol, id_usuario,  id_solicitud, fecha, asunto, estado) VALUES ('$anio_solicitud','$idDaS', '$folio','$idDS', '$idU', '$idSoli', NOW(), '$asunto', '$estado')";
+                $insertar = "INSERT INTO folios ( year ,id_depto_genera, id_folio, id_depto_sol, id_usuario,  id_solicitud, fecha, asunto, estado) VALUES ('$anioActual','$idDaS', '$folio','$idDS', '$idU', '$idSoli', NOW(), '$asunto', '$estado')";
                 $exec = mysqli_query($conexion, $insertar);
                 if(!$exec){
                     echo $folio."<br>";
