@@ -153,13 +153,10 @@ if ($deptoAS == "" || $cantidad == "" || $asunto == "") {
             }        
         }    
 
-
-
-
-
-
     }
-
+else{
+    echo "<script language='javascript'> alert('Solicitud realizada con éxito');  window.location.href='formsolicitar.php';</script>";
+}
 
 
 
