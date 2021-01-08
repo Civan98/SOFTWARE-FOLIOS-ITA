@@ -58,7 +58,7 @@ if ($deptoAS == "" || $cantidad == "" || $asunto == "") {
             echo "error " . mysqli_error($conexion);
         } else {
 
-            echo "<script language='javascript'> alert('Solicitud realizada con éxito');  window.location.href='formsolicitar.php';</script>";
+            // echo "<script language='javascript'> alert('Solicitud realizada con éxito');  window.location.href='formsolicitar.php';</script>";
         }
     }
     if ($autoAutorizar == 1 ){
@@ -147,7 +147,8 @@ if ($deptoAS == "" || $cantidad == "" || $asunto == "") {
                     echo "<br>error al generar folios: ".mysqli_error($conexion);
                 }
                 else{
-                    header("location: autorizar.php");
+                    echo "<script language='javascript'> alert('Solicitud realizada con éxito');  window.location.href='formsolicitar.php';</script>";
+                    // header("location: autorizar.php");
                 }
             }        
         }    
