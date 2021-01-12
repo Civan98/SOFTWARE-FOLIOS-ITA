@@ -14,7 +14,7 @@ if ($deptoAS == "" || $cantidad == "" || $asunto == "") {
     if (!$conexion) {
         echo "Falla en la conexión";
     } else {
-        $bd       = mysqli_select_db($conexion, 'db_controlfolios');
+        $bd       = mysqli_select_db($conexion, 'bdgeneradorfolios');
         $q        = "SELECT * from usuarios where nombreUsuario = '$usuario ' ";
         $consulta = mysqli_query($conexion, $q);
         $array    = mysqli_fetch_array($consulta);
