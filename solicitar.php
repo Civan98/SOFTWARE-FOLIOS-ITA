@@ -14,7 +14,7 @@ if ($deptoAS == "" || $cantidad == "" || $asunto == "") {
     if (!$conexion) {
         echo "Falla en la conexión";
     } else {
-        $bd       = mysqli_select_db($conexion, 'bdgeneradorfolios');
+        $bd       = mysqli_select_db($conexion, 'db_controlfolios');
         $q        = "SELECT * from usuarios where nombreUsuario = '$usuario ' ";
         $consulta = mysqli_query($conexion, $q);
         $array    = mysqli_fetch_array($consulta);
@@ -36,6 +36,7 @@ if ($deptoAS == "" || $cantidad == "" || $asunto == "") {
     }
     //buscar el último id_solicitud y comparar el año
     $anioActual       = strftime("%Y");
+    //se modificó aquí, porque obtenía el id de la solicitud, pero no de qué año
     $ultima_solicitud = mysqli_query($conexion, "SELECT MAX(id_solicitud) as id_solicitud, year FROM solicitudes WHERE year = '$anioActual'");
     $uS               = mysqli_fetch_array($ultima_solicitud);
 
@@ -63,15 +64,17 @@ if ($deptoAS == "" || $cantidad == "" || $asunto == "") {
     }
     if ($autoAutorizar == 1 ){
         // obtener el id solicitud
-        $buscarIDSolicitud = mysqli_query($conexion, "SELECT MAX(id_solicitud) as id_solicitud from solicitudes WHERE id_usuario = '$IDU'");
+        //se modificó aquí, porque obtenía el id de la solicitud, pero no de qué año
+        $buscarIDSolicitud = mysqli_query($conexion, "SELECT MAX(id_solicitud) as id_solicitud from solicitudes WHERE id_usuario = '$IDU' and year = $anioActual");
         $ObtenerIDSolicitud = mysqli_fetch_array($buscarIDSolicitud);
         $idS = $ObtenerIDSolicitud['id_solicitud'];
-
+        echo "Solicitud: $idS y año $anioActual";
 
 
 
         //if ($autorizar == 1){
-            $actualizar = "UPDATE solicitudes SET estado = 'Autorizado' WHERE id_solicitud ='$idS'";
+            //se modificó aquí, porque obtenía el id de la solicitud, pero no de qué año
+            $actualizar = "UPDATE solicitudes SET estado = 'Autorizado' WHERE id_solicitud ='$idS' and year = $anioActual";
             $exec = mysqli_query($conexion, $actualizar);
             
             if(!$exec){
@@ -80,7 +83,8 @@ if ($deptoAS == "" || $cantidad == "" || $asunto == "") {
             }
             else{
                 //actualizar datos en la tabla solicitudes
-                $actualizar = "UPDATE solicitudes SET id_usuario_auto = '$IDU', fecha_auto = NOW() WHERE id_solicitud ='$idS' ";
+                //se modificó aquí, porque obtenía el id de la solicitud, pero no de qué año
+                $actualizar = "UPDATE solicitudes SET id_usuario_auto = '$IDU', fecha_auto = NOW() WHERE id_solicitud ='$idS' and year = $anioActual ";
                 $exec = mysqli_query($conexion, $actualizar);
                 $generados = "Autorizados";
             }
@@ -102,7 +106,7 @@ if ($deptoAS == "" || $cantidad == "" || $asunto == "") {
         //     }
         // }
         // insertar los folios generados
-        $consulta = mysqli_query($conexion, "SELECT * FROM solicitudes WHERE id_solicitud = '$idS'");
+        $consulta = mysqli_query($conexion, "SELECT * FROM solicitudes WHERE id_solicitud = '$idS' and year = $anioActual ");
         if(!$consulta){
             echo "error: ".mysqli_error($conexion);
         }
