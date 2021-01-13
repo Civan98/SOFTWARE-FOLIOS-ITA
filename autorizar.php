@@ -292,6 +292,7 @@ while ($datos = mysqli_fetch_array($soli)) {
                     <td>
                         <form action="auto.php" method="POST">
                             <input type="text" name="id" value=<?php echo $datos['id_solicitud']; ?> hidden="true" >
+                            <input type="text" name="anio" value=<?php echo $datos['year']; ?> hidden="true" >
                             <input type="text" name="auto" value="1" hidden="true" >
                             <?php if ($datos['estado'] == "Solicitado") {?>
                             <input type="submit" name="autorizar" value="Autorizar" class="btn btn-success  btn-lg" >

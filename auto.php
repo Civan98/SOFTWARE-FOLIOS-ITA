@@ -3,7 +3,11 @@
     $idS = $_POST['id'];
     $autorizar = $_POST['auto'];
     $generados = "";
-   
+    // obtener el año de la solicitud, para que se autorice el folio con el año de la solicitud.
+    $anioSolicitud = $_POST['anio'];
+    date_default_timezone_set("America/Mexico_City");
+    $tiempo = date('Y-m-d H:i:s');
+    $anioActual       = strftime("%Y");
 
     
 
@@ -19,7 +23,7 @@
     $array = mysqli_fetch_array($consulta);
     $IDU = $array['id'];
     if ($autorizar == 1){
-        $actualizar = "UPDATE solicitudes SET estado = 'Autorizado' WHERE id_solicitud ='$idS'";
+        $actualizar = "UPDATE solicitudes SET estado = 'Autorizado' WHERE id_solicitud ='$idS' and year = $anioSolicitud " ;
         $exec = mysqli_query($conexion, $actualizar);
         
         if(!$exec){
@@ -28,17 +32,17 @@
         }
         else{
             //actualizar datos en la tabla solicitudes
-            $actualizar = "UPDATE solicitudes SET id_usuario_auto = '$IDU', fecha_auto = NOW() WHERE id_solicitud ='$idS' ";
+            $actualizar = "UPDATE solicitudes SET id_usuario_auto = '$IDU', fecha_auto = '$tiempo' WHERE id_solicitud ='$idS' and year = $anioSolicitud ";
             $exec = mysqli_query($conexion, $actualizar);
             $generados = "Autorizados";
         }
     }
     else{
         $infoCancelar =  $_POST['infoCancelar'];
-        $actualizar = "UPDATE solicitudes SET estado = 'Cancelado' WHERE id_solicitud ='$idS'";
+        $actualizar = "UPDATE solicitudes SET estado = 'Cancelado' WHERE id_solicitud ='$idS' and year = $anioSolicitud ";
         $exec = mysqli_query($conexion, $actualizar);
         //cancelar folios
-        $actualizarFolios = "UPDATE folios SET estado = 'Cancelado', observaciones = '$infoCancelar' WHERE id_solicitud ='$idS' ";
+        $actualizarFolios = "UPDATE folios SET estado = 'Cancelado', observaciones = '$infoCancelar' WHERE id_solicitud ='$idS' and year = $anioSolicitud ";
         $ejecutarActualizarFolios = mysqli_query($conexion, $actualizarFolios);
         
         if(!$exec){
@@ -47,14 +51,14 @@
         }
         else{
             //actualizar datos en la tabla solicitudes
-            $actualizar = "UPDATE solicitudes SET id_usuario_cancel = '$IDU', fecha_cancel = NOW() WHERE id_solicitud ='$idS' ";
+            $actualizar = "UPDATE solicitudes SET id_usuario_cancel = '$IDU', fecha_cancel = '$tiempo' WHERE id_solicitud ='$idS'and year = $anioSolicitud ";
             $exec = mysqli_query($conexion, $actualizar);
             $generados = "Cancelados";
             
         }
     }
     // insertar los folios generados
-    $consulta = mysqli_query($conexion, "SELECT * FROM solicitudes WHERE id_solicitud = '$idS'");
+    $consulta = mysqli_query($conexion, "SELECT * FROM solicitudes WHERE id_solicitud = '$idS' and year = $anioSolicitud ");
     if(!$consulta){
         echo "error: ".mysqli_error($conexion);
     }
@@ -93,7 +97,7 @@
                 $folio++;
           
             //obtener el id_folio para incrementarle 1
-            $insertar = "INSERT INTO folios ( year ,id_depto_genera, id_folio, id_depto_sol, id_usuario,  id_solicitud, fecha, asunto, estado) VALUES ('$anioActual','$idDaS', '$folio','$idDS', '$idU', '$idSoli', NOW(), '$asunto', '$estado')";
+            $insertar = "INSERT INTO folios ( year ,id_depto_genera, id_folio, id_depto_sol, id_usuario,  id_solicitud, fecha, asunto, estado) VALUES ('$anio_solicitud','$idDaS', '$folio','$idDS', '$idU', '$idSoli', '$tiempo', '$asunto', '$estado')";
             $exec = mysqli_query($conexion, $insertar);
             if(!$exec){
                 echo $folio."<br>";

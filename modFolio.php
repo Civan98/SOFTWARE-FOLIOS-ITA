@@ -16,6 +16,11 @@
 
 
 
+    date_default_timezone_set("America/Mexico_City");
+    $tiempo = date('Y-m-d H:i:s');
+    $anioActual       = strftime("%Y");
+
+
     // $idS = $_POST['id_so'];
     // $deptoAS = $_POST['depto_a_Sol'];
     // $cantidad = $_POST['cantidad'];
@@ -62,7 +67,7 @@
             $depa = $DaS['id_depto'];
             }
 
-        $actualizar = "UPDATE folios SET asunto = '$asunto', usuario_edit = '$IDU', fecha_edit = NOW(), observaciones='$observacion' WHERE year = '$year' and id_depto_genera = '$deptoAS' and id_folio = '$id_folio' and id_depto_sol = '$dS' and id_usuario = '$id_usuario' and id_solicitud= '$id_solicitud'";
+        $actualizar = "UPDATE folios SET asunto = '$asunto', usuario_edit = '$IDU', fecha_edit = '$tiempo', observaciones='$observacion' WHERE year = '$year' and id_depto_genera = '$deptoAS' and id_folio = '$id_folio' and id_depto_sol = '$dS' and id_usuario = '$id_usuario' and id_solicitud= '$id_solicitud'";
         $exec = mysqli_query($conexion, $actualizar);        
             
         if(!$exec){

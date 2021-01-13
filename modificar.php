@@ -137,6 +137,7 @@ $depto_a_S = mysqli_fetch_array($deptoAS);
                 <textarea  class="form-group" name="asunto" id="asunto" maxlength="100" cols="50" rows="5"><?php echo $s['asunto']; ?></textarea><br><br>
                 <label for="Cantidad">Cantidad: <?php echo $s['cantidad']; ?> </label>
                 <input  type="number" name="cantidad" id="cantidad" min="1" pattern="^[0-9]+" value= <?php echo $s['cantidad']; ?>  hidden = "true"><br><br>
+                <input  type="number" name="anio" id="anio" value= <?php echo $s['year']; ?>  hidden = "true">
                 <label for="Estado">Estado: <?php echo $s['estado']; ?></label> <br><br>
                 <input type="submit" name="modificar" id="modificar" value="Modificar" class="btn btn-primary btn-lg">
 

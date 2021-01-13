@@ -3,10 +3,14 @@
     $deptoAS = $_POST['depto_a_Sol'];
     $cantidad = $_POST['cantidad'];
     $asunto = $_POST['asunto'];
-    // echo $idS." <br>".$deptoAS."<br>".$cantidad."<br>".$asunto; 
+    $anioSolicitud = $_POST['anio'];
+    // echo $idS." <br>".$deptoAS."<br>".$cantidad."<br>".$asunto. "año $anioSolicitud"; 
+    date_default_timezone_set("America/Mexico_City");
+    $tiempo = date('Y-m-d H:i:s');
+    $anioActual       = strftime("%Y");
 
     if ($idS=="" || $deptoAS=="" || $cantidad ==""||$asunto==""){
-        header("location: control.php");
+        // header("location: control.php");
         }
     else{
         require 'logica/conexion.php';
@@ -20,8 +24,8 @@
                 echo "no se encontró la base de datos";
             }
         }
-
-        $asuntoAnterior = "SELECT  * FROM solicitudes WHERE id_solicitud = '$idS'";
+// seleccionar la solicitud con su id y el año en que se solicitó
+        $asuntoAnterior = "SELECT  * FROM solicitudes WHERE id_solicitud = '$idS' and year = $anioSolicitud";
         $ejecutarAsuntoAnterior = mysqli_query($conexion, $asuntoAnterior);
         $obtenerObservacion = mysqli_fetch_array($ejecutarAsuntoAnterior);
         $observacion = $obtenerObservacion['asunto'];
@@ -43,12 +47,12 @@
             }
 
         
-        $actualizar = "UPDATE solicitudes SET cantidad = '$cantidad', id_depto_genera = '$depa', asunto = '$asunto', id_usuario_edit = '$IDU', fecha_edit = NOW(), observaciones='$observacion' WHERE id_solicitud ='$idS' ";
+        $actualizar = "UPDATE solicitudes SET cantidad = '$cantidad', id_depto_genera = '$depa', asunto = '$asunto', id_usuario_edit = '$IDU', fecha_edit = '$tiempo', observaciones='$observacion' WHERE id_solicitud ='$idS' and year = $anioSolicitud";
         $exec = mysqli_query($conexion, $actualizar);
         //ojo, si está cancelado,porque no hay folios con estado cancelado aún
         if ($estado == 'Cancelado'|| $estado == 'Autorizado') {
             // echo 'mod folios';
-            $actualizarFolios = "UPDATE folios SET asunto = '$asunto', observaciones='$observacion' WHERE id_solicitud ='$idS' ";
+            $actualizarFolios = "UPDATE folios SET asunto = '$asunto', observaciones='$observacion' WHERE id_solicitud ='$idS' and year = $anioSolicitud";
             $ejecutarActualizarFolios = mysqli_query($conexion, $actualizarFolios);
             if(!$ejecutarActualizarFolios){
                 echo "error".mysqli_error($conexion);
@@ -60,7 +64,7 @@
             echo "error".mysqli_error($conexion);
         }
         else{
-            echo "<script language='javascript'> alert('Solicitud editada con éxito');  window.location.href='control.php';</script>";
+            // echo "<script language='javascript'> alert('Solicitud editada con éxito');  window.location.href='control.php';</script>";
         
         }
         mysqli_close($conexion);
