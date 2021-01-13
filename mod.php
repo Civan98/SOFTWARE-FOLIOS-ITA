@@ -3,10 +3,10 @@
     $deptoAS = $_POST['depto_a_Sol'];
     $cantidad = $_POST['cantidad'];
     $asunto = $_POST['asunto'];
-    echo $idS." <br>".$deptoAS."<br>".$cantidad."<br>".$asunto; 
+    // echo $idS." <br>".$deptoAS."<br>".$cantidad."<br>".$asunto; 
 
     if ($idS=="" || $deptoAS=="" || $cantidad ==""||$asunto==""){
-        // header("location: control.php");
+        header("location: control.php");
         }
     else{
         require 'logica/conexion.php';
@@ -60,7 +60,7 @@
             echo "error".mysqli_error($conexion);
         }
         else{
-            // echo "<script language='javascript'> alert('Solicitud editada con éxito');  window.location.href='control.php';</script>";
+            echo "<script language='javascript'> alert('Solicitud editada con éxito');  window.location.href='control.php';</script>";
         
         }
         mysqli_close($conexion);
