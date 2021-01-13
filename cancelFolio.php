@@ -1,6 +1,6 @@
 <?php
     $id     = $_POST['id'];
-
+    $observacion = $_POST['infoCancelar'];
     $claves = explode(',', $id);
     
     $year= $claves[0];
@@ -10,22 +10,17 @@
     $id_usuario= $claves[4];
     $id_solicitud= $claves[5];
     //atención a este asunto
-    $observacion = $_POST['infoCancelar'];
-    // echo $observacion;
-    // $asunto = $_POST['asunto'];
+   
+    //fecha y año actual
+    date_default_timezone_set("America/Mexico_City");
+    $tiempo = date('Y-m-d H:i:s');
+    $anioActual       = strftime("%Y");
+    
 
-
-
-    // $idS = $_POST['id_so'];
-    // $deptoAS = $_POST['depto_a_Sol'];
-    // $cantidad = $_POST['cantidad'];
-    // $asunto = $_POST['asunto'];
-
-
-    // echo $idS." <br>".$deptoAS."<br>".$cantidad."<br>".$asunto; 
+    echo " sad  $observacion"; 
 
     if ($observacion==""){
-        header("location: autorizar.php");
+        // header("location: autorizar.php");
         }
     else{
         require 'logica/conexion.php';
@@ -40,13 +35,7 @@
             }
         }
 
-        // $asuntoAnterior = "SELECT  * FROM solicitudes WHERE id_solicitud = '$idS'";
-        // $ejecutarAsuntoAnterior = mysqli_query($conexion, $asuntoAnterior);
-        // $obtenerObservacion = mysqli_fetch_array($ejecutarAsuntoAnterior);
-        // $observacion = $obtenerObservacion['asunto'];
 
-        // $estado = $obtenerObservacion['estado'];
-        
 
         $q = "SELECT * from usuarios where nombreUsuario = '$usuario ' ";
         $consulta = mysqli_query($conexion,$q);
@@ -62,7 +51,7 @@
             $depa = $DaS['id_depto'];
             }
 
-        $actualizar = "UPDATE folios SET usuario_cancel = '$IDU', fecha_cancel = NOW(), estado='Cancelado',  observaciones='$observacion' WHERE year = '$year' and id_depto_genera = '$deptoAS' and id_folio = '$id_folio' and id_depto_sol = '$dS' and id_usuario = '$id_usuario' and id_solicitud= '$id_solicitud'";
+        $actualizar = "UPDATE folios SET usuario_cancel = '$IDU', fecha_cancel = '$tiempo', estado='Cancelado',  observaciones='$observacion' WHERE year = '$year' and id_depto_genera = '$deptoAS' and id_folio = '$id_folio' and id_depto_sol = '$dS' and id_usuario = '$id_usuario' and id_solicitud= '$id_solicitud'";
         $exec = mysqli_query($conexion, $actualizar);        
             
         if(!$exec){

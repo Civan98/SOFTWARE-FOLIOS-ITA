@@ -209,13 +209,14 @@ while ($datosF = mysqli_fetch_array($soliF)) {
                             <br>
                               <input type="submit" name="cancelar" value="Cancelar" class="btn btn-danger btn-lg" >
 
-                        </form>
+                        
                     </td>
                     <td>
                         <br>
                         <textarea type="textarea" class="form-control" placeholder="Motivos" id="infoCancelar" name="infoCancelar" required></textarea>
                          <?php }?>
                     </td>
+                    </form>
                 </tr>
                 <?php
 //}
@@ -302,18 +303,20 @@ while ($datos = mysqli_fetch_array($soli)) {
                     <td colspan="1">
                         <form action="auto.php" method="POST">
                             <input type="text" name="id" value=<?php echo $datos['id_solicitud']; ?> hidden="true">
+                            <input type="text" name="anio" value=<?php echo $datos['year']; ?> hidden="true" >
                             <input type="text" name="auto" value="0" hidden="true">
                             <?php if ($datos['estado'] != "Cancelado") {?>
 
                             <br>
                               <input type="submit" name="cancelar" value="Cancelar" class="btn btn-danger btn-lg btn-block" >
 
-                        </form>
+                        
                     </td>
                     <td>
                               <textarea type="textarea" class="form-control" placeholder="Motivos" id="infoCancelar" name="infoCancelar" required></textarea>
                         <?php }?>
                     </td>
+                    </form>
                 </tr>
                 <?php
 }

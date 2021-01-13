@@ -39,7 +39,7 @@
     }
     else{
         $infoCancelar =  $_POST['infoCancelar'];
-        $actualizar = "UPDATE solicitudes SET estado = 'Cancelado' WHERE id_solicitud ='$idS' and year = $anioSolicitud ";
+        $actualizar = "UPDATE solicitudes SET estado = 'Cancelado', observaciones = '$infoCancelar' WHERE id_solicitud ='$idS' and year = $anioSolicitud ";
         $exec = mysqli_query($conexion, $actualizar);
         //cancelar folios
         $actualizarFolios = "UPDATE folios SET estado = 'Cancelado', observaciones = '$infoCancelar' WHERE id_solicitud ='$idS' and year = $anioSolicitud ";
@@ -83,6 +83,8 @@
             $folio = 0;
         }
         else{
+            // este if, puede fallar, pues si autorizo folios de otro año, reiniciará el conteo de folios y dará error de duplicados. pero esto interfiere con el requerimiento de que los folios al cambiar de año comienzan desde cero.
+            //PARA SOLUCIONAR, se debe quitar este if y dejar sólo $folio = $idF['id_folio'];
             $idF = mysqli_fetch_array($ultimo_folio);
             if ($anioActual == $anio_solicitud){
                 $folio = $idF['id_folio'];
