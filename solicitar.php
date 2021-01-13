@@ -2,6 +2,8 @@
 $deptoAS  = $_POST['depto_a_Sol'];
 $cantidad = $_POST['cantidad'];
 $asunto   = $_POST['asunto'];
+date_default_timezone_set("America/Mexico_City");
+$tiempo = date('Y-m-d H:i:s');
 
 if ($deptoAS == "" || $cantidad == "" || $asunto == "") {
     header("location: formsolicitar.php");
@@ -52,7 +54,7 @@ if ($deptoAS == "" || $cantidad == "" || $asunto == "") {
         }
 
         $year     = strftime("%Y");
-        $insertar = "INSERT INTO solicitudes ( year, id_depto_sol, id_solicitud, id_depto_genera, cantidad, asunto, estado, id_usuario, fecha) VALUES ('$year','$deptoU', '$id_sol', " . $depa . ",'$cantidad','$asunto','Solicitado', '$IDU', NOW())";
+        $insertar = "INSERT INTO solicitudes ( year, id_depto_sol, id_solicitud, id_depto_genera, cantidad, asunto, estado, id_usuario, fecha) VALUES ('$year','$deptoU', '$id_sol', " . $depa . ",'$cantidad','$asunto','Solicitado', '$IDU', '$tiempo' ) ";
         $exec     = mysqli_query($conexion, $insertar);
 
         if (!$exec) {
@@ -84,7 +86,7 @@ if ($deptoAS == "" || $cantidad == "" || $asunto == "") {
             else{
                 //actualizar datos en la tabla solicitudes
                 //se modificó aquí, porque obtenía el id de la solicitud, pero no de qué año
-                $actualizar = "UPDATE solicitudes SET id_usuario_auto = '$IDU', fecha_auto = NOW() WHERE id_solicitud ='$idS' and year = $anioActual ";
+                $actualizar = "UPDATE solicitudes SET id_usuario_auto = '$IDU', fecha_auto = '$tiempo' WHERE id_solicitud ='$idS' and year = $anioActual ";
                 $exec = mysqli_query($conexion, $actualizar);
                 $generados = "Autorizados";
             }
@@ -144,7 +146,7 @@ if ($deptoAS == "" || $cantidad == "" || $asunto == "") {
                     $folio++;
               
                 //obtener el id_folio para incrementarle 1
-                $insertar = "INSERT INTO folios ( year ,id_depto_genera, id_folio, id_depto_sol, id_usuario,  id_solicitud, fecha, asunto, estado) VALUES ('$anioActual','$idDaS', '$folio','$idDS', '$idU', '$idSoli', NOW(), '$asunto', '$estado')";
+                $insertar = "INSERT INTO folios ( year ,id_depto_genera, id_folio, id_depto_sol, id_usuario,  id_solicitud, fecha, asunto, estado) VALUES ('$anioActual','$idDaS', '$folio','$idDS', '$idU', '$idSoli', '$tiempo', '$asunto', '$estado')";
                 $exec = mysqli_query($conexion, $insertar);
                 if(!$exec){
                     echo $folio."<br>";
@@ -159,7 +161,7 @@ if ($deptoAS == "" || $cantidad == "" || $asunto == "") {
 
     }
 else{
-    echo "<script language='javascript'> alert('Solicitud realizada con éxito');  window.location.href='formsolicitar.php';</script>";
+    // echo "<script language='javascript'> alert('Solicitud realizada con éxito');  window.location.href='formsolicitar.php';</script>";
 }
 
 

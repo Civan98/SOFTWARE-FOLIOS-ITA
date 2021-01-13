@@ -129,28 +129,14 @@ $depto_a_S = mysqli_fetch_array($deptoAS);
                  <br>
                 <label for="Departamento que solicita">Departamento que solicita: <?php echo $d['nombre_departamentos']; ?> </label> <br>
                 <br>
-                <label for="Departamento al que solicita">Departamento al que solicita: <?php echo $depto_a_S['nombre_departamentos']; ?>  ---></label>
-                <select name="depto_a_Sol" id="listaDaS"<?php echo ($flag) ? "disabled" : ""; ?>>
-                    <!-- seleccionar por defecto el depto ya guardado -->
-                    <option value="<?php echo $depto_a_S['nombre_departamentos']; ?> " selected> <?php echo $depto_a_S['nombre_departamentos']; ?> </option>
-
-                           <?php
-//Consulta para rellenar el combobox
-$indice = 0;
-while ($row = mysqli_fetch_array($consulta2)) {
-    $indice++;
-    $depto = $row['nombre_departamentos'];
-    ?>
-                    <option value="<?php echo $depto ?>"> <?php echo $indice . ' - ' . $depto ?></option>
-                                <?php
-}
-?>
-
-                </select><br><br>
+                <label for="Departamento al que solicita">Departamento al que solicita: <?php echo $depto_a_S['nombre_departamentos']; ?> </label>
+                <input class ="form-group" type="text" name="depto_a_Sol" value=<?php echo $depto_a_S['nombre_departamentos']; ?> hidden="true" >
+                
+                <br><br> 
                 <label for="Asunto">Asunto: <?php echo $s['asunto']; ?>  ---></label>
                 <textarea  class="form-group" name="asunto" id="asunto" maxlength="100" cols="50" rows="5"><?php echo $s['asunto']; ?></textarea><br><br>
-                <label for="Cantidad">Cantidad: <?php echo $s['cantidad']; ?>  ---></label>
-                <input <?php echo ($flag) ? "disabled" : ""; ?> type="number" name="cantidad" id="cantidad" min="1" pattern="^[0-9]+" value= <?php echo $s['cantidad']; ?> ><br><br>
+                <label for="Cantidad">Cantidad: <?php echo $s['cantidad']; ?> </label>
+                <input  type="number" name="cantidad" id="cantidad" min="1" pattern="^[0-9]+" value= <?php echo $s['cantidad']; ?>  hidden = "true"><br><br>
                 <label for="Estado">Estado: <?php echo $s['estado']; ?></label> <br><br>
                 <input type="submit" name="modificar" id="modificar" value="Modificar" class="btn btn-primary btn-lg">
 
