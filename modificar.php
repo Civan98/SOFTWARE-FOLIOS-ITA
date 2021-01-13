@@ -3,6 +3,7 @@ $id     = $_POST['id'];
 $dS     = $_POST['dS'];
 $daS    = $_POST['daS'];
 $estado = $_POST['estado'];
+$anio = $_POST['anio'];
 $flag   = false;
 if ($estado == "Autorizado") {
     $flag = true;
@@ -90,7 +91,7 @@ if (!isset($usuario)) {
             <?php
 
 //seleccionar la solicitud deseada
-$consultaS = "SELECT * FROM solicitudes WHERE id_solicitud = '$id'";
+$consultaS = "SELECT * FROM solicitudes WHERE id_solicitud = '$id' and year = $anio ";
 $soli      = mysqli_query($conexion, $consultaS);
 
 //seleccionar el nombre del usuario logeado

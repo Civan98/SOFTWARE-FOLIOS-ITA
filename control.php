@@ -287,6 +287,7 @@ if (!isset($usuario)) {
                             <input type="text" name="dS" value=<?php echo $datos['id_depto_sol']; ?> hidden="true">
                             <input type="text" name="daS" value=<?php echo $datos['id_depto_genera']; ?> hidden="true">
                             <input type="text" name="estado" value=<?php echo $datos['estado']; ?> hidden="true">
+                            <input type="text" name="anio" value=<?php echo $datos['year']; ?> hidden="true">
 
                             <?php if ($datos['estado'] != "Cancelado") {?>
                                 <input type="submit" name="editar" value="Editar" class="btn btn-warning" >
