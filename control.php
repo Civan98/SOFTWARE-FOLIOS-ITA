@@ -295,10 +295,11 @@ if (!isset($usuario)) {
                         </form>
                     </td>
                     <td>
-                        <form action="Imprimir.php" method="POST" target="_blank">
+                        <form action="Imprimir.php" method="POST">
                             <input type="text" name="id" value=<?php echo $datos['id_solicitud']; ?> hidden="true" >
                             <input type="text" name="dS" value=<?php echo $datos['id_depto_sol']; ?> hidden="true">
                             <input type="text" name="daS" value=<?php echo $datos['id_depto_genera']; ?> hidden="true">
+                            <input type="text" name="anio1"  value=<?php echo $datos['year']; ?> hidden="true">
                             <?php if ($datos['estado'] != "Solicitado") {?>
                                 <input type="submit" name="Imprimir" value="Imprimir" class="btn btn-success" >
                             <?php }?>

@@ -6,6 +6,7 @@ session_start();
 $usuario = $_SESSION['username'];
 date_default_timezone_set("America/Mexico_City");
 
+
 if (!isset($usuario)) {
     header("location: index.php");
 } else {
@@ -71,6 +72,7 @@ if (!isset($usuario)) {
         //$consultaSF = "SELECT * FROM folios WHERE id_depto_sol = '$id_deptoU' and  DATE(fecha) >= '$fecha_inicio' and DATE(fecha) <= '$fecha_final' ORDER BY id_depto_genera ASC, id_folio DESC";
     }
     $id_sol = $_POST['id']; //id de la solicitud
+    $anio1 = $_POST['anio1']; //año de la solicitud
 
     $q        = "SELECT * from usuarios where nombreUsuario = '$usuario ' ";
     $consulta = mysqli_query($conexion, $q);
@@ -78,7 +80,8 @@ if (!isset($usuario)) {
     $ID       = $array['id'];
 
     //consulta para obtener los folios de la solicitud
-    $q2        = "SELECT * from folios where id_solicitud = '$id_sol' ";
+    $q2        = "SELECT * from folios where id_solicitud = '$id_sol' and year = $anio1 ";
+    
     $consulta2 = mysqli_query($conexion, $q2);//consulta para la obtencion del id del depto
     $consultar = mysqli_query($conexion, $q2);//consulta para el ciclo while
     $array2    = mysqli_fetch_array($consulta2);
@@ -101,7 +104,7 @@ if (!isset($usuario)) {
 
     $nombre_genera  = $array4['nom_corto'];
     $nombre_sol  = $arrayS['nom_corto'];
-
+    //echo $anio1;
     //$pdf = new PDF();
     $pdf=new PDF('L','mm','A4');//lianea para PDF horizontal
     $pdf->AliasNbPages();
